@@ -1,0 +1,66 @@
+---
+layout: post
+title: A High Contrast (Dark) Visual Studio 2010 Theme
+date: 2011-08-01 16:25:20.000000000 -04:00
+categories:
+- Visual Studio Settings
+tags:
+- dark
+- jeff atwood
+- theme
+- visual studio 2010 settings
+- vs2010 theme
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  _wp_old_slug: ''
+  _syntaxhighlighter_encoded: '1'
+  dsq_thread_id: '679566184'
+author:
+  login: wladek
+  email: wladek@gmail.com
+  display_name: Sean Glover
+  first_name: Sean
+  last_name: Glover
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<p>Traditionally, I've never been a huge fan of high contrast themes.  Though they always look way cool in the movies, I've never really enjoyed staring at them day after day.  I started getting bored with the default colour scheme of Visual Studio.  Sure, I had customized it a bit, but it didn't deviate much from stock settings.  So about a year ago I did some looking around for a new theme and I stumbled across a post by <a href="http://lnbogen.com/">Oren Ellenbogen</a> that led me to a blog posting on <a href="http://www.codinghorror.com/blog/">Jeff Atwood</a>'s site titled <a href="http://www.codinghorror.com/blog/2006/09/is-your-ide-hot-or-not.html">Is your IDE hot or not?</a> I don't know about you, but mine certainly wasn't. I like this theme because it isn't stark white on black, but has more muted contrast between foreground and background.  My design criticism's will stop there because anyone knows me knows any kind of visually appealing graphic design is not my forté!</p>
+<p>A custom Visual Studio theme is a personal thing.  It can directly affect your productivity.  It's a good idea to have a set of themes you can switch between in order to keep your visual perspective fresh and your brain sharp when the code just doesn't do it for you.</p>
+<p>I honestly don't know exactly how much has been modified from the original version (and didn't care much to investigate). Some things off the top of my head were the following.</p>
+<ul>
+<li>Duplicated settings between code and script colours</li>
+<li>Changed region and URL foregrounds to yellow so they stood out better</li>
+</ul>
+<p>Here's a screen cap.</p>
+<p><a href="http://randonom.com/blog/wp-content/uploads/2011/08/darktheme.png"><img class="aligncenter size-large wp-image-49" title="Dark Theme" src="assets/darktheme-1024x593.png" alt="" width="616" height="356" /></a></p>
+<p>Here's the plaintext code snippet that Jeff created to showcase his own theme.<br />
+[csharp]<br />
+#region codinghorror.com<br />
+class Program : Object<br />
+{<br />
+    static int _I = 1;</p>
+<p>    /// &lt;summary&gt;<br />
+    /// The quick brown fox jumps over the lazy dog<br />
+    /// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG<br />
+    /// &lt;/summary&gt;<br />
+    static void Main(string[] args)<br />
+    {<br />
+        Uri Illegal1Uri = new Uri(&quot;http://packmyboxwith/jugs.html?q=five-dozen&amp;amp;t=liquor&quot;);<br />
+        Regex OperatorRegex = new Regex(@&quot;\S#$&quot;, RegexOptions.IgnorePatternWhitespace);</p>
+<p>        for (int O = 0; O &lt; 123456789; O++)<br />
+        {<br />
+            _I += (O % 3) * ((O / 1) ^ 2) - 5;<br />
+            if (!OperatorRegex.IsMatch(Illegal1Uri.ToString()))<br />
+            {<br />
+                Console.WriteLine(Illegal1Uri);<br />
+            }<br />
+        }<br />
+    }<br />
+}<br />
+#endregion<br />
+[/csharp]<br />
+If you use ReSharper there is one caveat, you must disable line highlighting.</p>
+<p>Download my version of this theme here: <a href="http://randonom.com/m/darktheme/wladek_DarkTheme_20110801.zip">http://randonom.com/m/darktheme/wladek_DarkTheme_20110801.zip</a></p>

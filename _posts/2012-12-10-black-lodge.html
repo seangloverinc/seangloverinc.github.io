@@ -1,0 +1,27 @@
+---
+layout: post
+title: Black lodge
+date: 2012-12-10 19:41:21.000000000 -05:00
+categories: []
+tags: []
+status: draft
+type: post
+published: false
+meta:
+  _edit_last: '1'
+author:
+  login: wladek
+  email: wladek@gmail.com
+  display_name: Sean Glover
+  first_name: Sean
+  last_name: Glover
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<p>It's been awhile since my last post.  I tend to procrastinate when it comes to new material, mainly due to the fact that I thoroughly vet my posts and that takes time.  Over the last 4 months the Empathica development team has been extremely busy with a new project with many different heads.  Without getting into too many details we've basically been filling in the gaps between a lot of our products with the end goal of bringing together our product suite.  We want to give the client a more consistent experience, an easier workflow, and plug a few feature holes we were getting beat up in market over.  There's still awhile to go before we'll be wrapped up, and I can't wait to finish.  Before I launch into some of the challenges we've faced, let me tell you a little about our development team.</p>
+<p>Empathica is the first place I've worked where I am regularly humbled by the brilliance of my co-workers.  In previous positions I could always identify role models to seek guidance from and in some cases emulate, but here I have to look no further than the guy or gal sitting next to me.  Empathica has taken such great care in hiring smart and passionate development team members that it's unusual for someone not to really go the extra mile and impress their peers or the organization as a whole.  I regularly give kudos to the management team for sticking to their guns and patiently building out a top performing team when it would be all too easy to just hire the first average joe dev who walks through the door to fill a seat.</p>
+<p>Our latest project is in fact 10 separate projects that straddle our entire existing product suite.  In some cases, we're working in entirely new areas we've never spent much development effort on.  In some cases it's brought the team together like it's never done before.  We've been forced to interact not only with our immediate co-workers, but also our counterparts in another office about a half hour's drive away.  Before this project we've had a neat and tidy separation of deliverables; theirs revolving around more corporate and reporting objectives, whereas my team has focused on consumer products.  Now, we are working together on a number of projects that require participation from the department as a whole.  This new-found collaboration has raised some classical problems developers have when working in distributed environments.</p>
+<p>Since we were always silo'd off from our Mississauga counterparts we were used to doing things our way.  Even though we had a lot in common there was still a lot of differences between the way we do things.  We're an Agile XP shop, we've been practicing it for just about 2 years now.  When our teams split into 2 separate locations so did our application of XP.</p>
+<p>=== tech details about project</p>
+<p>Over the past few months the team and I have been playing around with some new technologies.  As a career .NET developer I'm often met with resistance from peers or management when trying new technologies, but through a perfect storm of circumstances and the support of some like-minded coworkers we've been able to get management's buy in on trying something new.</p>
+<p>We dove into Scala head first.  We setup a new web project using the Play! 2.0 framework.  Since our new project was one of two projects using the same data (and per more in the future), we decided to create a common API to share data between both of them.  We didn't want to write two separate data layers in two different technologies that are strongly coupled to our back end data (<em>currently</em> residing in Mongo, but more on that later).  A colleague of mine found the perfect tool for the job, Thrift.  Not only does Thrift allow us to easily consume an API, it lets us do it using nearly any language you can think of!</p>

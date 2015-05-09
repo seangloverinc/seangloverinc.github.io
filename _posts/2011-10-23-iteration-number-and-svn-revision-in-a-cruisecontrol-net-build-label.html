@@ -1,0 +1,54 @@
+---
+layout: post
+title: Iteration Number and SVN Revision in a CruiseControl.NET build label
+date: 2011-10-23 12:59:12.000000000 -04:00
+categories:
+- Build Label
+- CruiseControl.NET
+tags:
+- agile
+- build script
+- cruisecontrol.net
+- subversion
+- version
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  _wp_old_slug: ''
+  dsq_thread_id: '679150540'
+author:
+  login: wladek
+  email: wladek@gmail.com
+  display_name: Sean Glover
+  first_name: Sean
+  last_name: Glover
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<p>I've started a new project and I wanted a build label that includes both iteration number and the SVN revision of the code.  This would give me two very important and easy to track reference points when I review a deployment of my project.</p>
+<p>There are already two <a href="http://ccnet.thoughtworks.com/">CruiseControl.NET</a> (CCNet) labellers that accomplish these tasks, but unfortunately there wasn't one that could do both.</p>
+<p><strong>Iteration Labeller</strong><br />
+<a href="http://confluence.public.thoughtworks.org/display/CCNET/Iteration+Labeller">http://confluence.public.thoughtworks.org/display/CCNET/Iteration+Labeller</a></p>
+<p>The Iteration Labeller is built into CCNet 1.6.  It is configured by defining a start date and the length of your iteration in weeks.  More info can be found in the online CCNet documentation.</p>
+<p><strong>SVN [Subversion] Revision Labeller<br />
+</strong><a href="http://code.google.com/p/svnrevisionlabeller/">http://code.google.com/p/svnrevisionlabeller/</a></p>
+<p>The SVN Revision Labeller is an open source project plugin for CCNet.  It allows you to integrate the last SVN revision number of a folder of your choosing into a build label.  It currently contains a bug that makes CCNet 1.6 crash on certain conditions of the &lt;pattern&gt;&lt;/pattern&gt; configuration.  However a workaround I discovered can be achieved by prefixing the pattern with a space.  The resulting label gets trimmed at some point by CCNet, so it is not persisted into any of your libraries at build time.</p>
+<pre><strong>&lt;pattern&gt; {major}.{minor}.{build}.{revision}&lt;/pattern</strong></pre>
+<p><a href="http://blog.kaide.net/post/2011/01/19/SVN-Revision-Labeller-Does-Not-Work-With-CruiseControlNET-Beta-16-.aspx">Indra reported a similar problem</a> on his blog, but took a more invasive approach to fixing it!  The issue has been <a href="http://code.google.com/p/svnrevisionlabeller/issues/detail?id=19">reported on the project's issues page</a>, but is yet to be fixed</p>
+<p><strong>Use revision and iteration numbers in the build label<br />
+</strong></p>
+<p>Bugs aside, I found this plugin to work pretty reliably and I extended it to include an optional configuration that was already present in the builtin Iteration Labeller.  The iterationDuration parameter allows the developer to length of the the iteration in weeks.  I added this functionality to SVN revision labeller and setup my labeller configuration in CCNet as shown below.  Also added was a new {iteration} token that evaluates to the calculated iteration number in the build pattern.</p>
+<pre>&lt;labeller type="svnRevisionLabeller"&gt;
+ &lt;major&gt;2&lt;/major&gt;
+ &lt;minor&gt;0&lt;/minor&gt;
+ &lt;startDate&gt;10/21/2010&lt;/startDate&gt;
+ <strong>&lt;iterationDuration&gt;1&lt;/iterationDuration&gt;</strong>
+ &lt;pattern&gt; {major}.{minor}.<strong>{iteration}</strong>.{revision}&lt;/pattern&gt;
+ &lt;url&gt;svn://svnServer/ProjectPancake/trunk&lt;/url&gt;
+&lt;/labeller&gt;</pre>
+<p>And the last build label as shown by the CCNet web dashboard.</p>
+<p><img src="assets/2AYAYWAoABAGhgIAYfwFiM3pVs+uWU0AAAAASUVORK5CYII=" alt="" /></p>
+<p>I'm not sure if the svnrevisionlabeller author will ever incorporate this into the project itself so I have attached an archive that includes my changes.  Click the link below to download it.</p>
+<p><a href="http://randonom.com/m/svnrevisionlabeller/svnrevisionlabeller_iterationnumber.zip">SVN Revision Labeller with Iteration Duration</a></p>

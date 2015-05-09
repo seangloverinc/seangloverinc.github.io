@@ -1,0 +1,149 @@
+---
+layout: post
+title: Integration Testing with Facebook
+date: 2012-06-21 08:02:09.000000000 -04:00
+categories:
+- Facebook
+tags:
+- facebook
+- integration
+- testing
+status: publish
+type: post
+published: true
+meta:
+  dsq_thread_id: '735262891'
+  _syntaxhighlighter_encoded: '1'
+  _edit_last: '1'
+author:
+  login: wladek
+  email: wladek@gmail.com
+  display_name: Sean Glover
+  first_name: Sean
+  last_name: Glover
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<p>The team and I have spent many hours scratching our heads on how to rigorously test our Facebook integration point.  Facebook drives a very important function of our app that when when they let out the proverbial burp in the form of an API change, policy change, late or early code pushes, or just plain outage, we need to know about it right away.  There are a few ways you can prepare yourself to weather these storms and keep yourself in the know when things stop working.</p>
+<h2>Inform yourself</h2>
+<p>The place to start is to change your <a href="http://developers.facebook.com/settings">Email Subscription Settings</a> and start subscribing to at the very least: Platform Status and Weekly Platform Updates.  No amount of automation will entirely supplant the need to know about problems as soon as they happen and you would do yourself well to submit to Facebook's email bombardment (in reality it's not all that spammy).</p>
+<p><img src="assets/wNtqlgjM1DvGwAAAABJRU5ErkJggg==" alt="" /></p>
+<p>If you would like to create your own solution to stay on top of changes then you can visit the <a href="https://developers.facebook.com/live_status">Platform Status</a> page or consume the Facebook API status JSON feed located at the URL <a href="https://www.facebook.com/feeds/api_status.php">https://www.facebook.com/feeds/api_status.php</a>.  The following is an example of the output of this service.</p>
+<pre>{
+   "push": {
+      "status": "In Progress",
+      "updated": "2012-06-20T19:41:36-07:00",
+      "id": 9709914
+   },
+   "current": {
+      "health": 1,
+      "subject": "Auth Dialog issues resolved",
+      "post_time": "2012-06-19T21:48:18-07:00"
+   }
+}</pre>
+<p>For more information on how you can use this service to be alerted and even to potentially to trigger automated test suites then read the Facebook developer blog posted entitled <a href="http://developers.facebook.com/blog/post/557/">Tracking Platform Status</a>.</p>
+<p>Other ways to stay on top of changes and trending topics is to subscribe to cloud sourced Q&amp;A type of websites such as Quora and StackExchange.  Quora's <a href="http://www.quora.com/Facebook-API">Facebook-API</a> topic and the Stackoverflow <a href="http://stackoverflow.com/questions/tagged/facebook-graph-api">facebook-graph-api</a> tag are excellent resources.</p>
+<h2>Test Infrastructure</h2>
+<p>There's a great question on Quora that has a surprising lack of attention entitled <a href="http://www.quora.com/Facebook-API/Is-there-a-test-suite-for-the-Facebook-API">Is there a test suite for the Facebook API?</a>  If I could at the very least test a subset of FB functionality that my app makes use of then I could know when there's any kind of disruption of service.  So far I haven't found a public test suite to test the Graph API.</p>
+<p>So what to do?  Well, FB has made our job slightly easier by implementing the RESTful Graph API.  REST API's are great.  They're a lot easier to consume than more traditional web services and they're a familiar interface regardless of the language and platform you use.  It's not too difficult a task to build an automation process that queries the Graph API and asserts the response we expect.  You can do this through an actual integration test of your app's usage of FB, or you can query the API directly.  A very feature rich tool I've used to test web services is known as <a href="http://www.eviware.com/soapUI/soapui-in-two-minutes.html">soapUI</a>.  It can be used to create a list of REST commands to consume and assert results in an automated fashion.  I've also used the <a href="http://csharpsdk.org/">Facebook C# SDK</a> and just plain old hand rolled HTTP requests in my automated test suites.</p>
+<h3>Mocking out Facebook</h3>
+<p>If your Facebook integration point lies on your server side (as it should! see <a href="http://randonom.com/blog/2012/05/facebook-server-side-vs-client-side-javascript-graph-api-libraries/">my last post </a>for more details) then it should be a simple matter to mock out your Facebook dependency.  Use the <a href="http://en.wikipedia.org/wiki/Adapter_pattern">Adapter</a> pattern to wrap calls and any types your chosen SDK may expose so that you can easily mock out calls during your automated testing.  If you don't need to test Facebook then mock or stub it out.  Your test suite will be much less brittle because of it.</p>
+<p>Mocking out dependencies is beyond the scope of this post, but I would recommend reading up on the <a href="http://martinfowler.com/articles/injection.html">Dependency Injection</a> pattern and <a href="http://martinfowler.com/articles/mocksArentStubs.html">Stubs and Mocks</a>.  If you use C# I would highly recommend the <a href="http://code.google.com/p/moq/">Moq</a> framework.</p>
+<h3>Facebook Test Users, Spam, and Hidden Posts</h3>
+<p>When testing your app manually or in automation it's important to use a <a href="http://developers.facebook.com/docs/test_users/">Test User Account</a>.  Facebook has a number of proprietary methods to detect spammy apps and user accounts.  If you're using a real account to do your testing then you're not only annoying your real friends, but you may also be inadvertently negatively affecting your own and your app's credibility with Facebook.</p>
+<p>If your app publishes to a feed on a Facebook Page then it's possible for posts be identified as spam by Facebook.  How exactly Facebook qualifies posts as spam is proprietary knowledge, but the community has been able to suss out some of the more obvious reasons.</p>
+<ol>
+<li>The post contains keywords that promote a specific product that is considered illegitimate.</li>
+<li>The post contains a link to a known site that contains malware or some other kind of unsavory content.</li>
+<li>The user or app making the post has a history of being reported as spam.</li>
+<li>The same message has been posted across multiple pages or user feeds.</li>
+</ol>
+<p>An excellent introduction to the topic of hidden posts has been video blogged by James T. Noble in his post <a href="http://www.jamestnoble.com/facebook-hidden-posts/">Facebook Hidden Posts - Info &amp; Tutorial</a>.  It also explains how to go about viewing and unhiding invididual posts that may have been accidentally identified as spam by Facebook.  Testing your app can easily be portrayed as "spammy" behaviour so it's important to use test accounts becaues they shouldn't affect the credibility of your personal user account or your app.</p>
+<blockquote><p>We ensure that test users are exempt from Facebook spam or fake account detection systems to ensure that you can test your app without worrying about getting disabled. - <em><a href="http://developers.facebook.com/docs/test_users/">Test Users, Facebook Developers</a></em></p></blockquote>
+<p>Unfortunately, you can't perform all actions with test users that you can with normal users.  As a result there will be a hole in your testing coverage if your usage of the Graph API overlaps with the following functionality.</p>
+<blockquote><p>Test users can interact with other test users only and not with real users on site.</p>
+<p>Test users cannot fan a public Page or create public content on them like writing on a Page's wall. A Test user can however view and interact with the app tab on the Page if they are associated with that app.</p>
+<p>They can be accessed and used by any developer of the associated app.</p>
+<p>They only have test privileges on the associated app. This implies that they can use the app in live mode or sandbox mode but cannot edit any technical settings or access insights for that app.</p>
+<p>A test user is always a test user and cannot be converted to a normal user account. - <em><a href="http://developers.facebook.com/docs/test_users/">Test Users, Facebook Developers</a></em></p></blockquote>
+<p>If you use the Facebook C# SDK feel free to make use of the following code snippets in your SetUp and Teardown's in order to create and delete test users for your tests.</p>
+<p>[sourcecode language="csharp"]<br />
+// Create a test user<br />
+var appId = &quot;00000000000000000&quot;;<br />
+var appSecret = &quot;shhhh&quot;;<br />
+var facebookClient = new FacebookClient(appId, appSecret);</p>
+<p>// a comma delimited list of my extended permissions<br />
+var extendedPermissions = &quot;read_stream,publish_stream&quot;;<br />
+dynamic result = facebookClient.Post(string.Format(&quot;{0}/accounts/test-users&quot;, appId),<br />
+					new Dictionary<br />
+						{<br />
+						  {&quot;installed&quot;, &quot;false&quot;},<br />
+						  {&quot;name&quot;, &quot;My Test User&quot;},<br />
+						  {&quot;permission&quot;, extendedPermissions}<br />
+						});</p>
+<p>var testUser = new FacebookTestUser<br />
+					{<br />
+						Id = result.id,<br />
+						AccessToken = result.access_token,<br />
+						Email = result.email,<br />
+						LoginUrl = result.login_url,<br />
+						Password = result.password<br />
+					};<br />
+[/sourcecode]</p>
+<p>[sourcecode language="csharp"]<br />
+// Delete a test user<br />
+var appId = &quot;00000000000000000&quot;;<br />
+var appSecret = &quot;shhhh&quot;;<br />
+var facebookClient = new FacebookClient(appId, appSecret);</p>
+<p>dynamic result = facebookClient.Delete(testUser.Id);</p>
+<p>bool boolResult;<br />
+bool.TryParse(result.ToString(), out boolResult);<br />
+[/sourcecode]</p>
+<p>For more information on test users and related Graph API calls check out Facebook's <a href="http://developers.facebook.com/docs/test_users/">Test Users</a> page on the Facebook Developers site.</p>
+<h2>Facebook Beta Site &amp; Release Schedule</h2>
+<p>Once you have a test suite in place there's an easy way to stay a few days ahead of the curve.  Facebook will push out code changes to production on Tuesday evenings (PST).  However, they also have a beta site (<a href="http://www.beta.facebook.com">http://www.beta.facebook.com</a>) that is used to stage upcoming hotfixes and weekly releases.  Facebook encourages all FB application developers to use this site in all their testing activities.  They will push out their weekly updates to the beta site on Sunday evenings which gives developers up to 48 hours to test for potential problems before the push to production.</p>
+<p>As of this writing this is the following schedule for weekly code pushes to the beta and production website.  This chart was copied from the <a href="https://developers.facebook.com/">Facebook Developers</a> site and entitled <a href="https://developers.facebook.com/support/beta-tier/">Beta Tier and Testing</a>.</p>
+<table>
+<tbody>
+<tr>
+<th>Day</th>
+<th>Beta Tier</th>
+<th>Production Tier</th>
+</tr>
+<tr>
+<th>Sunday</th>
+<td>Weekly release is staged (evening)</td>
+<td>Release from Tuesday prior + Hotfixes</td>
+</tr>
+<tr>
+<th>Monday</th>
+<td>Weekly release is staged</td>
+<td>Release from Tuesday prior + Hotfixes</td>
+</tr>
+<tr>
+<th>Tuesday</th>
+<td>Weekly release is staged</td>
+<td>Weekly release is pushed</td>
+</tr>
+<tr>
+<th>Wednesday</th>
+<td>Weekly release + Hotfixes staged as they are ready</td>
+<td>Weekly release + Hotfixes (evening)</td>
+</tr>
+<tr>
+<th>Thursday</th>
+<td>Weekly release + Hotfixes staged as they are ready</td>
+<td>Weekly release + Hotfixes (evening)</td>
+</tr>
+<tr>
+<th>Friday</th>
+<td>Weekly release + Hotfixes staged as they are ready</td>
+<td>Weekly release + Hotfixes (evening)</td>
+</tr>
+<tr>
+<th>Saturday</th>
+<td>Weekly release + Hotfixes staged as they are ready</td>
+<td>Weekly release + Hotfixes (evening)</td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,94 @@
+---
+layout: post
+title: A Chrome Extension template for reddit OAuth2 with AngularJS
+date: 2014-05-15 23:22:16.000000000 -04:00
+categories:
+- Reddit
+tags:
+- angularjs
+- chrome extension
+- oauth
+- reddit
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+  dsq_thread_id: '2689001407'
+author:
+  login: wladek
+  email: wladek@gmail.com
+  display_name: Sean Glover
+  first_name: Sean
+  last_name: Glover
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<p>Like most programmers of the day I find myself spending entirely too much time on reddit.  Often it will occupy those moments while I'm eating my breakfast in the morning and shortly before my bedside lamp goes off for the night.  It's a fantastic service and although it's not all that original, it's demonstrably run by good people who put their users first and the business second.. or at least it feels that way.  I've wanted to write an app for reddit for awhile now and only recently did I get off my butt and start working on an idea.</p>
+<p>Before I could even really get into the nuts and bolts of my idea I had to figure out the best platform for write it in.  If you know me then you know I'm pretty open to trying new things.  I decided it would have been really cool if I could have written a client side AngularJS Single Page App (SPA) that I could host somewhere, but after some false starts trying to muddle through the <a href="https://github.com/reddit/reddit/wiki/OAuth2">reddit OAuth2 documentation</a> by myself I eventually found my way to the helpful #reddit-dev community on Freenode.  I found out that I cannot, in fact, complete the reddit OAuth2 workflow with reddit servers current configuration and the Cross Origin security of modern evergreen browsers.</p>
+<p>I didn't want this little setback to prevent me from writing my app as a SPA so I did the next best thing and settled on writing a Chrome Extension.  Chrome Extensions give you the best of both worlds: you can make Cross Origin requests fairly easily while allowing you to design your app like you would any other web app.</p>
+<p>Since there doesn't appear to be many examples of such a confluence of technologies that interact with reddit I thought I would document some of the caveats of how to do it and provide a template that people could use to get a head start.  If you've had enough of my blathering you can jump straight to the goods and <a href="https://github.com/seglo/ng-reddit-oauth-template">clone the template I created that demonstrates how AngularJS can complete the reddit OAuth2 dance here</a>.  For more information on how to setup this template read on.</p>
+<h2>New reddit app types are here!</h2>
+<p>Reddit used to only have one kind of application type you could create (the web app).  In order to complete the OAuth2 dance with this app you had to have a web server running over http/https because only the http/https schemes were supported for callback URI's.  This poses a problem for app developers because they may not have access to web server given the platform of their app.  A common way to workaround this limitation with OAuth2 on apps is to provide a custom scheme your app's platform can use as a callback.  In Chrome Extension's case this scheme is <code>chrome-extension://</code>.  Custom schemes were announced in <a href="http://www.reddit.com/r/redditdev/">/r/redditdev</a> about 3 months ago.  You can read the announcement post by visiting the following.</p>
+<p><a href="http://www.reddit.com/r/redditdev/comments/1xk8wf/oauth2_custom_schemes_and_other_goodies/">[OAuth2] Custom schemes and other goodies</a></p>
+<p>To support this functionality reddit devs created 2 new classes of apps.  All existing apps were retroactively labeled web apps and the two new types were the installed app and script app.  For a Chrome Extension you would choose to create an installed app so that you can complete the OAuth2 authorization with the Chrome Extension callback URI.</p>
+<p>As a first step, login to reddit and <a href="https://ssl.reddit.com/prefs/apps/">create your own <strong>installed</strong> app</a>.  Once it's created you'll need to make note of your client ID and secret as highlighted below.</p>
+<p><a href="http://randonom.com/blog/wp-content/uploads/2014/05/reddit-edit-app.png"><img class="alignnone size-full wp-image-431" alt="reddit-edit-app" src="assets/reddit-edit-app.png" width="963" height="509" /></a></p>
+<p>Since this is an installed app my credentials aren't really a secret, so I don't care if you know them!  Leave the redirect URI blank for now, <strong>we'll figure out this address in the next section</strong>.  If you choose to actually release your app to the public you'll need to create a second app for production, but that's beyond the scope of this post.  For now, just create a single app that you can use for development purposes.</p>
+<p>If you haven't done so already then <a href="https://github.com/seglo/ng-reddit-oauth-template">clone my reddit template from GitHub</a>.  Open up the <code>app/scripts/services/reddit-api.js</code> file and populate the <code>clientId</code> and <code>clientSecret</code> with the appropriate values you found on your newly minted reddit app.</p>
+<p>[sourcecode language="javascript"]<br />
+angular.module('redditOAuthTemplateApp')<br />
+  .factory('redditConfig', function redditConfig($window) {<br />
+    return {<br />
+      redditApp: {<br />
+        clientId: 'qWs6r0l6hXwQVA',<br />
+        clientSecret: 'hT3vlEu20FCqTyH3qDl7t2lf4Zg',<br />
+        scope: 'identity,read,mysubreddits',<br />
+        redirectUri: $window.chrome.extension.getURL('/') + 'app/index.html#/oauth/'<br />
+      }<br />
+    };<br />
+  })<br />
+[/sourcecode]</p>
+<h2>Finding the app redirect URI</h2>
+<p>If you don't already know the basic mechanics of how Chrome Extensions are developed then I would suggest reading the <a href="https://developer.chrome.com/extensions/getstarted">Getting Started: Building a Chrome Extension</a> page.  For the impatient you could just skip to the <a href="https://developer.chrome.com/extensions/getstarted#unpacked">Load the extension</a> section to figure out how to load an unpacked project into your list of Chrome Extensions so you can debug your app.  Once you've loaded the app you can get the extension ID from the extensions list page, or you can open up the app and copy a fully qualified URI by doing the following.</p>
+<p>Activate the extension by clicking the icon for the app beside the chrome smart bar.</p>
+<p><a href="http://randonom.com/blog/wp-content/uploads/2014/05/chrome-ex.png"><img class="alignnone size-full wp-image-436" alt="chrome-ex" src="assets/chrome-ex.png" width="285" height="217" /></a></p>
+<p>Once loaded, open up the debugger (F12) and look at the console to see the OAuth2 callback URI.</p>
+<p><a href="http://randonom.com/blog/wp-content/uploads/2014/05/chrome-ex-callback.png"><img class="alignnone size-full wp-image-437" alt="chrome-ex-callback" src="assets/chrome-ex-callback.png" width="1022" height="221" /></a></p>
+<p>Copy this URI into the redirect URI setting of your reddit app and save it.</p>
+<p>At this point the app should work.  You can test it by clicking the "Authorize App" button and completing the OAuth2 dance.  When you're back at the app's homepage the "Get User Info" button will be enabled.  Click it to make an example GET call to the reddit API (<code>/api/v1/me</code>).  To learn more about some of the caveats to about setting up reddit OAuth in a chrome extension read on.  For everyone else, you should be able to begin writing your own app and making reddit API calls!</p>
+<p><a href="http://randonom.com/blog/wp-content/uploads/2014/05/reddit-user-info.png"><img class="alignnone size-full wp-image-438" alt="reddit-user-info" src="assets/reddit-user-info.png" width="708" height="705" /></a></p>
+<h2>Chrome extension configuration</h2>
+<p>In a Chrome Extension manifest.json file there are several things to be aware of that are critical to making reddit OAuth2 work.</p>
+<p>In order to make Cross Origin calls you have to explicitly list the sites you will be calling in your <code>permissions</code> array.</p>
+<p>Equally as important is configuring the extension to accept the browser redirect from reddit to the OAuth2 callback URI you configured.  You can achieve this by adding the path to the OAuth AngularJS hashbang address to the <code>web_accessible_resources</code> array.</p>
+<p>[sourcecode language="javascript"]<br />
+{<br />
+  &quot;manifest_version&quot;: 2,</p>
+<p>  &quot;name&quot;: &quot;redditOAuthTemplate&quot;,<br />
+  &quot;description&quot;: &quot;A template for reddit OAuth in an AngularJS chrome extension&quot;,<br />
+  &quot;version&quot;: &quot;1.0&quot;,</p>
+<p>  &quot;permissions&quot;: [<br />
+    &quot;https://ssl.reddit.com/&quot;,<br />
+    &quot;https://oauth.reddit.com/&quot;<br />
+  ],<br />
+  &quot;browser_action&quot;: {<br />
+    &quot;default_icon&quot;: &quot;icon.png&quot;<br />
+  },<br />
+  &quot;background&quot;: {<br />
+    &quot;scripts&quot;: [&quot;chrome_events.js&quot;],<br />
+    &quot;persistent&quot;: false<br />
+  },<br />
+  &quot;web_accessible_resources&quot;: [<br />
+    &quot;app/index.html#/oauth/*&quot;<br />
+  ]<br />
+}<br />
+[/sourcecode]</p>
+<h2>POSTing to reddit's API with AngularJS</h2>
+<p>Something that had me stumped for a little while was why reddit kept throwing back <code>{"error": "unsupported_grant_type"}</code> errors when I attempted to exchange a request token for an access token.  This required POSTing with a set of data (the request token, the redirect URI, and a grant type "authorization_code"), but whenever I posted back I would get a <code>{"error": "unsupported_grant_type"}</code> response when it was clear that the <a href="https://github.com/reddit/reddit/wiki/OAuth2#token-retrieval">authorization_code grant type <em>was</em> supported</a>.</p>
+<p>After some head scratching I came across a <a href="http://www.reddit.com/r/redditdev/comments/1y6sl1/get_access_token_using_authorization_code_in/">post expressing similar troubles</a>, but instead of using AngularJS in a Chrome Extension they were using jQuery in a PhoneGap app to retrieve an access token.  The OP eventually figured out the problem and was kind enough to share a code snippet of his jQuery.post call.  To my delight, this call worked and when I investigated the raw headers of the jQuery.post and my AngularJS $http.post I noticed right away that there were different content-type's for the POST request payload.</p>
+<p>Long story short is that AngularJS will by default POST with a content type of <code>application/json</code> whereas jQuery defaults to the more widely supported (and dated) content type of <code>x-www-form-urlencoded</code>.  I'm not sure why reddit only accepts this content type, perhaps it's a requirement of the OAuth2 spec, but in order to support this method of POSTing data I had to use a new serialization method to format my POST parameters.  You can see this implementation in the <code>app/scripts/services/reddit-api.js</code> file with the function name of <code>param</code>. More details can be found in the following article.</p>
+<p><a href="http://victorblog.com/2012/12/20/make-angularjs-http-service-behave-like-jquery-ajax/">Make AngularJS $http service behave like jQuery.ajax()</a></p>
+<h2>What next?</h2>
+<p>Well, I'm just about to get into the guts of my new reddit app.  Perhaps there are other caveats that I've yet to encounter.  If I discover anything of note I'll amend this post with the details.  If you've read this far then you're probably itching to write your own app.  I wish you all the best and encourage you to share your experiences in the comments!</p>

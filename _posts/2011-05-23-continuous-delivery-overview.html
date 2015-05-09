@@ -1,0 +1,82 @@
+---
+layout: post
+title: An Overview of Continuous Delivery for the Newbie
+date: 2011-05-23 12:58:05.000000000 -04:00
+categories:
+- Continuous Delivery
+tags: []
+status: publish
+type: post
+published: true
+meta:
+  Description: A discussion of what Continuous Delivery is, how to sell it to your
+    boss, and an example of how to deploy a .NET application server from scratch.
+  Title: An Overview of Continuous Delivery for the Newbie
+  _edit_last: '1'
+  Keywords: Continuous Delivery, Deployment Pipeline, Configuration Management, Testing
+  _wp_old_slug: using-cruisecontrol-net-nant-and-clickonce-for-continuous-delivery
+  dsq_thread_id: '685089616'
+author:
+  login: wladek
+  email: wladek@gmail.com
+  display_name: Sean Glover
+  first_name: Sean
+  last_name: Glover
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<p>The purpose of this post is to provide an overview of Continuous Delivery to people who may have never heard of it.  I've been a fan of Continuous Delivery for about 6 months now.  For the latest news on the topic I would recommend checking out <a href="http://continuousdelivery.com">ContinuousDelivery.com</a>[1].  I still have a lot to learn, but I think I'm comfortable enough with the basics to talk about it.</p>
+<h2>What is Continuous Delivery?</h2>
+<p>One of the biggest pet peeves a stakeholder or PM will experience is not being able to see the ongoing progress of an application.  Admittedly, development methodologies like <a href="http://en.wikipedia.org/wiki/Scrum_%28development%29">SCRUM</a>[3] with its iterative development cycles (or sprints) have made feedback pretty quick and easy to quantify, but it still usually has to wait until the end the cycle.  A short sprint of two weeks is sometimes too long for PM to wait.  So what's the solution?  Always have something built, deployed, and tested in a client environment.  This gives an Agile team the ability to release software more often and with more confidence.  Enter the world of Continuous Delivery, colloquially known as "the last mile of software development".</p>
+<p>A colleague of mine got me onto the topic of Continuous Delivery when he plopped a <a href="http://www.amazon.com/Continuous-Delivery-Deployment-Automation-Addison-Wesley/dp/0321601912/ref=sr_1_1?ie=UTF8&amp;qid=1299191781&amp;sr=8-1">book of the same title</a>[2] on my desk.  It has been an area of interest ever since.  Continuous Delivery is an extension of Continuous Integration.  Running a CI build with exhaustive unit, integration, and other automated tests is great, but there is still work to gain confidence that a build is ready for release.  A release candidate (RC) needs to be reviewed by product management (PM) and other development sections like quality assurance (QA).  This is the last mile part, because it is often not automated and prone to human error.</p>
+<ul>
+<li>In order for an RC to be trustworthy it needs to be deployed to a number of client system/network configurations and supported technology stacks</li>
+<li>It needs to be thoroughly tested in all these environments</li>
+</ul>
+<h2>I'm still not convinced.  Why bother with it?</h2>
+<p>Setting up Continuous Delivery can require a significant amount of upfront investment, so it's not something you can do under the radar without the knowledge of the rest of the development department.  You need buy-in, so how do you get it?  You tell PM how much smoother and often it will make releasing your software to the client. Releasing an application is often a nightmarish scenario for all people in development.   In a lot of cases it requires a symphony of manual human interaction to be confident a release is ready to go.  Upper management is often even more stressed than you at this time (hey, it's their butts on the line at the end of the day), proposing the adoption Continuous Delivery should be easy when you can describe how much risk it will remove from these difficult times.</p>
+<p>The easiest way to alleviate release concerns is to be able to automate and audit the release process and have it run as often as possible.</p>
+<h2>Sounds cool!  How do I apply Continuous Delivery?</h2>
+<p>The application of Continuous Delivery is creating a fully automated Deploy Pipeline, or as my colleague liked to call it, a Deployment Pipedream ;).  The ultimate goal of which is to make the feedback cycle between developer commit and PM review in a range of different client configurations as short as possible.  In order to achieve such a goal you need an initial investment in the following areas.</p>
+<ol>
+<li>Engineer a Silent Install for your app.  A fully automated silent install that can be configured for any supported app configuration and client environment.</li>
+<li>Know how to configure all your dependencies through Configuration Management.  An extension of the above point.  Host system configuration and 3rd party dependencies should be inventoried and work should be performed in determining a way to automatically implement these pre-requisites in a client environment.  When choosing a component for the product consideration should be given to whether or not its deployment can be automated.  If a dependency deployment does not lend itself well to automated deployment then other components should be considered (if possible).Configuration management is the process of keeping a record of all supported client configurations for the product and its dependencies.  This includes sample data and other information used in setting up a test environment.  The information should be stored in source control.</li>
+<li>Provisioning client environments.  This process would involve automatically deployment client images that we can apply the above configuration to.  It could be accomplished by either working with a VMWare API to automatically restore a host image or by somehow restoring a host image to a clean state.  Client testing environments should be engineered environments, not works of art.  The process to engineer an environment to an acceptable pre-requisite state for our application should be a thoroughly documented process.  Ideally, there should be no surprises or manual intervention required in setting up these environments.</li>
+<li>Run testing.  Run automated client acceptance testing on the product and send reports to QA, developers, and PM.</li>
+</ol>
+<h2>A hypothetical scenario:  Deploying a .NET application server from scratch</h2>
+<p>If you have an application server component it will likely have dependencies on other components such as your host platform, web server, and RDBMS.  All these dependencies require configuration along with any configuration of the application server itself.  For this example I've chosen the following technologies.</p>
+<ul>
+<li>Host: Windows 2003 x64 SP2</li>
+<li>Relational: Microsoft SQL Server 2005</li>
+<li>Web Server: IIS 6</li>
+</ul>
+<p>Setting up each of these dependencies requires us to know how they should be setup (or configured).  It's a relatively straightforward process (if time consuming) to automate the deployment of all these dependencies.  For the above technology stack I will briefly summarize how its configuration can be automated and what I would actually have in my Configuration Management repository. Then I would want to apply configuration and perform the following host environment setup steps.</p>
+<p>1) The Host</p>
+<p>Deploy an unattended install of Windows 2003 x64.  We need to communicate to the installer what is the right license key, install to the right partition, and to install .NET, IIS, and other system components.<em></em></p>
+<p><em>What's stored in Configuration Management?</em></p>
+<p>Answer files (.cif extension) drive an unattended install.  See the following source on <a href="http://unattended.msfn.org/unattended.xp/view/web/2/">Unattended Windows Install</a>[4].</p>
+<p>2) The Relational Server</p>
+<p>Deploy an unattended install of SQL Server 2005.  We need to communicate to the install what is the right default data and log directories of SQL Server, what components to install (SQL Server is a mammoth software suite comprised of Analysis Services, Reporting Services, Integration Services, etc), what service account credentials to use, etc.<em></em></p>
+<p><em>What's stored in Configuration Management?</em></p>
+<p>Installation script (.ini extension) to drive an unattended install.  See the MSDN article <a href="http://msdn.microsoft.com/en-us/library/ms144259%28v=sql.90%29.aspx">How to install SQL Server 2005 from the command prompt</a>[5] for more details.</p>
+<p>3) The Web Server</p>
+<p>Setup a virtual directory or web site on Windows Internet Information Services (IIS) 6.0.  Things get a little tricky when setting up IIS automatically, but it can be done.  Once you setup a web site or virtual directory option once, then IIS allows you to export this configuration to an XML file.  This file can be used as an input to a Windows Server script to setup IIS for you application server appropriately.<em></em></p>
+<p><em>What's stored in Configuration Management?</em></p>
+<p>An exported IIS configuration (.xml extension) that can be run by the iiscnfg.vbs system script.  See the Microsoft Technet article Importing <a href="http://www.microsoft.com/technet/prodtechnol/WindowsServer2003/Library/IIS/9ad5b907-396f-4692-b882-db60fcfd85c8.mspx?mfr=true">IIS Configuration using IISCNFG.vbs</a>[6] for more details.</p>
+<p>4) The Application Server</p>
+<p>You've made it, you've setup your host environment and all its dependencies.  Now hopefully deploying your own application server should be as easy as dumping your application target directory to the root directory of your setup IIS web site or server, and applying a tailored application config for this environment.  If you were smart, you would have already engineered a silent install and preconfiguration script option into your project so this deployment is a piece of cake.<em></em></p>
+<p><em>What's stored in Configuration Management?</em></p>
+<p>Your application's silent install configuration script and the application config that reflects the defined technology stack of your dependencies.</p>
+<h2>Final thoughts</h2>
+<p>The key to this whole process is automation and Configuration Management.  I know it's a huge scope, and it's not something you'll achieve over night, but it's the definitely the direction all projects should move toward.  I would highly recommend the book titled <a href="http://www.amazon.com/Continuous-Delivery-Deployment-Automation-Addison-Wesley/dp/0321601912/ref=sr_1_1?ie=UTF8&amp;qid=1299191781&amp;sr=8-1">Continuous Delivery</a>[2].  It's an excellent source of information and contains a lot of pragmatic recommendations to achieve this goal.  It's part of the Martin Fowler signature series of technical books by Addison-Wesley.</p>
+<p>One thing I would suggest is breaking up Continuous Delivery into smaller phases.  The completion of each will have a working Deployment Pipeline, albeit not a very robust one.  At some point I will post and easy to implement first step for teams that want to start down this path.</p>
+<h2>Works cited</h2>
+<ul>
+<li>[1] Continuous Delivery - <a href="http://continuousdelivery.com/">http://continuousdelivery.com/</a></li>
+<li>[2] Continuous Delivery by Jez Humble and David Farley - <a href="http://www.amazon.com/Continuous-Delivery-Deployment-Automation-Addison-Wesley/dp/0321601912/ref=sr_1_1?ie=UTF8&amp;qid=1299191781&amp;sr=8-1">http://www.amazon.com/Continuous-Delivery-Deployment-Automation-Addison-Wesley/dp/0321601912/ref=sr_1_1?ie=UTF8&amp;qid=1299191781&amp;sr=8-1</a></li>
+<li>[3] SCRUM Development - <a href="http://en.wikipedia.org/wiki/Scrum_%28development%29">http://en.wikipedia.org/wiki/Scrum_%28development%29</a></li>
+<li>[4] The Definitive How-To Guide, Unattended Windows - <a href="http://unattended.msfn.org/unattended.xp/view/web/2/">http://unattended.msfn.org/unattended.xp/view/web/2/</a></li>
+<li>[5] How-to: Install SQL Server 2005 from the Command Prompt - <a href="http://msdn.microsoft.com/en-us/library/ms144259%28v=sql.90%29.aspx">http://msdn.microsoft.com/en-us/library/ms144259%28v=sql.90%29.aspx</a></li>
+<li>[6] Importing IIS Configurations using IISCNFG.vbs - <a href="http://www.microsoft.com/technet/prodtechnol/WindowsServer2003/Library/IIS/9ad5b907-396f-4692-b882-db60fcfd85c8.mspx?mfr=true">http://www.microsoft.com/technet/prodtechnol/WindowsServer2003/Library/IIS/9ad5b907-396f-4692-b882-db60fcfd85c8.mspx?mfr=true</a></li>
+</ul>

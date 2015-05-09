@@ -1,0 +1,87 @@
+---
+layout: post
+title: ! 'Automating ASP.NET Site Deployment with Web Deploy: A survivor''s tale'
+date: 2011-11-23 23:00:13.000000000 -05:00
+categories:
+- Continuous Delivery
+- Web Deploy
+tags:
+- agile
+- continous delivery
+- iterative database development
+- msdeploy
+- web deploy
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+  dsq_thread_id: '679644715'
+author:
+  login: wladek
+  email: wladek@gmail.com
+  display_name: Sean Glover
+  first_name: Sean
+  last_name: Glover
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<p>I recently finished a spike into MS Deploy. I wanted to find an easy way to deploy an ASP.NET website to a test, QA/demo, and Staging/Production environments and in the spirit of <a href="http://continuousdelivery.com">Continuous Delivery</a> I wanted the whole process to be automated.  It wasn't long until I found a wonderful tease of an article titled "<a href="http://weblogs.asp.net/scottgu/archive/2010/09/13/automating-deployment-with-microsoft-web-deploy.aspx">Automating Deployment with Microsoft Web Deploy</a>" by <a href="http://weblogs.asp.net/scottgu/">Scott Guthrie</a>.  I call it a tease because as much information as it contains, it still glosses over a lot of details I think are essential to getting a Web Deploy implementation production-ready.  Scott was a member of the team who developed the Web Deploy technology for release with Visual Studio 2010 and IIS 7 in Windows 7 &amp; Windows Server 2008.</p>
+<p>I quickly discovered that configuring both your ASP.NET project and the destination server is no picnic.  I hope that some of research I did to get my own Web Deploy implementation working will be of help to others who decide to go down a similar path.</p>
+<h2>Default MSBUILD target used by MSDeploy, "Any CPU" vs "AnyCPU"</h2>
+<p><strong>* EDIT 24-7-12, Kudo's to <a href="http://www.chrissurfleet.co.uk/">Chris Surfleet</a> for spotting this subtle bug in my deployment.</strong></p>
+<p>Part of my CI build is to build a web deployment package that I can re-use for all my deployments.  When I first attempted to do this from the command line I received the following error.</p>
+<pre>c:\windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.targets(483,9): error : The OutputPath property is not set for project 'My Project.csproj'.  Please check to make sure that you have specified a valid combination of Configuration and Platform for this project.  Configuration='Debug'  <strong>Platform='Any CPU'</strong>.  You may be seeing this message because you are trying to build a project without a solution file, and have specified a non-default Configuration or Platform that doesn't exist for this project. [C:\CCNetWD\My Project\My Project.csproj]</pre>
+<p>I'm no MSBuild expert, but my project file appeared to have the appropriate PropertyGroup defined for my Debug and AnyCpu build configuration, an OutputPath was defined.  After a tip from Chris Surfleet I discovered that when using MSBUILD to create my deployment package it was defaulting to the platform configuration of "Any CPU".  However, when you create a new project with Visual Studio 2010 it defines the any cpu platform configuration with the name "AnyCPU", note that there is no space.  After a small adjustment to the MSBUILD call used to create the deployment package I was back in business without having to hack the platform configuration in all my project files.</p>
+<pre>
+MSBUILD /T:Package /p:<strong>Platform=AnyCPU;</strong>Configuration=Debug;PackageLocation=my_web_package.zip
+</pre>
+<h2>Using IIS Manager Users to Sandbox Deployment Permissions</h2>
+<p>On internal infrastructure it's not (usually) critical to lock down destination boxes with deployed solutions because they're only usually accessible by individuals directly responsible for developing, testing, or demonstrating the project.  In these cases you may be able to get away with using Integrated Security (the default MS Deploy security package) on your corporate domain network.  If the identity doing the deploying has administrator priveleges on the remote machine then Web Deploy will work marvelously without error.  However, if you are not deploying to a machine on your corporate network and your destination server is on a remote machine on a network you may not have control of (i.e. a colocated machine accessible over the Internet) then you'll likely have requirements to lock down access to the box.  In this case you have the option of either using a less priveleged local machine account or an IIS Manager User (a special user created and administered by IIS for the sole purpose of Deployment).</p>
+<p>I chose to setup an IIS Manager User.  This is a straightforward task and is documented extensively on the MSDN page "<a href="http://technet.microsoft.com/en-us/library/dd722796%28WS.10%29.aspx">Configurating the Web Deployment Handler</a>".  However, as I learned to expect during this whole process there are some subtle details to take into account to get Web Deploy working nicely with IIS Manager Users.</p>
+<ol>
+<li><strong>Use basic authentication when calling MS Deploy at the Command line</strong>.  Windows Authentication security packages (NTLM or Kerberos) won't cut it because IIS Manager Users are not Windows accounts.  The only way you will be able to use IIS Manager users is to explicitly specify basic authentication at the command line like in the following example.
+<pre>msdeploy.exe -source:package="_My_Project_webdeploy.zip" -dest:auto,computerName="https://MyDestinationServer:8172/MSDeploy.axd?site=My Project",userName="autobuild",password="shhhh",<strong>authtype="basic"</strong>,includeAcls="False" -verb:sync -disableLink:AppPoolExtension -disableLink:ContentExtension -disableLink:CertificateExtension -setParamFile:"_My_Project_webdeploy.SetParameters.xml" -allowUntrusted -verbose -debug</pre>
+<p>Keep in mind that when you using basic authentication you are sending your username and password in clear text to the destination server.  This is one reason why the Web Deployment Handler is setup by default to only be accessible via HTTPS.</li>
+<li><strong>Create the web site and its file system root directory before calling web deploy</strong>.  Before you run your MSDeploy command in a less priveleged mode it's necessary to do some initial setup tasks.  Create a directory on the destination server where your web site will be deployed to.  Keep in mind that the identity the Web Deployment Handler uses (Local Service by default) must have write access to this folder in order to deploy the package.Create an empty web site in IIS and point it to the root directory you just created.</li>
+<li><strong>Specify the IIS site name in your destination server name query string</strong>.  This is another subtle detail I can't fully explain.  I can't find any documentation on this query string parameter so I'm not certain why it's required.  When this parameter is omitted I get a 401 error when attempting to deploy with the IIS Manager User.  My guess is that when the site is not specified, the web deploy path will attempt to interrogate IIS at the server level (where your IIS Management User likely will not have access to via IIS Feature Delegation) and fail.  See the bold section in the following MSDeploy system call for an example.
+<pre>msdeploy.exe -source:package="_My_Project_webdeploy.zip" -dest:auto,computerName="https://MyDestinationServer:8172/MSDeploy.axd<strong>?site=My Project</strong>",userName="autobuild",password="shhhh",authtype="basic",includeAcls="False" -verb:sync -disableLink:AppPoolExtension -disableLink:ContentExtension -disableLink:CertificateExtension -setParamFile:"_My_Project_webdeploy.SetParameters.xml" -allowUntrusted -verbose -debug</pre>
+<p>This and a lot of other sage advice can be found in this <a href="http://stackoverflow.com/questions/4428562/msdeploy-web-deploy-failing-with-401-auth-issues/4898553#4898553">StackOverflow answer</a>.<br />
+<strong></strong></li>
+<li><strong>Ignore setting ACL's on the destination machine during deployment</strong>.  This should only be applicable if you're deploying to a destination machine without Integrated Security and with a sandboxed IIS user.  MSDeploy is clever and will attempt to mirror the NTFS ACL's you have defined on your source machine.  In certain cases the identities in your source machine ACL's are not available on your destination machine nor will your IIS Manager Users have the capability to set such ACL's if they were available.  The following is a snippet of my web project file.  Persisting ACL's can be disabled by adding the IncludeSetAclProviderOnDestination node and setting it to False.<br />
+[sourcecode language="xml"]<br />
+  &lt;PropertyGroup Condition=&quot; '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' &quot;&gt;<br />
+    &lt;DebugSymbols&gt;true&lt;/DebugSymbols&gt;<br />
+    &lt;DebugType&gt;full&lt;/DebugType&gt;<br />
+    &lt;Optimize&gt;false&lt;/Optimize&gt;<br />
+    &lt;OutputPath&gt;bin\&lt;/OutputPath&gt;<br />
+    &lt;DefineConstants&gt;DEBUG;TRACE&lt;/DefineConstants&gt;<br />
+    &lt;ErrorReport&gt;prompt&lt;/ErrorReport&gt;<br />
+    &lt;WarningLevel&gt;4&lt;/WarningLevel&gt;<br />
+    &lt;DeployIisAppPath&gt;Default Web Site/&lt;/DeployIisAppPath&gt;<br />
+    &lt;IncludeIisSettings&gt;false&lt;/IncludeIisSettings&gt;<br />
+    &lt;IncludeAppPool&gt;false&lt;/IncludeAppPool&gt;<br />
+    &lt;PublishDatabases&gt;false&lt;/PublishDatabases&gt;<br />
+    &lt;IncludeSetAclProviderOnDestination&gt;False&lt;/IncludeSetAclProviderOnDestination&gt;<br />
+  &lt;/PropertyGroup&gt;<br />
+[/sourcecode]</p>
+<p>You can also define this as a parameter for MSBuild at the command line if you're so inclined.</p>
+<pre>msbuild.exe "My Project.csproj" /p:IncludeSetAclProviderOnDestination=False</pre>
+<p>The following article titled "<a href="http://www.orcsweb.com/blog/rick/prevent-visual-studio-2010-and-web-deploy-from-changing-acls/">Prevent Visual Studio 2010 and Web Deploy from Changing ACLs</a>" by Rick Barber tipped me off to this solution.</li>
+</ol>
+<h2>Iterative Database Deployment with Web Deploy?</h2>
+<p><strong>* EDIT 25-7-12: My comments about the dbFullSql provider were not exactly true.  It can support iterative updates after a fashion.</strong></p>
+<p>One feature I find lacking in MSDeploy is a simple way to perform iterative updates to a database.  Most websites have a backend relational component so I'm perplexed as to why this hasn't been addressed in MSDeploy.  MSDeploy does have a <a href="http://technet.microsoft.com/en-us/library/dd569036%28WS.10%29.aspx">SQL provider (dbFullSql)</a> and it _can_ be used to execute an arbitrary SQL script on deployment.  When I first wrote this post I thought the dbFullSql provider was not capable of this, but I was corrected in a StackOverflow question I created about <a href="http://stackoverflow.com/questions/11170104/automated-database-migration-with-msdeploy">Automating database deployment with MSDeploy</a>.  An alternative to using the dbFullSql provider in this manner is to roll your own iterative database updates and launch it via the MSDeploy <a href="http://technet.microsoft.com/en-us/library/ee619740%28WS.10%29.aspx">runCommand provider</a> or bypass MSDeploy entirely and work directly with SQL Server.</p>
+<p><strong>* UPDATE 25-7-12: Sayed Ibrahim, an MS employee who works on MSDeploy hints future support for code first DB migrations in Web Deploy.</strong></p>
+<p>Again, thanks to <a href="http://www.chrissurfleet.co.uk/">Christ Surfleet</a> for passing along this post by Sayed which mentions<a href="http://sedodream.com/2012/06/15/VisualStudio2010WebPublishUpdates.aspx"> support for code first migrations for Azure deployments</a>.</p>
+<p>I hope to spike research on a solution for this problem in the near future.  I'll document my findings.</p>
+<h2>Conclusion</h2>
+<p>Microsoft Deploy is a fantastic system for deploying pretty much anything to Windows environments.  It's unfortunate it's not documented more thoroughly.  However, I still believe it is the best solution available at this time.</p>
+<p>Clearly some of the solutions I discuss in this post have not been researched exhaustively.  To be honest, I was just happy to get this whole process working in one form of another in the time allotted to the task.  I plan on iteratively refining my deployment pipeline as time allows.</p>
+<p>For others in the same situation as my own, I hope that some of the advice in this post helped you with your work.  In addition to the links I've already mentioned I would like to close with some other online resources I found invaluable while working on my Web Deploy implementation.</p>
+<ul>
+<li><a href="http://technet.microsoft.com/en-us/library/dd568991%28WS.10%29.aspx">Web Deploy Command Line Reference</a></li>
+<li><a href="http://vishaljoshi.blogspot.com/search/label/Web%20Deployment">Vishal Joshi's blog and his Web Deployment posts</a></li>
+<li><a href="http://msdn.microsoft.com/en-us/library/ff356104.aspx">A good MSDN overview on the Web Deployment Handlers</a></li>
+</ul>

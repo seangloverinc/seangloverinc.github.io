@@ -1,0 +1,58 @@
+---
+layout: post
+title: Building sustainable NAnt build scripts
+date: 2011-09-18 10:51:31.000000000 -04:00
+categories:
+- Agile
+- Continuous Delivery
+tags:
+- agile
+- build script
+- nant
+- nantcontrib
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  _wp_old_slug: ''
+  dsq_thread_id: '679196258'
+author:
+  login: wladek
+  email: wladek@gmail.com
+  display_name: Sean Glover
+  first_name: Sean
+  last_name: Glover
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<p>Anyone with experience at a software shop that goes through some kind of release cycle of client software will indubitably have some form of automated build process (at least one can hope this is the case!).  In my experience one of the most monotonous and time consuming tasks is working on a build script that nobody cares enough about to develop or debug properly.  I've found that even the most seasoned of developer will revert to the debugging techniques analogous to alert('this should never happen!');.  This technique usually involves a developer making a change, committing to SCM (your build script IS in SCM right?) and forcing a build.</p>
+<p>Would you normally develop software in this manner?  Of course not.  Why is a build script so much different from any other system or process you develop?  In modern monolithic IDE's like Visual Studio, it's easy to take for granted how much our environment is already honed to increase a developer's productivity.  As part of my effort creating a Deployment Pipeline I quickly discovered I needed a good way to develop NAnt scripts.  With a little research I've found an easy recipe to develop sustainable build scripts.</p>
+<p>There are some key points I want to discuss in a series of posts.  For this post I'll only go over point 1.</p>
+<ol>
+<li>Take the time to setup your IDE</li>
+<li><em>Using NAntAddin (TODO)</em></li>
+<li><em>Isolate environment specific variables so you can develop your script without testing on your build server (TODO)<br />
+</em></li>
+</ol>
+<h2>Setting up your Visual Studio 2010 IDE</h2>
+<p><strong>Install NAnt</strong></p>
+<p><a href="http://nant.sourceforge.net/">NAnt</a> is one of those wonderful pieces of software that require nearly no deployment what-so-ever (which is nice for a deployment-centric technology!).  Just extract and use.  If you've never heard of NAnt then you'll want to check out the site and start reading up, because it's the tool I use for all the following build scripts.  Download the latest stable version of NAnt (0.91 alpha2 as of this writing) and extract it to a directory your choosing (i.e. C:\nant-0.91-alpha2\).  Add the \bin path to your PATH system environment build for ease of use at the command line.</p>
+<p><strong>Install NAntContrib</strong></p>
+<p><a href="http://nantcontrib.sourceforge.net/">NAntContrib</a> is a wonderful toolkit of NAnt extensions that are invaluable for build engineering.  You can find out all about it at their website, but the main task I use from this project is the <a href="http://nantcontrib.sourceforge.net/release/latest/help/tasks/msbuild.html">msbuild</a> task.  If you want to use the latest .NET framework you'll have to get one of the nightly builds.  There are several different ways to install and use NAntContrib.  I prefer to unpack the libraries into the "&lt;nant&gt;\bin\tasks" directory as mentioned in their readme.  This allows you to use all its functionality without explicity referencing it in each script.  However, for the sake of clarity I'll explicitly load the library in my sample script.</p>
+<p><strong>Enable IntelliSense for NAnt Scripts</strong></p>
+<p>One of the greatest things that about developing in a modern IDE is IntelliSense.  Visual Studio easily extends this capability to XML files by allowing you to copy an XML Schema Definition (XSD) file to your Visual Studio XSD folder (usually in the following location: C:\Program Files (x86)\Microsoft Visual Studio 10.0\Xml\Schemas).  For my NAnt deployment this located at the following location, C:\nant-0.91-alpha2\schema\nant.xsd.</p>
+<p><a href="http://randonom.com/blog/wp-content/uploads/2011/09/xsd-path-folder1.png"><img class="alignnone size-full wp-image-79" title="xsd path folder" src="assets/xsd-path-folder1.png" alt="" width="801" height="263" /></a></p>
+<p><strong>Enable IntelliSense for NAntContrib tasks</strong></p>
+<p>In order to get NAntContrib "extra goodness for NAnt" (as their project description gloats), you will want to generate a combined XSD for both NAnt and NAntContrib and use this as the namespace of your root build script &lt;project&gt; node.  Thankfully, NAntContrib makes this easy with the following script.</p>
+<pre>&lt;?xml version="1.0" encoding="utf-8" ?&gt;
+&lt;project name="Foo" default="build" xmlns="http://nant.sourceforge.net/release/0.91-alpha2/<strong>nant-0.91-alpha2.xsd-and-nantcontrib-0.85.xsd</strong>"&gt;
+ &lt;property name="NAntContrib" value="C:\Users\Sean\Documents\Source\seandev\blog\building sustainable nant scripts\lib\nantcontrib-0.85\bin" /&gt;
+ &lt;loadtasks assembly="${NAntContrib}\NAnt.Contrib.Tasks.dll" /&gt;
+ &lt;target name="go"&gt;
+  &lt;nantschema output="<strong>nant-0.91-alpha2-and-nantcontrib-0.85.xsd</strong>" target-ns="http://nant.sourceforge.net/release/0.91-alpha2/nant-0.91-alpha2.xsd-and-nantcontrib-0.85.xsd"/&gt;
+ &lt;/target&gt;
+&lt;/project&gt;</pre>
+<p>I gave it a new namespace name in order to avoid ambiguity with scripts that may reference the plain old NAnt XSD, but this is really a matter of personal taste.  Once this target successfully runs it will create an XSD in the same directory as the build script.  Copy this file into your Visual Studio XSD folder as outlined above for the plain old NAnt XSD.  Restart Visual Studio.</p>
+<p>From now on whenever you build a build script you'll want to reference the namespace by the name you assigned above.  Now you should be able to view all the NAnt and NAntContrib targets when you're working on your build scripts.</p>
+<p><a href="http://randonom.com/blog/wp-content/uploads/2011/09/msbuild-intellisense.png"><img class="alignnone size-full wp-image-77" title="msbuild intellisense" src="assets/msbuild-intellisense.png" alt="" width="582" height="318" /></a></p>

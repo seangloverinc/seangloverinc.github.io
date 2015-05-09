@@ -1,0 +1,53 @@
+---
+layout: post
+title: Facebook Server side vs Client side (JavaScript) Graph API Libraries
+date: 2012-05-15 08:10:24.000000000 -04:00
+categories:
+- Facebook
+tags:
+- facebook
+- graph api
+- integration
+- testing
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  dsq_thread_id: '690300649'
+author:
+  login: wladek
+  email: wladek@gmail.com
+  display_name: Sean Glover
+  first_name: Sean
+  last_name: Glover
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<p>I've been integrating applications with Facebook for nearly a year and during that time I've found it difficult to find reliable documentation, guides, and just a good set of best practices out there. A friend of mine recently voiced similar misgivings which spurred me to write about some of the obstacles I have had to overcome. I've aggregated information (with sources when available) about topics I've had to deal with when integrating with Facebook.  I will break up these topics into a series of posts that will be published over the next few weeks.</p>
+<ul>
+<li><a title="Server side vs Client side (JavaScript) libraries" href="http://randonom.com/blog/2012/05/facebook-server-side-vs-client-side-javascript-graph-api-libraries/">Server side vs Client side (JS) libraries</a></li>
+<li><a href="http://randonom.com/blog/2012/06/integration-testing-with-facebook/">Integration Testing with Facebook</a></li>
+<li>Mailing List, Operation Developer Love, and Reporting</li>
+<li>Other odds &amp; ends</li>
+</ul>
+<h2>Server side vs Client side (JavaScript) libraries</h2>
+<p>The Graph API is a definite improvement over previous API's Facebook has implemented.  It's a <a title="Learn REST: A tutorial" href="http://rest.elkstein.org/">RESTful</a> API and intuitive to work with.  There are numerous libraries that you can use to wrap calls to Graph and the most frequently used appears to be the JavaScript implementation.  An implication of using the JavaScript library is that all your interaction with Facebook is actually being done on the client side.  Using the JavaScript library for the Graph API is actually a Facebook best practice for one sole reason: performance and  they're right.  Client &lt;-&gt; Facebook versus Client &lt;-&gt; App Server &lt;-&gt; Facebook would have less latency, but I believe the gain is negligible and does not outweigh several concerns I will discuss in this post.</p>
+<ul>
+<li>Violation of the <a title="Separation of Concerns" href="http://en.wikipedia.org/wiki/Separation_of_concerns">Separation of Concerns</a> (SoC) principle</li>
+<li>Data validation</li>
+<li>Testing is more difficult than it needs to be</li>
+</ul>
+<h3>SoC Violation</h3>
+<p>When using the JavaScript library all your communication with Facebook is done on the client side tier.  That means that any data you exchange with Facebook must be transformed using JS into a format both parties can consume (which will no doubt lead to bloat in your JS libraries).  In a strict MVC sense, the View should not be doing anything but render itself for the user to consume.  It shouldn't introduce extra boundaries that need to be crossed in order to integrate with a 3rd party system like Facebook.  Instead of translating messages between the application server, the View, and Facebook, the integration point should instead be on the application server itself.  This way there is only a single boundary to cross: your core business logic to an abstraction of the 3rd party system.  All parameters of the integration can be defined in a controlled setting (on your server).  Your application can decide the channel (means &amp; protocol of message transmission), the message, the message's data format, and the destination.  The correctness of any of these parameters cannot be guaranteed so long as the integration point lies on the client.</p>
+<p>For example, if your client is sharing something on Facebook on behalf of your application, then the client will need to download all the information required to construct a Graph API post from your application server.  The client will then pass the constructed post object to the Facebook JS library.  When a call back is executed the application may now want to track whether or not the post was successful, as well as persist other attributes of the post and the user.  Again, this information will need to pass through several boundaries and tiers of your application to get where it needs to be.</p>
+<p>More information on proper patterns for integration of systems can be found in the book titled <a title="Enterprise Integration Patterns" href="http://www.eaipatterns.com/">Enterprise Integration Patterns</a>.</p>
+<h3>Data Validation</h3>
+<p>Anyone with limited experience in web development can tell you that you never trust data from the client side.  When using the JavaScript library all your integration with Facebook is open to the unscrupulous sets of eyes of malicious users.  You forfeit any capability to validate data being sent from the client to Facebook on behalf of your application.  Again, using the example of sharing on Facebook, you likely have a set of immutable <a title="Graph API Post" href="http://developers.facebook.com/docs/reference/api/post/">Facebook Post parameters</a> the user should not be able to change such as call to action links, the redirection override URI, reference string, etc.  In most cases, all the user should have the capability of changing is their custom message associated with the post[2].  Treat data you share with Facebook like any other data you accept from the client, validate it on the server.</p>
+<h3>Testing</h3>
+<p>When your integration point lies on the client you make your system much more difficult to test.  If you want to test your application without the integration it's more difficult to mock or stub Facebook out of the picture on the client than it is on the server side.  I realize that there are numerous libraries out that do allow for control over the client side layer during testing, but in my experience the tooling involved in testing an application that integrates with a 3rd party resource is much easier to setup, stub/mock, and test on the server than it is on the client.</p>
+<h3>Conclusion</h3>
+<p>Although the JavaScript library is tempting to use to facilitate a Rapid Application Development (RAD), I think all Graph API calls made on behalf of your application should be done on the server.  There are numerous libraries you can use on the server side, depending on the language you use.  <a href="http://developers.facebook.com/docs/sdks/">Here's a list</a> provided by Facebook.  I usually work with .NET and would highly recommend the <a href="http://csharpsdk.org/">Facebook C# SDK</a>.  At the end of the day, the Graph API is a pretty easy REST API to use, so if you can't find a suitable drop-in solution then rolling your own adapter shouldn't involve all that much work.</p>
+<h3>Notes</h3>
+<p>[1] Post to user feed with the Graph API Post - <a href="http://developers.facebook.com/docs/reference/dialogs/feed/#graphapicall">http://developers.facebook.com/docs/reference/dialogs/feed/#graphapicall</a><br />
+[2] Immutable parameters in Graph API Post - It's a typical requirement of applications integrating with Facebook to have a user make an endorsement of <em>something</em> on their user feed.  The application can not prefill or modify the user's custom message in any way (see <a title="Facebook Platform Policies" href="http://developers.facebook.com/policy/">Facebook's Platform Policies</a>, Section IV titled "Application Integration Points", point #2).  However, the content of the rest of the posts parameters can be prefilled as long as the user executed a workflow in a way that the parameters are expected to be in the post.  For example, when sharing an endorsement of a product of a company, the image parameter post could be a picture of the product itself, the link parameter could be a link to a product on the company's website, and the action and description text could describe the product in more detail.</p>

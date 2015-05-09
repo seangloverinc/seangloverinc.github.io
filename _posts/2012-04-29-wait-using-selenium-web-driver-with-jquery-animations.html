@@ -1,0 +1,65 @@
+---
+layout: post
+title: Wait! Using Selenium Web Driver with jQuery animations
+date: 2012-04-29 11:59:59.000000000 -04:00
+categories:
+- User Acceptance Testing
+tags:
+- Animation
+- jQuery
+- Selenium
+- User Acceptance Testing
+- Web Driver
+- WebDriverWait
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+  dsq_thread_id: '677229089'
+author:
+  login: wladek
+  email: wladek@gmail.com
+  display_name: Sean Glover
+  first_name: Sean
+  last_name: Glover
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<p><a title="Selenium Web Driver" href="http://seleniumhq.org/projects/webdriver/">Selenium Web Driver</a> is a terrific tool for automating User Acceptance Testing (UAT) of your front end web layer.  I don't have a ton of experience with this form of testing, but I've quickly learned to appreciate its usefulness.  Our team recently attempted to make a reliable set of UAT tests for a legacy application. We had a number of 3rd party social media dependencies and a less than ideal page architecture. The end goal was to have a simple test suite that was reliable enough to be automated with as few inconsistent fails as possible.  As with most things, this was easier said than done; especially when done after the fact (kudos to BDD/ATDD, I'll be employing this technique for greenfield projects).</p>
+<p>One aspect in particular that took some thinking was how to use WebDriver to wait for a jQuery animation to complete.  There are several ways to skin this cat, but I chose to make use of a <a title=":animated selector" href="http://api.jquery.com/animated-selector/">jQuery extension to the CSS specification known as :animated</a>.  Using a WebDriverWait, I was able to detect when an animation was complete by executing some JavaScript.  Now, I know this isn't good practice with Web Driver, in fact the Web Driver FAQ answers the <em>"How do I execute JavaScript directly?"</em> as follows.</p>
+<blockquote><p>"We believe that most of the time there is a requirement to execute Javascript there is a failing in the tool being used: it hasn't emitted the correct events, has not interacted with a page correctly, or has failed to react when an XmlHttpRequest returns. We would rather fix Web Driver to work consistently and correctly than rely on testers working out which Javascript method to call." - <a title="Selenium WebDriver FAQ" href="http://code.google.com/p/selenium/wiki/FrequentlyAskedQuestions#Q:_How_do_I_execute_Javascript_directly?">Selenium Web Driver FAQ</a></p></blockquote>
+<p>However, it goes on to recognize that not having the capability to execute arbitrary JavaScript can be a limitation and proceeds to explain the usage of the IJavaScriptExecutor implementation of Web Driver. IMO, I had a case to use this functionality because at the time I had no other way to determine when an animation was fully complete (short of re-factoring the page itself).</p>
+<p>Below is a snippet of a new WebDriverWait helper class that I've been using in my test suite. It includes a method called UntilAnimationIsDone. I use this after I trigger a page event that causes a series of animations so that I know the page is in the expected "ready" state and that I can continue.</p>
+<p>[sourcecode language="csharp"]<br />
+public class Wait<br />
+{<br />
+    private const bool Debug = true;<br />
+    private const int ImplicitWaitInSeconds = 30;</p>
+<p>    private readonly IWebDriver _driver;</p>
+<p>    public Wait(IWebDriver webDriver)<br />
+    {<br />
+        _driver = webDriver;<br />
+    }</p>
+<p>    public void Until(Func&lt;IWebDriver, bool&gt; waitCondition, int timeoutInSeconds = Constants.ImplicitWaitInSeconds)<br />
+    {<br />
+        var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(timeoutInSeconds));<br />
+        wait.Until(waitCondition);<br />
+    }</p>
+<p>    public void UntilAnimationIsDone(string elementId, int timeoutInSeconds = ImplicitWaitInSeconds)<br />
+    {<br />
+        Until(driver =&gt;<br />
+        {<br />
+            var javaScriptExecutor = (IJavaScriptExecutor)driver;<br />
+            var isAnimated = javaScriptExecutor<br />
+                .ExecuteScript(string.Format(&quot;return $('#{0}').is(':animated')&quot;, elementId))<br />
+                .ToString().ToLower();</p>
+<p>            if (Debug)<br />
+                Console.WriteLine(string.Format(&quot;Element: '{0}' Is Animated: {1}&quot;, elementId, isAnimated));</p>
+<p>            // return true when finished animating<br />
+            return !bool.Parse(isAnimated);<br />
+        }, timeoutInSeconds);<br />
+    }<br />
+}<br />
+[/sourcecode]</p>

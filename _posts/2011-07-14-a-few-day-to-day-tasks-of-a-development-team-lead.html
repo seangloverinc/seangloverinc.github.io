@@ -1,0 +1,87 @@
+---
+layout: post
+title: A few day to day tasks of a Development Team Lead
+date: 2011-07-14 17:40:11.000000000 -04:00
+categories:
+- Agile
+- Leadership
+tags:
+- agile
+- code review
+- fogbugz
+- joel spolsky
+- team lead
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  _wp_old_slug: ''
+  dsq_thread_id: '677351417'
+author:
+  login: wladek
+  email: wladek@gmail.com
+  display_name: Sean Glover
+  first_name: Sean
+  last_name: Glover
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<p>I recently left a company and had some time to reflect.  I was a Development Team Lead, and though the job definitely has its perks I found that the role wasn't the best for me.  That said, people said I was a good team lead, so at the request of my replacement I decided to draft a list of some day to day activities I performed.  These are just suggestions, but I think they’re all excellent practices that all teams should try to adopt or have alternatives for.  They're mostly centered around practices found in the <a href="http://agilemanifesto.org/">Agile manifesto</a>.  There are many other Agile practices I could have adopted, but unfortunately I didn't receive the kind of buy-in necessary to achieve them.  This post documents what practices I've actually employed while on the job.</p>
+<h2><strong>Daily Scrum</strong></h2>
+<p>This is your typical daily scrum.  Scrums are part of most modern software development methodologies.  It gives everyone on the team the opportunity to hear about what each is other is working on.  It fosters collaboration &amp; debate among the group.</p>
+<p>I’ve scheduled scrums for 9:45 AM each morning because that works best with everyone’s schedule.  Scrums should happen whether I’m around or not (pick an alternate “scrum master”).   They should be time-boxed to 15 minutes and it’s important to keep people from delving into too much technical detail.  The format of the scrum I use is the following.</p>
+<ul>
+<li>What did you do yesterday?</li>
+<li>What will you be doing today?</li>
+<li>Discuss any roadblocks or ask the group any generic questions about the work.</li>
+</ul>
+<h2><strong>Case Pick up User</strong></h2>
+<p>Another aspect of Agile development methodologies I’ve tried to adopt is a general case bucket that anyone on the team can poll and pick up a new case to work on.  This gives the dev more freedom to pick what they may not have normally been assigned.  It allows devs to pick up new skills and spread knowledge across the group.</p>
+<p>I assign all types of tickets to this bucket, but it’s important to make certain everyone know the proper priority of cases to withdraw from it.  <em>Client support cases should be the highest priority.</em> This is followed by current release milestones and then triage cases.  I generally assign about 50-75% of all cases assigned to me by product management to this user.  There are exceptions where I’ll assign a case directly to a developer (i.e., they had worked on the case previously or have a particular skill set required for the case).  I will always review the case before assigning it to the pick up user.  In some cases I’ll call a dev over for their opinion.</p>
+<h2><strong>Mandatory Code Reviews</strong></h2>
+<p>I try to get everyone on the team to perform code reviews before every commit.  Sometimes it's hard to get devs to buy into it, but I think it's worth it.  A colleague recommended that a good alternative to mandatory code reviews is peer programming, but I don't think it's realistic to assume every dev will be attached at the hip with someone for all their tasks.  Code reviews don't have to take too much time.</p>
+<p>It's worth mentioning that a couple of recent events have rekindled my passion for the code review.</p>
+<ul>
+<li>A post by <a href="http://scientopia.org/blogs/goodmath/">MarkCC</a> titled <a href="http://scientopia.org/blogs/goodmath/2011/07/06/things-everyone-should-do-code-review/"><em>Things Everyone Should Do: Code Review </em></a></li>
+<li>The hiring process at <a href="http://www.empathica.com/">Empathica</a> (my new employer) in which the 2nd interview is essentially an on-the-job code review!
+<ul>
+<li>Read more about it on <a href="http://simonpalmer.com/2011/02/10/recruiting-challenges/">Simon Palmer</a>'s posting <a href="http://simonpalmer.com/2011/02/10/recruiting-challenges/"><em>Recruiting. Challenges</em></a></li>
+</ul>
+</li>
+</ul>
+<p>Here are some rough notes I compiled for my team as Here are some notes on my justification for code reviews for every commit.</p>
+<h3>I do code reviews for three reasons</h3>
+<ul>
+<li>It will force the implementer to account for a chosen design</li>
+<li>It will allow for more than 1 member of the team to be aware of changes going into the project</li>
+<li>Drive remediation work and make the implementation or fix that much better (two brains are better than one)</li>
+</ul>
+<h3>How &amp; what to review</h3>
+<p><strong> </strong></p>
+<ul>
+<li>This should not be seen as a time to critique team members, but an opportunity to learn from one another, collaborate better as a team, and produce higher quality results</li>
+<li>If there's a disagreement on an implementation then include the rest of the team for discussion</li>
+<li>Reviewer should challenge what use cases have been tested</li>
+<li>Depending on the feature you may review with a different member of the team</li>
+<li>If you don't know who to review with then review with myself</li>
+</ul>
+<h3>Collaborations</h3>
+<p>Don't review with the same person every time, spread them out.  This will maximize the dispersion of knowledge among the team.</p>
+<h2><strong>Team case tracking</strong></h2>
+<p>One of the most important functions of a responsible Team Lead is to know the progress of everyone's activities on the team.  In an Agile shop, this is easy for everyone to see via the project planning board.  In my last position we didn't employ these boards, but instead used case tracking software <a href="http://www.fogcreek.com/fogbugz/">FogBugz</a> (FB).  FogBugz is the best case management software I've ever used.  This should be no surprise as the <a href="http://www.fogcreek.com/">Fog Creek Software</a> CEO is none other than Joel Spolsky of the popular <a href="http://www.joelonsoftware.com/">Joel on Software</a> blog.  I'll put a shameless plug below to entice you to learn more.</p>
+<blockquote><p>"FogBugz is the world's easiest bug tracking system,  built for teams who are serious about shipping great software.</p>
+<ul>
+<li>cooperate with teammates</li>
+<li>meet deadlines</li>
+<li>maintain control of your projects</li>
+<li>integrate with source control</li>
+</ul>
+<p>FogBugz incorporates the lessons Joel Spolsky and the team at Fog Creek have learned over a decade                     of learning how to write software better."</p></blockquote>
+<p>I track cases in my team through a few different filters, but in order to see what everyone on my team is actively working on in one list, this is a screen cap of the generic filter I use in FB</p>
+<p><a href="http://randonom.com/blog/wp-content/uploads/2011/08/fogbugz-case-tracking-filter2.png"><img class="alignnone size-large wp-image-64" title="fogbugz case tracking filter" src="assets/fogbugz-case-tracking-filter2-1024x120.png" alt="" width="572" height="67" /></a></p>
+<p>You can apply this filter to any of the predefined FB filters available.  It's a simple convention.  Just add the following to the "containing" section of your existing filter.  Notice that I also include a virtual user that I use as a bucket to put cases anyone on the team can pick up and work on.</p>
+<pre>assignedto:"Team Pick Up User" or assignedto:"Team Member 1" or assignedto:"Team Member 2" ... or assignedto:"Team Member n"</pre>
+<h2><strong>Case triage</strong></h2>
+<p>When I get dumped with a lot of cases and need to provide estimates (i.e. for a new milestone).  I book a room with the whole team and go through them one at a time.  I’ll take notes in a spreadsheet about each case.  I’ll apply notes to actual cases after I’ve had some time to digest what was said.</p>
+<p>The team can assign the majority of cases estimates, but sometimes it’s not possible until further investigation is performed.  I use my best judgement on how long it will take to complete these cases based on our current calculated throughput of cases per day per developer.  Historically, on my team this has worked out to about 1.25 cases/day per developer.</p>

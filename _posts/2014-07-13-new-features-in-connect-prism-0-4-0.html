@@ -1,0 +1,127 @@
+---
+layout: post
+title: New features in connect-prism 0.4.0
+date: 2014-07-13 21:57:16.000000000 -04:00
+categories:
+- connect-prism
+- Grunt
+- Node.js
+- User Acceptance Testing
+tags:
+- delay
+- grunt
+- gulp
+- mocking
+- prism
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+  dsq_thread_id: '2841332109'
+author:
+  login: wladek
+  email: wladek@gmail.com
+  display_name: Sean Glover
+  first_name: Sean
+  last_name: Glover
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<p>Prism has had an abundance of new features since I first released it about a month ago.  This post discusses the rationale behind some of those features as well as a peak of <a href="#roadmap">what's next</a>.</p>
+<p>Prism is a library to record, mock, and proxy HTTP traffic.  Check out my <a href="http://randonom.com/blog/2014/06/record-mock-and-proxy-http-requests-with-grunt-connect-prism/">previous post to learn more</a> about its core functionality.  Also checkout the github repo's for <a href="https://github.com/seglo/connect-prism">connect-prism</a>, <a href="https://github.com/seglo/grunt-connect-prism">grunt-connect-prism</a>, and <a href="https://github.com/seglo/prism-sample-project">prism-sample-project</a>.</p>
+<p>New features:</p>
+<ul>
+<ul>
+<li><a href="#gulp">gulp support &amp; core library usage</a></li>
+<li><a href="#delay">delay - simulate real world latency for mocks</a></li>
+<li><a href="#404">404 stubbing - create mocks for endpoints that don't exist</a></li>
+<li><a href="#rewrite">URL rewriting</a></li>
+<li><a href="#mockrecord">mock &amp; record mode</a></li>
+</ul>
+</ul>
+<h2 id="gulp">gulp</h2>
+<p>Prism started out as a grunt plugin, but shortly after its début I started receiving requests for a gulp equivalent.  Not having much experience with gulp I investigated how to develop gulp plugins and eventually discovered their <a href="https://github.com/gulpjs/gulp/blob/master/docs/writing-a-plugin/guidelines.md">writing a plugin guidelines</a>.  It's a really interesting read.  The gulp community is a lot more strict about what makes a good plugin than the grunt community.  Among various suggestions, requests, and outright demands, the number 1 requirement on their list is:</p>
+<blockquote><p>Your plugin should not do something that can be done easily with an existing node module.</p></blockquote>
+<p>If you're familiar with grunt this should strike a chord as there are thousands of grunt plugins that do nothing but wrap existing functionality of a core library.  Whether this was intended from grunt's beginnings or not, I'm not sure, but one positive that has come out of it is that it has opened the door for less nodejs savvy developers to use popular libraries within their grunt configuration.</p>
+<p>The gulp community appears to pride itself on its succinctness of a deployment pipeline through their file streaming operations.  If your plugin isn't specifically integrating something else into the streaming pipline then it has no business being a plugin in the first place.</p>
+<p>This inspired me to factor out the core functionality of grunt-connect-prism into a new simple to use core library called <a href="https://github.com/seglo/connect-prism">connect-prism</a>.  I've updated my <a href="https://github.com/seglo/prism-sample-project">prism sample project</a> to include <a href="https://github.com/seglo/prism-sample-project/blob/master/gulpfile.js">an example of its usage within a gulpfile.js</a>.</p>
+<p>To use with gulp you simply add the prism middleware to your connect declaration and then instantiate 1 or more instances of prism.</p>
+<p>[sourcecode language="javascript"]<br />
+var prism = require('connect-prism');<br />
+var connect = require('connect');</p>
+<p>var app = connect()<br />
+  .use(require('connect-livereload')({<br />
+    port: 35729<br />
+  }))<br />
+  .use(prism.middleware)<br />
+  .use(connect.static('app'))<br />
+  .use(connect.static('.tmp'))<br />
+  .use(<br />
+    '/bower_components',<br />
+    connect.static('./bower_components')<br />
+  )<br />
+  .use(connect.directory('app'));</p>
+<p>require('http').createServer(app)<br />
+  .listen(9000)<br />
+  .on('listening', function() {<br />
+    console.log('Started connect web server on http://localhost:9000');<br />
+  });</p>
+<p>prism.create({<br />
+  name: 'serve',<br />
+  mode: 'mock',<br />
+  context: '/api',<br />
+  host: 'localhost',<br />
+  port: 9090,<br />
+  delay: 'auto',<br />
+  rewrite: {<br />
+    '^/api/bookauthors': '/api/authors',<br />
+  }<br />
+});<br />
+[/sourcecode]</p>
+<h2 id="delay">delay</h2>
+<p>The delay option is 1 of 2 features contributed by <a href="https://github.com/MilosMosovsky">Miloš Mošovský</a>.  In many cases you probably want to use prism to eliminate latency of your API, but in some cases it's useful to see how your app behaves when it exists.  The delay option has several different options that let you generate this delay when you mock requests.</p>
+<p>You can define a time in milliseconds or choose one of three modes that generates random delays within a range.  To learn more about how to configure this feature see the <a href="https://github.com/seglo/connect-prism#delay">delay option</a> section in the connect-prism README.</p>
+<p>In the prism sample project I use the 'auto' mode of delay which will generate random delays between 500 and 1,750 milliseconds.  Below is a screenshot of the chrome debugger's network tab showing the 3 calls made to prism.</p>
+<p><a href="http://randonom.com/blog/wp-content/uploads/2014/07/connect-prism-delay.png"><img class="alignnone size-full wp-image-473" src="assets/connect-prism-delay.png" alt="connect-prism-delay" width="857" height="416" /></a></p>
+<h2 id="404">404 stubbing</h2>
+<p>The second feature by Milos enables prism to generate stubs in your mocks directory when you're in <strong>mock</strong> mode (in record mode it would simply record a 404 response from your server).  If your API doesn't have an endpoint implemented then prism will create a hashed file like it normally does, but the file will have a .404 extension and will have an empty data property value.  If you choose to use the mock then customize the response data, status code, and content type (but NOT the request URL).  To use the mock just drop the .404 file extension so it's in the standard requestHash.json filename format.</p>
+<p>If you keep an eye on the STDOUT you'll see that prism lets you know when it creates a 404 stub:</p>
+<pre>Serialized empty 404 response for /api/newendpoint to mocks/serve/d36d19f9d90fa6e1fc1755463d7c3a70616539af.json.404</pre>
+<p>This lets you know which file to inspect in your mocks directory:</p>
+<p>[sourcecode language="bash"]<br />
+seglo@bit:~/source/prism-sample-project$ ls mocks/serve/<br />
+0b956737b1a9660f2c555f9328db1191f6f2a050.json<br />
+2723f866830446c640c9cc9942fed2988e0a2c1a.json<br />
+6654ad4d1d494222ce02c656386e6955575c17ed.json<br />
+d36d19f9d90fa6e1fc1755463d7c3a70616539af.json.404<br />
+[/sourcecode]</p>
+<p>Default state of the .404 file.</p>
+<p>[sourcecode language="javascript"]<br />
+{<br />
+  &quot;requestUrl&quot;: &quot;/api/newendpoint&quot;,<br />
+  &quot;contentType&quot;: &quot;application/javascript&quot;,<br />
+  &quot;statusCode&quot;: 200,<br />
+  &quot;data&quot;: {}<br />
+}<br />
+[/sourcecode]</p>
+<h2 id="rewrite">URL rewriting</h2>
+<p>This is your standard, run of the mill URL rewriting functionality. It was copied in wholesale from the grunt-connect-proxy plugin. When a request matches a context that prism is configured for then it will modify the request URL to the matched URL replacement.</p>
+<p>This could be useful for rerouting many same requests to one mock. For example, since prism creates and matches mocks given a whole request URL, if you have query parameters they are included as part of the hash. To ignore all query parameters to /api/authors you could create a rewrite rule like the following.</p>
+<p>[sourcecode language="javascript"]<br />
+        rewrite: {<br />
+          '^/api/authors\??.*': '/api/authors'<br />
+        }<br />
+[/sourcecode]</p>
+<h2 id="mockrecord">Mock &amp; Record mode</h2>
+<p>While in record you may not always record every request you intended to. If you miss a use case then while you're in mock mode it will simply return 404's (and create stubs as mentioned above) when there may well be a valid endpoint it could have used. I created a new mode you can run the plugin that combines both mocking and recording.</p>
+<p>When prism intercepts a request it will first check if a mock response exists. If it does not, instead of the usual behaviour of stubbing out a response it will attempt to proxy &amp; record the response from your actual server.</p>
+<p>This is useful while developing if you've want to move to a new area of development (that triggers new requests) without switching to and from record mode.</p>
+<p>It's also helpful to use during automated testing so you don't have to remember to record mocks every time new tests are added to your suite; the next test run will generate them and then subsequent test runs will use the mocks.</p>
+<p>This mode can be used with the 'mockrecord' setting for the 'mock' property of the configuration. See the <a href="https://github.com/seglo/connect-prism#mode">mode setting</a> in the connect-prism README for more details.</p>
+<h1 id="roadmap">What's next?</h1>
+<h2>Runtime configuration override</h2>
+<p>This is a candidate feature request submitted by <a href="https://github.com/cthrax">Myles Bostwick</a> several days ago.  Myles proposed a feature where you could override the options of prism at run time with custom HTTP headers.  This would allow you to override options like the prism name to use (i.e. in VCR-speak, use another cassette) in order to test a different response.  This would be useful in test suites where you want to test how your app behaves under several different use cases, but not have to restart your test server or prism to do it.</p>
+<h1>Keep the suggestions coming</h1>
+<p>Since releasing this library it's been enhanced extensively through pull requests and suggestions from the community.  I'm not really sure where it's headed.  This is my first forray into open source worth mentioning and I'm thrilled by the feedback I'm receiving.</p>
