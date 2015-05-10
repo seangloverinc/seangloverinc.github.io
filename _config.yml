@@ -11,3 +11,5 @@ github_username:  seglo
 
 # Build settings
 markdown: kramdown
+
+comments: true
