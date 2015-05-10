@@ -27,6 +27,7 @@ author:
 excerpt: !ruby/object:Hpricot::Doc
   options: {}
 ---
+<p><strong>* UPDATE: I've discovered this isn't a great idea because the revision number has an upper boundary of 65535.  This may be acceptable for small projects, but not large ones (especially when using a shared monolithic SVN repo).</strong></p>
 <p>I've started a new project and I wanted a build label that includes both iteration number and the SVN revision of the code.  This would give me two very important and easy to track reference points when I review a deployment of my project.</p>
 <p>There are already two <a href="http://ccnet.thoughtworks.com/">CruiseControl.NET</a> (CCNet) labellers that accomplish these tasks, but unfortunately there wasn't one that could do both.</p>
 <p><strong>Iteration Labeller</strong><br />
@@ -49,6 +50,6 @@ excerpt: !ruby/object:Hpricot::Doc
  &lt;url&gt;svn://svnServer/ProjectPancake/trunk&lt;/url&gt;
 &lt;/labeller&gt;</pre>
 <p>And the last build label as shown by the CCNet web dashboard.</p>
-<p><img src="/assets/2AYAYWAoABAGhgIAYfwFiM3pVs+uWU0AAAAASUVORK5CYII=" alt="" /></p>
+<p><img src="/assets/ccnet-last-build-label.png" alt="" /></p>
 <p>I'm not sure if the svnrevisionlabeller author will ever incorporate this into the project itself so I have attached an archive that includes my changes.  Click the link below to download it.</p>
 <p><a href="http://randonom.com/m/svnrevisionlabeller/svnrevisionlabeller_iterationnumber.zip">SVN Revision Labeller with Iteration Duration</a></p>

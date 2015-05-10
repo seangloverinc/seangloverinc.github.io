@@ -50,22 +50,22 @@ MSBUILD /T:Package /p:<strong>Platform=AnyCPU;</strong>Configuration=Debug;Packa
 <p>This and a lot of other sage advice can be found in this <a href="http://stackoverflow.com/questions/4428562/msdeploy-web-deploy-failing-with-401-auth-issues/4898553#4898553">StackOverflow answer</a>.<br />
 <strong></strong></li>
 <li><strong>Ignore setting ACL's on the destination machine during deployment</strong>.  This should only be applicable if you're deploying to a destination machine without Integrated Security and with a sandboxed IIS user.  MSDeploy is clever and will attempt to mirror the NTFS ACL's you have defined on your source machine.  In certain cases the identities in your source machine ACL's are not available on your destination machine nor will your IIS Manager Users have the capability to set such ACL's if they were available.  The following is a snippet of my web project file.  Persisting ACL's can be disabled by adding the IncludeSetAclProviderOnDestination node and setting it to False.<br />
-[sourcecode language="xml"]<br />
-  &lt;PropertyGroup Condition=&quot; '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' &quot;&gt;<br />
-    &lt;DebugSymbols&gt;true&lt;/DebugSymbols&gt;<br />
-    &lt;DebugType&gt;full&lt;/DebugType&gt;<br />
-    &lt;Optimize&gt;false&lt;/Optimize&gt;<br />
-    &lt;OutputPath&gt;bin\&lt;/OutputPath&gt;<br />
-    &lt;DefineConstants&gt;DEBUG;TRACE&lt;/DefineConstants&gt;<br />
-    &lt;ErrorReport&gt;prompt&lt;/ErrorReport&gt;<br />
-    &lt;WarningLevel&gt;4&lt;/WarningLevel&gt;<br />
-    &lt;DeployIisAppPath&gt;Default Web Site/&lt;/DeployIisAppPath&gt;<br />
-    &lt;IncludeIisSettings&gt;false&lt;/IncludeIisSettings&gt;<br />
-    &lt;IncludeAppPool&gt;false&lt;/IncludeAppPool&gt;<br />
-    &lt;PublishDatabases&gt;false&lt;/PublishDatabases&gt;<br />
-    &lt;IncludeSetAclProviderOnDestination&gt;False&lt;/IncludeSetAclProviderOnDestination&gt;<br />
-  &lt;/PropertyGroup&gt;<br />
-[/sourcecode]</p>
+{% highlight xml linenos=table %}
+<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <DebugSymbols>true</DebugSymbols>
+  <DebugType>full</DebugType>
+  <Optimize>false</Optimize>
+  <OutputPath>bin\</OutputPath>
+  <DefineConstants>DEBUG;TRACE</DefineConstants>
+  <ErrorReport>prompt</ErrorReport>
+  <WarningLevel>4</WarningLevel>
+  <DeployIisAppPath>Default Web Site/</DeployIisAppPath>
+  <IncludeIisSettings>false</IncludeIisSettings>
+  <IncludeAppPool>false</IncludeAppPool>
+  <PublishDatabases>false</PublishDatabases>
+  <IncludeSetAclProviderOnDestination>False</IncludeSetAclProviderOnDestination>
+</PropertyGroup>
+{% endhighlight %}
 <p>You can also define this as a parameter for MSBuild at the command line if you're so inclined.</p>
 <pre>msbuild.exe "My Project.csproj" /p:IncludeSetAclProviderOnDestination=False</pre>
 <p>The following article titled "<a href="http://www.orcsweb.com/blog/rick/prevent-visual-studio-2010-and-web-deploy-from-changing-acls/">Prevent Visual Studio 2010 and Web Deploy from Changing ACLs</a>" by Rick Barber tipped me off to this solution.</li>

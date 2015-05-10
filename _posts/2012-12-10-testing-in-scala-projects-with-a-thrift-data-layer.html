@@ -30,122 +30,138 @@ excerpt: !ruby/object:Hpricot::Doc
 <p>When the team first started using <a href="http://www.scala-lang.org/">Scala</a> and <a href="http://thrift.apache.org/">Apache Thrift</a> we didn't really think much about testing.  As a [mostly] .NET shop, the learning curve for a new language, toolchain, and a myriad of new libraries was quite overwhelming.  Instead of really thinking about testing we plowed ahead and created an elaborate PoC for a business need.  Once we validated our technology choice and that the business need in of itself was sound, we started seriously considering the bigger picture such as recommended design patterns, deployment, a production implementation, and of course, testing!</p>
 <p>Our project has a Thrift client and Data Transfer Object (DTO) model generated via <a href="https://github.com/twitter/scrooge">twitter's scrooge</a> (a Thrift code generator written in Scala).  For testing I needed a set of test data, but for obvious reasons I did not want to have to connect to the Thrift server in order to run my test suite.  In order to get the data I needed I had a few options.  I could manually new up DTO's manually and one at a time, or I could capture some real data and massage it for my purposes.  As your typical lazy developer, I chose option 2.  This raised the question about how does one actually capture data being sent through a Thrift service?  Well, clearly it's doing a bunch of serialization &amp; deserialization on its own otherwise it would not be a very good choice for transmission of data structures!  Unfortunately, actually figuring out how to manually serialize a scrooge generated DTO was a bit of a challenge and I couldn't find much information on how it was done.</p>
 <p>However, since pretty much all of our Thrift code is generated and sitting in the project we have some clues on how to go about the process.  After about an hour in the Scala REPL I was able to serialize a DTO into JSON and vice versa.  Below is a helper class I developed to serialize DTO's to and from disk.</p>
-<p>[scala]<br />
-import java.io.{FileOutputStream, FileInputStream}<br />
-import org.apache.thrift.transport.TIOStreamTransport<br />
-import org.apache.thrift.protocol.TJSONProtocol<br />
-import com.twitter.scrooge.{ThriftStructCodec, ThriftStruct}</p>
-<p>object ThriftSerializer {<br />
-    def serialize(thriftStruct : ThriftStruct, path : String) {<br />
-        val fileOutputStream = new FileOutputStream(path)<br />
-        try {<br />
-            val thriftTransport = new TIOStreamTransport(fileOutputStream)<br />
-            val jsonProtocol = new TJSONProtocol(thriftTransport)<br />
-            thriftStruct.write(jsonProtocol)<br />
-        } finally {<br />
-            fileOutputStream.close<br />
-        }<br />
-    }</p>
-<p>    def deserialize[T &lt;: ThriftStruct](thriftStructCodec : ThriftStructCodec[T], path : String): T = {<br />
-        val fileInputStream = new FileInputStream(path)<br />
-        try {<br />
-            val jsonProtocolFactory = new TJSONProtocol.Factory<br />
-            val jsonProtocol = jsonProtocolFactory.getProtocol(new TIOStreamTransport(fileInputStream))<br />
-            thriftStructCodec.decode(jsonProtocol)<br />
-        } finally {<br />
-            fileInputStream.close<br />
-        }<br />
-    }<br />
-}<br />
-[/scala]</p>
-<p>When using TJSONProtocol as the data format you will notice that although the output is JSON, it's not in the most human readable form.  In order for Thrift to support versioning of DTO's, the fields are represented by the integer of the field as defined in your Thrift file.  Below are a few models I've defined in Thrift that I will use in examples for the rest of this post.  </p>
-<p><code><br />
-typedef i64 DateTime</p>
-<p>struct Bar {<br />
-  <strong>1</strong>: i32 x<br />
-  <strong>2</strong>: i32 y<br />
-}</p>
-<p>struct Foo {<br />
-  <strong>1</strong>: string styleName,<br />
-  <strong>2</strong>: DateTime created,<br />
-  <strong>3</strong>: list&lt;Bar&gt; bars<br />
-}</p>
-<p>...<br />
-</code></p>
+{% highlight scala linenos=table %}
+import java.io.{ FileOutputStream, FileInputStream }
+import org.apache.thrift.transport.TIOStreamTransport
+import org.apache.thrift.protocol.TJSONProtocol
+import com.twitter.scrooge.{ ThriftStructCodec, ThriftStruct }
+ 
+object ThriftSerializer {
+    def serialize(thriftStruct : ThriftStruct, path : String) {
+        val fileOutputStream = new FileOutputStream(path)
+        try {
+            val thriftTransport = new TIOStreamTransport(fileOutputStream)
+            val jsonProtocol = new TJSONProtocol(thriftTransport)
+            thriftStruct.write(jsonProtocol)
+        } finally {
+            fileOutputStream.close
+        }
+    }
+ 
+    def deserialize[T <: ThriftStruct](thriftStructCodec : ThriftStructCodec[T], path : String): T = {
+        val fileInputStream = new FileInputStream(path)
+        try {
+            val jsonProtocolFactory = new TJSONProtocol.Factory
+            val jsonProtocol = jsonProtocolFactory.getProtocol(new TIOStreamTransport(fileInputStream))
+            thriftStructCodec.decode(jsonProtocol)
+        } finally {
+            fileInputStream.close
+        }
+    }
+}
+{% endhighlight %}
+<br />
+<p>When using TJSONProtocol as the data format you will notice that although the output is JSON, it's not in the most human readable form.  In order for Thrift to support versioning of DTO's, the fields are represented by the integer of the field as defined in your Thrift file.  Below are a few models I've defined in Thrift that I will use in examples for the rest of this post.</p>
+
+{% highlight text linenos=table %}
+typedef i64 DateTime
+
+struct Bar {
+1: i32 x
+2: i32 y
+}
+
+struct Foo {
+1: string styleName,
+2: DateTime created,
+3: list<Bar> bars
+}
+
+...
+{% endhighlight %}
+
 <p>A more conventional Thrift JSON serializer does exist, the <a href="https://builds.apache.org/job/Thrift/javadoc/org/apache/thrift/protocol/TSimpleJSONProtocol.html">TSimpleJSONProtocol</a>, but it only supports write operations.  This is an example of the JSON you can expect out of the TJSONProtocol serializer.</p>
-<p>[javascript]<br />
-{&quot;1&quot;:{&quot;str&quot;:&quot;gangnam&quot;},&quot;2&quot;:{&quot;i64&quot;:1234567890},&quot;3&quot;:{&quot;lst&quot;:[&quot;rec&quot;,2,{&quot;1&quot;:{&quot;i32&quot;:1},&quot;2&quot;:{&quot;i32&quot;:2}},{&quot;1&quot;:{&quot;i32&quot;:3},&quot;2&quot;:{&quot;i32&quot;:4}}]}}</p>
-<p>// Here's the same JSON pretty printed.  Beware of pretty printing the JSON and attempting to load it with<br />
-// ThriftSerializerand defined above.  It will not work.  Thrift does not recognize the extra whitespace<br />
-// formatting.</p>
-<p>{<br />
-	&quot;1&quot; : {<br />
-		&quot;str&quot; : &quot;gangnam&quot;<br />
-	},<br />
-	&quot;2&quot; : {<br />
-		&quot;i64&quot; : 1234567890<br />
-	},<br />
-	&quot;3&quot; : {<br />
-		&quot;lst&quot; : [&quot;rec&quot;, 2, {<br />
-				&quot;1&quot; : {<br />
-					&quot;i32&quot; : 1<br />
-				},<br />
-				&quot;2&quot; : {<br />
-					&quot;i32&quot; : 2<br />
-				}<br />
-			}, {<br />
-				&quot;1&quot; : {<br />
-					&quot;i32&quot; : 3<br />
-				},<br />
-				&quot;2&quot; : {<br />
-					&quot;i32&quot; : 4<br />
-				}<br />
-			}<br />
-		]<br />
-	}<br />
-}<br />
-[/javascript]</p>
+{% highlight javascript linenos=table %}
+{"1":{"str":"gangnam"},"2":{"i64":1234567890},"3":{"lst":["rec",2,{"1":{"i32":1},"2":{"i32":2}},{"1":{"i32":3},"2":{"i32":4}}]}}
+ 
+// Here's the same JSON pretty printed.  Beware of pretty printing the JSON and attempting to load it with
+// ThriftSerializerand defined above.  It will not work.  Thrift does not recognize the extra whitespace
+// formatting.
+ 
+{
+    "1" : {
+        "str" : "gangnam"
+    },
+    "2" : {
+        "i64" : 1234567890
+    },
+    "3" : {
+        "lst" : ["rec", 2, {
+                "1" : {
+                    "i32" : 1
+                },
+                "2" : {
+                    "i32" : 2
+                }
+            }, {
+                "1" : {
+                    "i32" : 3
+                },
+                "2" : {
+                    "i32" : 4
+                }
+            }
+        ]
+    }
+}
+{% endhighlight %}
 <p>So, not the most readable, but it's something you can work with.  It should be noted that it would be a fairly straightforward exercise to extend the TJSONProtocol to write field names along with the field ID as defined by the <a href="http://thrift.apache.org/docs/concepts/">Protocol abstraction in the Thrift documentation</a>.  I'll save this for a future experiment.</p>
 <p><strong>Now to use our test data in an actual test.</strong></p>
 <p>I chose to structure our web project using a Service Orientated Architecture with dependency injection.  Scrooge genereated a trait that serves as a definition of the contract for the service.  I implemented this trait in an adapter I wrote to encapsulate calls to the service.  Missing from the code below is a companion object that instantiates the MyThriftApi client using <a href="http://twitter.github.com/finagle/">twitter's finagle</a> library.  <del datetime="2012-12-11T22:43:49+00:00">If you're familiar with scrooge generated clients you'll notice that I'm overriding the asynchronous nature of the API call (getFoo(name).<strong>get</strong>).  I did this so that I can define all my asynchronous calls at once further up my stack.</del>  As <a href="https://twitter.com/Clamatius">Clamatius</a> pointed out in the comments, overriding the Futures capability of my Thrift client isn't a best practice despite the reasoning mentioned above.  Therefore, I've updated the following code samples to make use of the FutureIface that scrooge generated.</p>
-<p>[scala]<br />
-package data</p>
-<p>import data.dtos._</p>
-<p>class MyApiAdapter extends MyThriftApi.FutureIface {<br />
-  def getFoo(`styleName`: String): Future[Foo] = MyApiAdapter.client.getFoo(styleName)<br />
-}<br />
-[/scala]</p>
+{% highlight scala linenos=table %}
+package data
+ 
+import data.dtos._
+ 
+class MyApiAdapter extends MyThriftApi.FutureIface { 
+  def getFoo(`styleName`: String): Future[Foo] = MyApiAdapter.client.getFoo(styleName)
+}
+{% endhighlight %}
 <p>My service will inject a MyApiAdapter instance which will give me the opportunity to mix-in something to intercept the actual call to the Thrift client.</p>
-<p>[scala]<br />
-class FooService(myApiAdapter: MyApiAdapter) {<br />
-  def DoKungFoo(styleName: String):Pain = {<br />
-    val fooFuture = myApiAdapter.getFoo(styleName)<br />
-    // ...<br />
-    // do some kung foo via the aforementioned style bring the pain!<br />
-    pain<br />
-  }<br />
-}<br />
-[/scala]</p>
+{% highlight scala linenos=table %}
+class FooService(myApiAdapter: MyApiAdapter) {
+  def DoKungFoo(styleName: String):Pain = {
+    val fooFuture = myApiAdapter.getFoo(styleName)
+    // ... 
+    // do some kung foo via the aforementioned style bring the pain!
+    pain
+  }
+}
+{% endhighlight %}
 <p>Finally, a test for FooService which will mock out the MyApiAdapter and return a deserialized Foo object from the file system.  I'm using <a href="http://etorreborre.github.com/specs2/">specs2</a> for tests, which appears to be the test framework of choice for the Scala elite.  Note the use of the <a href="http://www.cakesolutions.net/teamblogs/2011/12/19/cake-pattern-in-depth/">cake pattern</a> when passing in the MyApiAdapter to the service.  This will force the MyApiAdapter to use the implementation defined in the TestDataReader trait.</p>
-<p>[scala]<br />
-package tests.unit</p>
-<p>import data.MyApiAdapter<br />
-import data.dtos.Foo<br />
-import akka.dispatch.Future<br />
-import org.specs2.mutable._</p>
-<p>object FooServiceSpec extends Specification {</p>
-<p>  // a mix-in for MyApiAdapter<br />
-  trait TestDataReader extends MyApiAdapter {<br />
-    override def getFoo(`styleName` : String): Future[Foo] = Future{ThriftSerializer.deserialize(Foo, &quot;foo.json&quot;)}<br />
-  }</p>
-<p>  &quot;FooService&quot; should {<br />
-    &quot;Bring the pain&quot; in {<br />
-      val service = new FooService(new MyApiAdapter with TestDataReader)<br />
-      val pain = service.getFoo(styleName = &quot;gangnam&quot;)<br />
-      // ...<br />
-      // assert that we brought the pain sufficiently<br />
-    }<br />
-  }<br />
-}</p>
-<p>[/scala]</p>
+{% highlight scala linenos=table %}
+package tests.unit
+ 
+import data.MyApiAdapter
+import data.dtos.Foo
+import akka.dispatch.Future
+import org.specs2.mutable._
+ 
+object FooServiceSpec extends Specification {
+   
+  // a mix-in for MyApiAdapter
+  trait TestDataReader extends MyApiAdapter {
+    override def getFoo(`styleName` : String): Future[Foo] = Future{ThriftSerializer.deserialize(Foo, "foo.json")}
+  }
+ 
+  "FooService" should {
+    "Bring the pain" in {
+      val service = new FooService(new MyApiAdapter with TestDataReader)
+      val pain = service.getFoo(styleName = "gangnam")
+      // ...
+      // assert that we brought the pain sufficiently
+    }
+  }
+}
+{% endhighlight %}
 <p>As a noob to Scala, Thrift, and even specs2 I would appreciate any feedback on this subject matter.  Please feel free to leave a comment.</p>

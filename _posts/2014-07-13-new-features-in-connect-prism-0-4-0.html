@@ -48,38 +48,41 @@ excerpt: !ruby/object:Hpricot::Doc
 <p>The gulp community appears to pride itself on its succinctness of a deployment pipeline through their file streaming operations.  If your plugin isn't specifically integrating something else into the streaming pipline then it has no business being a plugin in the first place.</p>
 <p>This inspired me to factor out the core functionality of grunt-connect-prism into a new simple to use core library called <a href="https://github.com/seglo/connect-prism">connect-prism</a>.  I've updated my <a href="https://github.com/seglo/prism-sample-project">prism sample project</a> to include <a href="https://github.com/seglo/prism-sample-project/blob/master/gulpfile.js">an example of its usage within a gulpfile.js</a>.</p>
 <p>To use with gulp you simply add the prism middleware to your connect declaration and then instantiate 1 or more instances of prism.</p>
-<p>[sourcecode language="javascript"]<br />
-var prism = require('connect-prism');<br />
-var connect = require('connect');</p>
-<p>var app = connect()<br />
-  .use(require('connect-livereload')({<br />
-    port: 35729<br />
-  }))<br />
-  .use(prism.middleware)<br />
-  .use(connect.static('app'))<br />
-  .use(connect.static('.tmp'))<br />
-  .use(<br />
-    '/bower_components',<br />
-    connect.static('./bower_components')<br />
-  )<br />
-  .use(connect.directory('app'));</p>
-<p>require('http').createServer(app)<br />
-  .listen(9000)<br />
-  .on('listening', function() {<br />
-    console.log('Started connect web server on http://localhost:9000');<br />
-  });</p>
-<p>prism.create({<br />
-  name: 'serve',<br />
-  mode: 'mock',<br />
-  context: '/api',<br />
-  host: 'localhost',<br />
-  port: 9090,<br />
-  delay: 'auto',<br />
-  rewrite: {<br />
-    '^/api/bookauthors': '/api/authors',<br />
-  }<br />
-});<br />
-[/sourcecode]</p>
+{% highlight javascript linenos=table %}
+var prism = require('connect-prism');
+var connect = require('connect');
+ 
+var app = connect()
+  .use(require('connect-livereload')({
+    port: 35729
+  }))
+  .use(prism.middleware)
+  .use(connect.static('app'))
+  .use(connect.static('.tmp'))
+  .use(
+    '/bower_components',
+    connect.static('./bower_components')
+  )
+  .use(connect.directory('app'));
+ 
+require('http').createServer(app)
+  .listen(9000)
+  .on('listening', function() {
+    console.log('Started connect web server on http://localhost:9000');
+  });
+ 
+prism.create({
+  name: 'serve',
+  mode: 'mock',
+  context: '/api',
+  host: 'localhost',
+  port: 9090,
+  delay: 'auto',
+  rewrite: {
+    '^/api/bookauthors': '/api/authors',
+  }
+});
+{% endhighlight %}
 <h2 id="delay">delay</h2>
 <p>The delay option is 1 of 2 features contributed by <a href="https://github.com/MilosMosovsky">Miloš Mošovský</a>.  In many cases you probably want to use prism to eliminate latency of your API, but in some cases it's useful to see how your app behaves when it exists.  The delay option has several different options that let you generate this delay when you mock requests.</p>
 <p>You can define a time in milliseconds or choose one of three modes that generates random delays within a range.  To learn more about how to configure this feature see the <a href="https://github.com/seglo/connect-prism#delay">delay option</a> section in the connect-prism README.</p>
@@ -90,30 +93,30 @@ var connect = require('connect');</p>
 <p>If you keep an eye on the STDOUT you'll see that prism lets you know when it creates a 404 stub:</p>
 <pre>Serialized empty 404 response for /api/newendpoint to mocks/serve/d36d19f9d90fa6e1fc1755463d7c3a70616539af.json.404</pre>
 <p>This lets you know which file to inspect in your mocks directory:</p>
-<p>[sourcecode language="bash"]<br />
-seglo@bit:~/source/prism-sample-project$ ls mocks/serve/<br />
-0b956737b1a9660f2c555f9328db1191f6f2a050.json<br />
-2723f866830446c640c9cc9942fed2988e0a2c1a.json<br />
-6654ad4d1d494222ce02c656386e6955575c17ed.json<br />
-d36d19f9d90fa6e1fc1755463d7c3a70616539af.json.404<br />
-[/sourcecode]</p>
+{% highlight bash linenos=table %}
+seglo@bit:~/source/prism-sample-project$ ls mocks/serve/
+0b956737b1a9660f2c555f9328db1191f6f2a050.json
+2723f866830446c640c9cc9942fed2988e0a2c1a.json
+6654ad4d1d494222ce02c656386e6955575c17ed.json
+d36d19f9d90fa6e1fc1755463d7c3a70616539af.json.404
+{% endhighlight %}
 <p>Default state of the .404 file.</p>
-<p>[sourcecode language="javascript"]<br />
-{<br />
-  &quot;requestUrl&quot;: &quot;/api/newendpoint&quot;,<br />
-  &quot;contentType&quot;: &quot;application/javascript&quot;,<br />
-  &quot;statusCode&quot;: 200,<br />
-  &quot;data&quot;: {}<br />
-}<br />
-[/sourcecode]</p>
+{% highlight javascript linenos=table %}
+{
+  "requestUrl": "/api/newendpoint",
+  "contentType": "application/javascript",
+  "statusCode": 200,
+  "data": {}
+}
+{% endhighlight %}
 <h2 id="rewrite">URL rewriting</h2>
 <p>This is your standard, run of the mill URL rewriting functionality. It was copied in wholesale from the grunt-connect-proxy plugin. When a request matches a context that prism is configured for then it will modify the request URL to the matched URL replacement.</p>
 <p>This could be useful for rerouting many same requests to one mock. For example, since prism creates and matches mocks given a whole request URL, if you have query parameters they are included as part of the hash. To ignore all query parameters to /api/authors you could create a rewrite rule like the following.</p>
-<p>[sourcecode language="javascript"]<br />
-        rewrite: {<br />
-          '^/api/authors\??.*': '/api/authors'<br />
-        }<br />
-[/sourcecode]</p>
+{% highlight javascript linenos=table %}
+rewrite: {
+  '^/api/authors\??.*': '/api/authors'
+}
+{% endhighlight %}
 <h2 id="mockrecord">Mock &amp; Record mode</h2>
 <p>While in record you may not always record every request you intended to. If you miss a use case then while you're in mock mode it will simply return 404's (and create stubs as mentioned above) when there may well be a valid endpoint it could have used. I created a new mode you can run the plugin that combines both mocking and recording.</p>
 <p>When prism intercepts a request it will first check if a mock response exists. If it does not, instead of the usual behaviour of stubbing out a response it will attempt to proxy &amp; record the response from your actual server.</p>

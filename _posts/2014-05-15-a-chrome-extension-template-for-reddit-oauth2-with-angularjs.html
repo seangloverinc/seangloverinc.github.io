@@ -34,28 +34,28 @@ excerpt: !ruby/object:Hpricot::Doc
 <p><a href="http://www.reddit.com/r/redditdev/comments/1xk8wf/oauth2_custom_schemes_and_other_goodies/">[OAuth2] Custom schemes and other goodies</a></p>
 <p>To support this functionality reddit devs created 2 new classes of apps.  All existing apps were retroactively labeled web apps and the two new types were the installed app and script app.  For a Chrome Extension you would choose to create an installed app so that you can complete the OAuth2 authorization with the Chrome Extension callback URI.</p>
 <p>As a first step, login to reddit and <a href="https://ssl.reddit.com/prefs/apps/">create your own <strong>installed</strong> app</a>.  Once it's created you'll need to make note of your client ID and secret as highlighted below.</p>
-<p><a href="/assets/reddit-edit-app.png"><img class="alignnone size-full wp-image-431" alt="reddit-edit-app" src="/assets/reddit-edit-app.png" width="963" height="509" /></a></p>
+<p><a href="/assets/reddit-edit-app.png"><img class="alignnone size-full wp-image-431" alt="reddit-edit-app" src="/assets/reddit-edit-app.png" /></a></p>
 <p>Since this is an installed app my credentials aren't really a secret, so I don't care if you know them!  Leave the redirect URI blank for now, <strong>we'll figure out this address in the next section</strong>.  If you choose to actually release your app to the public you'll need to create a second app for production, but that's beyond the scope of this post.  For now, just create a single app that you can use for development purposes.</p>
 <p>If you haven't done so already then <a href="https://github.com/seglo/ng-reddit-oauth-template">clone my reddit template from GitHub</a>.  Open up the <code>app/scripts/services/reddit-api.js</code> file and populate the <code>clientId</code> and <code>clientSecret</code> with the appropriate values you found on your newly minted reddit app.</p>
-<p>[sourcecode language="javascript"]<br />
-angular.module('redditOAuthTemplateApp')<br />
-  .factory('redditConfig', function redditConfig($window) {<br />
-    return {<br />
-      redditApp: {<br />
-        clientId: 'qWs6r0l6hXwQVA',<br />
-        clientSecret: 'hT3vlEu20FCqTyH3qDl7t2lf4Zg',<br />
-        scope: 'identity,read,mysubreddits',<br />
-        redirectUri: $window.chrome.extension.getURL('/') + 'app/index.html#/oauth/'<br />
-      }<br />
-    };<br />
-  })<br />
-[/sourcecode]</p>
+{% highlight javascript linenos=table %}
+angular.module('redditOAuthTemplateApp')
+  .factory('redditConfig', function redditConfig($window) {
+    return {
+      redditApp: {
+        clientId: 'qWs6r0l6hXwQVA',
+        clientSecret: 'hT3vlEu20FCqTyH3qDl7t2lf4Zg',
+        scope: 'identity,read,mysubreddits',
+        redirectUri: $window.chrome.extension.getURL('/') + 'app/index.html#/oauth/'
+      }
+    };
+  })
+{% endhighlight %}
 <h2>Finding the app redirect URI</h2>
 <p>If you don't already know the basic mechanics of how Chrome Extensions are developed then I would suggest reading the <a href="https://developer.chrome.com/extensions/getstarted">Getting Started: Building a Chrome Extension</a> page.  For the impatient you could just skip to the <a href="https://developer.chrome.com/extensions/getstarted#unpacked">Load the extension</a> section to figure out how to load an unpacked project into your list of Chrome Extensions so you can debug your app.  Once you've loaded the app you can get the extension ID from the extensions list page, or you can open up the app and copy a fully qualified URI by doing the following.</p>
 <p>Activate the extension by clicking the icon for the app beside the chrome smart bar.</p>
 <p><a href="/assets/chrome-ex.png"><img class="alignnone size-full wp-image-436" alt="chrome-ex" src="/assets/chrome-ex.png" width="285" height="217" /></a></p>
 <p>Once loaded, open up the debugger (F12) and look at the console to see the OAuth2 callback URI.</p>
-<p><a href="/assets/chrome-ex-callback.png"><img class="alignnone size-full wp-image-437" alt="chrome-ex-callback" src="/assets/chrome-ex-callback.png" width="1022" height="221" /></a></p>
+<p><a href="/assets/chrome-ex-callback.png"><img class="alignnone size-full wp-image-437" alt="chrome-ex-callback" src="/assets/chrome-ex-callback.png" /></a></p>
 <p>Copy this URI into the redirect URI setting of your reddit app and save it.</p>
 <p>At this point the app should work.  You can test it by clicking the "Authorize App" button and completing the OAuth2 dance.  When you're back at the app's homepage the "Get User Info" button will be enabled.  Click it to make an example GET call to the reddit API (<code>/api/v1/me</code>).  To learn more about some of the caveats to about setting up reddit OAuth in a chrome extension read on.  For everyone else, you should be able to begin writing your own app and making reddit API calls!</p>
 <p><a href="/assets/reddit-user-info.png"><img class="alignnone size-full wp-image-438" alt="reddit-user-info" src="/assets/reddit-user-info.png" width="708" height="705" /></a></p>
@@ -63,28 +63,30 @@ angular.module('redditOAuthTemplateApp')<br />
 <p>In a Chrome Extension manifest.json file there are several things to be aware of that are critical to making reddit OAuth2 work.</p>
 <p>In order to make Cross Origin calls you have to explicitly list the sites you will be calling in your <code>permissions</code> array.</p>
 <p>Equally as important is configuring the extension to accept the browser redirect from reddit to the OAuth2 callback URI you configured.  You can achieve this by adding the path to the OAuth AngularJS hashbang address to the <code>web_accessible_resources</code> array.</p>
-<p>[sourcecode language="javascript"]<br />
-{<br />
-  &quot;manifest_version&quot;: 2,</p>
-<p>  &quot;name&quot;: &quot;redditOAuthTemplate&quot;,<br />
-  &quot;description&quot;: &quot;A template for reddit OAuth in an AngularJS chrome extension&quot;,<br />
-  &quot;version&quot;: &quot;1.0&quot;,</p>
-<p>  &quot;permissions&quot;: [<br />
-    &quot;https://ssl.reddit.com/&quot;,<br />
-    &quot;https://oauth.reddit.com/&quot;<br />
-  ],<br />
-  &quot;browser_action&quot;: {<br />
-    &quot;default_icon&quot;: &quot;icon.png&quot;<br />
-  },<br />
-  &quot;background&quot;: {<br />
-    &quot;scripts&quot;: [&quot;chrome_events.js&quot;],<br />
-    &quot;persistent&quot;: false<br />
-  },<br />
-  &quot;web_accessible_resources&quot;: [<br />
-    &quot;app/index.html#/oauth/*&quot;<br />
-  ]<br />
-}<br />
-[/sourcecode]</p>
+{% highlight javascript linenos=table %}
+{
+  "manifest_version": 2,
+ 
+  "name": "redditOAuthTemplate",
+  "description": "A template for reddit OAuth in an AngularJS chrome extension",
+  "version": "1.0",
+ 
+  "permissions": [
+    "https://ssl.reddit.com/",
+    "https://oauth.reddit.com/"
+  ],
+  "browser_action": {
+    "default_icon": "icon.png"
+  },
+  "background": {
+    "scripts": ["chrome_events.js"],
+    "persistent": false
+  },
+  "web_accessible_resources": [
+    "app/index.html#/oauth/*"
+  ]
+}
+{% endhighlight %}
 <h2>POSTing to reddit's API with AngularJS</h2>
 <p>Something that had me stumped for a little while was why reddit kept throwing back <code>{"error": "unsupported_grant_type"}</code> errors when I attempted to exchange a request token for an access token.  This required POSTing with a set of data (the request token, the redirect URI, and a grant type "authorization_code"), but whenever I posted back I would get a <code>{"error": "unsupported_grant_type"}</code> response when it was clear that the <a href="https://github.com/reddit/reddit/wiki/OAuth2#token-retrieval">authorization_code grant type <em>was</em> supported</a>.</p>
 <p>After some head scratching I came across a <a href="http://www.reddit.com/r/redditdev/comments/1y6sl1/get_access_token_using_authorization_code_in/">post expressing similar troubles</a>, but instead of using AngularJS in a Chrome Extension they were using jQuery in a PhoneGap app to retrieve an access token.  The OP eventually figured out the problem and was kind enough to share a code snippet of his jQuery.post call.  To my delight, this call worked and when I investigated the raw headers of the jQuery.post and my AngularJS $http.post I noticed right away that there were different content-type's for the POST request payload.</p>

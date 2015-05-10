@@ -44,197 +44,228 @@ excerpt: !ruby/object:Hpricot::Doc
 <h2>A viable .NET implementation</h2>
 <p>Eventually I came across a wiki article entitled "<a href="https://cwiki.apache.org/OPENNLP/a-quick-guide-to-using-opennlp-from-net.html">A quick guide to using OpenNLP from .NET</a>" that introduced me to a remarkable project called <a href="http://www.ikvm.net/index.html">IKVM.NET</a>. After generating a shiney new .NET OpenNLP assembly with the steps provided I was able to use the OpenNLP namespaces with ease in my project.</p>
 <p>The first step in using the parsers in OpenNLP was to instantiate a model using Java streams. I created a base class for my NounPhraseParser with a utility method to help load these models.</p>
-<p>[sourcecode language="csharp"]<br />
-using System;<br />
-using System.Collections.Generic;<br />
-using System.IO;<br />
-using System.Linq;</p>
-<p>namespace OpenNLP.NET.PoC<br />
-{<br />
-    public class AbstractNounPhraseAdapter<br />
-    {<br />
-        protected readonly string ModelsPath;</p>
-<p>        /// &lt;summary&gt;<br />
-        /// A path to the directory where the OpenNLP models are located.<br />
-        /// &lt;/summary&gt;<br />
-        protected AbstractNounPhraseAdapter(string modelsPath)<br />
-        {<br />
-            ModelsPath = modelsPath;<br />
-        }</p>
-<p>        /// &lt;summary&gt;<br />
-        /// Return the OpenNLP analyzer given its model type (M), the type of the analyzer (T), the filename<br />
-        /// of the model (i.e. en-maxent.bin) and a path to where the Models are lcoated (ModelsPath).<br />
-        /// &lt;/summary&gt;<br />
-        public T ResolveOpenNlpTool(string modelPath)<br />
-            where M : class<br />
-            where T : class<br />
-        {<br />
-            var modelStream = new java.io.FileInputStream(Path.Combine(ModelsPath, modelPath));</p>
-<p>            M model;<br />
-            try<br />
-            {<br />
-                model = (M)Activator.CreateInstance(typeof(M), modelStream);<br />
-            }<br />
-            finally<br />
-            {<br />
-                if (modelStream != null)<br />
-                {<br />
-                    modelStream.close();<br />
-                }<br />
-            }</p>
-<p>            return (T)Activator.CreateInstance(typeof(T), model);<br />
-        }</p>
-<p>        /// &lt;summary&gt;<br />
-        /// Functions to run after PoS parsing to determine if the noun phrase should be returned.<br />
-        /// &lt;/summary&gt;<br />
-        public IEnumerable&lt;Func&gt; PostProcessingFilters { get; set; }</p>
-<p>        protected bool ValidNounPhrase(string nounPhrase)<br />
-        {<br />
-            return PostProcessingFilters == null ||<br />
-                    PostProcessingFilters.Aggregate(true, (current, filter) =&gt; current &amp;&amp; filter.Invoke(nounPhrase));<br />
-        }<br />
-    }<br />
-}<br />
-[/sourcecode]</p>
+{% highlight csharp linenos=table %}
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+ 
+namespace OpenNLP.NET.PoC
+{
+    public class AbstractNounPhraseAdapter
+    {
+        protected readonly string ModelsPath;
+ 
+        /// <summary>
+        /// A path to the directory where the OpenNLP models are located.
+        /// </summary>
+        protected AbstractNounPhraseAdapter(string modelsPath)
+        {
+            ModelsPath = modelsPath;
+        }
+ 
+        /// <summary>
+        /// Return the OpenNLP analyzer given its model type (M), the type of the analyzer (T), the filename
+        /// of the model (i.e. en-maxent.bin) and a path to where the Models are lcoated (ModelsPath).
+        /// </summary>
+        public T ResolveOpenNlpTool(string modelPath)
+            where M : class
+            where T : class
+        {
+            var modelStream = new java.io.FileInputStream(Path.Combine(ModelsPath, modelPath));
+ 
+            M model;
+            try
+            {
+                model = (M)Activator.CreateInstance(typeof(M), modelStream);
+            }
+            finally
+            {
+                if (modelStream != null)
+                {
+                    modelStream.close();
+                }
+            }
+ 
+            return (T)Activator.CreateInstance(typeof(T), model);
+        }
+ 
+        /// <summary>
+        /// Functions to run after PoS parsing to determine if the noun phrase should be returned.
+        /// </summary>
+        public IEnumerable<Func> PostProcessingFilters { get; set; }
+ 
+        protected bool ValidNounPhrase(string nounPhrase)
+        {
+            return PostProcessingFilters == null ||
+                    PostProcessingFilters.Aggregate(true, (current, filter) => current && filter.Invoke(nounPhrase));
+        }
+    }
+}
+{% endhighlight %}
 <p>The guts of my PosNounPhraseParser itself contains a parsing method named GetNounPhrases which is based on code by Sujit Pal described in his blog posting entitled "<a href="http://sujitpal.blogspot.ca/2011/08/uima-noun-phrase-pos-annotator-using.html">An UIMA Noun Phrase POS Annotator using OpenNLP</a>".</p>
-<p>[sourcecode language="csharp"]<br />
-using System;<br />
-using System.Collections.Generic;<br />
-using opennlp.tools.chunker;<br />
-using opennlp.tools.postag;<br />
-using opennlp.tools.sentdetect;<br />
-using opennlp.tools.tokenize;</p>
-<p>namespace OpenNLP.NET.PoC<br />
-{<br />
-    /// &lt;summary&gt;<br />
-    /// Ported from Java implementation by Sujit Pal<br />
-    /// http://sujitpal.blogspot.ca/2011/08/uima-noun-phrase-pos-annotator-using.html<br />
-    /// &lt;/summary&gt;<br />
-    public class PosNounPhraseParser : AbstractNounPhraseAdapter, INounPhraseParser<br />
-    {<br />
-        public PosNounPhraseParser(string modelsPath) : base(modelsPath) { }</p>
-<p>        private static SentenceDetector _sentenceDetector;<br />
-        private SentenceDetector GetSentenceDetector()<br />
-        {<br />
-            return _sentenceDetector ?? (_sentenceDetector = ResolveOpenNlpTool(&quot;en-sent.bin&quot;));<br />
-        }</p>
-<p>        private static POSTagger _posTagger;<br />
-        private POSTagger GetPosTagger()<br />
-        {<br />
-            return _posTagger ?? (_posTagger = ResolveOpenNlpTool(&quot;en-pos-maxent.bin&quot;));<br />
-        }</p>
-<p>        private static Tokenizer _tokenizer;<br />
-        private Tokenizer GetTokenizer()<br />
-        {<br />
-            return _tokenizer ?? (_tokenizer = ResolveOpenNlpTool(&quot;en-token.bin&quot;));<br />
-        }</p>
-<p>        private static Chunker _chunker;<br />
-        private Chunker GetChunker()<br />
-        {<br />
-            return _chunker ?? (_chunker = ResolveOpenNlpTool(&quot;en-chunker.bin&quot;));<br />
-        }</p>
-<p>        public void WarmUpModels()<br />
-        {<br />
-            GetSentenceDetector();<br />
-            GetPosTagger();<br />
-            GetTokenizer();<br />
-            GetChunker();<br />
-        }</p>
-<p>        public IList&lt;string&gt; GetNounPhrases(string sourceText)<br />
-        {<br />
-            if (string.IsNullOrWhiteSpace(sourceText)) throw new ArgumentNullException(&quot;sourceText&quot;);</p>
-<p>            var nounPhrases = new List&lt;string&gt;();</p>
-<p>            // return an array of start and end indexes that identify sentences<br />
-            var sentenceSpans = GetSentenceDetector().sentPosDetect(sourceText);<br />
-            foreach (var sentenceSpan in sentenceSpans)<br />
-            {<br />
-                // retrieve the actual sentence from the source text<br />
-                var sentence = sentenceSpan.getCoveredText(sourceText).toString();<br />
-                var start = sentenceSpan.getStart();</p>
-<p>                // return an array of start and end indexes that identify various<br />
-                // tokens/tags in the sentence (i.e. noun phrases, verb phrases, etc)<br />
-                var tokenSpans = GetTokenizer().tokenizePos(sentence);<br />
-                var tokens = new string[tokenSpans.Length];<br />
-                for (var i = 0; i &lt; tokens.Length; i++)<br />
-                {<br />
-                    tokens[i] = tokenSpans[i].getCoveredText(sentence).toString();<br />
-                }<br />
-                var tags = GetPosTagger().tag(tokens);</p>
-<p>                // return an array of chunks that contain tag types and start/end indexes<br />
-                // for the chunk in the source text<br />
-                var chunks = GetChunker().chunkAsSpans(tokens, tags);</p>
-<p>                foreach (var chunk in chunks)<br />
-                {<br />
-                    // filter out everything but noun phrases<br />
-                    if (chunk.getType() != &quot;NP&quot;) continue;</p>
-<p>                    var chunkStart = start + tokenSpans[chunk.getStart()].getStart();<br />
-                    var chunkEnd = start + tokenSpans[chunk.getEnd() - 1].getEnd();</p>
-<p>                    // extract the noun phrase<br />
-                    var nounPhrase = sourceText.Substring(chunkStart, chunkEnd - chunkStart);</p>
-<p>                    // run post processing functions to determine if this noun phrase<br />
-                    // is suitable for our purposes (defined by caller)<br />
-                    if (!ValidNounPhrase(nounPhrase)) continue;</p>
-<p>                    nounPhrases.Add(nounPhrase);<br />
-                }<br />
-            }<br />
-            return nounPhrases;<br />
-        }<br />
-    }<br />
-}<br />
-[/sourcecode]</p>
+{% highlight csharp linenos=table %}
+using System;
+using System.Collections.Generic;
+using opennlp.tools.chunker;
+using opennlp.tools.postag;
+using opennlp.tools.sentdetect;
+using opennlp.tools.tokenize;
+ 
+namespace OpenNLP.NET.PoC
+{
+    /// <summary>
+    /// Ported from Java implementation by Sujit Pal
+    /// http://sujitpal.blogspot.ca/2011/08/uima-noun-phrase-pos-annotator-using.html
+    /// </summary>
+    public class PosNounPhraseParser : AbstractNounPhraseAdapter, INounPhraseParser
+    {
+        public PosNounPhraseParser(string modelsPath) : base(modelsPath) { }
+ 
+        private static SentenceDetector _sentenceDetector;
+        private SentenceDetector GetSentenceDetector()
+        {
+            return _sentenceDetector ?? (_sentenceDetector = ResolveOpenNlpTool("en-sent.bin"));
+        }
+ 
+        private static POSTagger _posTagger;
+        private POSTagger GetPosTagger()
+        {
+            return _posTagger ?? (_posTagger = ResolveOpenNlpTool("en-pos-maxent.bin"));
+        }
+ 
+        private static Tokenizer _tokenizer;
+        private Tokenizer GetTokenizer()
+        {
+            return _tokenizer ?? (_tokenizer = ResolveOpenNlpTool("en-token.bin"));
+        }
+ 
+        private static Chunker _chunker;
+        private Chunker GetChunker()
+        {
+            return _chunker ?? (_chunker = ResolveOpenNlpTool("en-chunker.bin"));
+        }
+ 
+        public void WarmUpModels()
+        {
+            GetSentenceDetector();
+            GetPosTagger();
+            GetTokenizer();
+            GetChunker();
+        }
+ 
+        public IList<string> GetNounPhrases(string sourceText)
+        {
+            if (string.IsNullOrWhiteSpace(sourceText)) throw new ArgumentNullException("sourceText");
+ 
+            var nounPhrases = new List<string>();
+ 
+            // return an array of start and end indexes that identify sentences
+            var sentenceSpans = GetSentenceDetector().sentPosDetect(sourceText);
+            foreach (var sentenceSpan in sentenceSpans)
+            {
+                // retrieve the actual sentence from the source text
+                var sentence = sentenceSpan.getCoveredText(sourceText).toString();
+                var start = sentenceSpan.getStart();
+ 
+                // return an array of start and end indexes that identify various
+                // tokens/tags in the sentence (i.e. noun phrases, verb phrases, etc)
+                var tokenSpans = GetTokenizer().tokenizePos(sentence);
+                var tokens = new string[tokenSpans.Length];
+                for (var i = 0; i < tokens.Length; i++)
+                {
+                    tokens[i] = tokenSpans[i].getCoveredText(sentence).toString();
+                }
+                var tags = GetPosTagger().tag(tokens);
+ 
+                // return an array of chunks that contain tag types and start/end indexes
+                // for the chunk in the source text
+                var chunks = GetChunker().chunkAsSpans(tokens, tags);
+ 
+                foreach (var chunk in chunks)
+                {
+                    // filter out everything but noun phrases
+                    if (chunk.getType() != "NP") continue;
+ 
+                    var chunkStart = start + tokenSpans[chunk.getStart()].getStart();
+                    var chunkEnd = start + tokenSpans[chunk.getEnd() - 1].getEnd();
+ 
+                    // extract the noun phrase
+                    var nounPhrase = sourceText.Substring(chunkStart, chunkEnd - chunkStart);
+ 
+                    // run post processing functions to determine if this noun phrase
+                    // is suitable for our purposes (defined by caller)
+                    if (!ValidNounPhrase(nounPhrase)) continue;
+ 
+                    nounPhrases.Add(nounPhrase);
+                }
+            }
+            return nounPhrases;
+        }
+    }
+}
+{% endhighlight %}
 <p>And finally, a test that demonstrates the setup of my PosNounPhraseParser over the example sentence mentioned earlier in the definition of a noun phrase.</p>
-<p>[sourcecode language="csharp"]<br />
-using System;<br />
-using System.Collections.Generic;<br />
-using System.Diagnostics;<br />
-using System.Linq;<br />
-using NUnit.Framework;</p>
-<p>namespace OpenNLP.NET.PoC<br />
-{<br />
-    [TestFixture]<br />
-    public class PosNounPhraseParserTests<br />
-    {<br />
-        [Test]<br />
-        public void PosNounPhraseParser_GetNounPhrases_Extract_Noun_Phrases_From_Sentence()<br />
-        {<br />
-            string _modelPath = @&quot;C:\Development\NLPForDotNET\lib\opennlp-models-1.5\&quot;;</p>
-<p>            // arrange<br />
-            var nounPhraseAdapter = new PosNounPhraseParser(_modelPath)<br />
-            {<br />
-                PostProcessingFilters = new List&lt;Func&gt;<br />
-                                                                        {<br />
-                                                                            // more than two words<br />
-                                                                            (nounPhrase =&gt; nounPhrase.Split(&quot; &quot;.ToCharArray()).Count() &gt; 1),<br />
-                                                                            // character stop list<br />
-                                                                            (nounPhrase =&gt;<br />
-                                                                             !(nounPhrase.Contains(&quot;.&quot;) ||<br />
-                                                                               nounPhrase.Contains(&quot;\&quot;&quot;) ||<br />
-                                                                               nounPhrase.Contains(&quot;,&quot;) ||<br />
-                                                                               nounPhrase.Contains(&quot;”&quot;) ||<br />
-                                                                               nounPhrase.Contains(&quot;“&quot;) ||<br />
-                                                                               nounPhrase.Contains(&quot;;&quot;)))<br />
-                                                                        }<br />
-            };</p>
-<p>            nounPhraseAdapter.WarmUpModels();</p>
-<p>            var stopwatch = new Stopwatch();<br />
-            stopwatch.Start();</p>
-<p>            // act<br />
-            var actualNounPhrases = nounPhraseAdapter<br />
-                .GetNounPhrases(&quot;The wells and water table had been polluted by chemical pesticides and fertilizers that leached into the earth and were washed by rain into the creeks, where the stunned fish were scavenged by the ospreys.&quot;)<br />
-                .ToArray();</p>
-<p>            stopwatch.Stop();</p>
-<p>            Debug.WriteLine(&quot;Total time: {0}&quot;, stopwatch.Elapsed);</p>
-<p>            // assert<br />
-            Assert.Contains(&quot;The wells and water table&quot;, actualNounPhrases);<br />
-            Assert.Contains(&quot;chemical pesticides and fertilizers&quot;, actualNounPhrases);<br />
-            Assert.Contains(&quot;the earth&quot;, actualNounPhrases);<br />
-            Assert.Contains(&quot;the creeks&quot;, actualNounPhrases);<br />
-            Assert.Contains(&quot;the stunned fish&quot;, actualNounPhrases);<br />
-            Assert.Contains(&quot;the ospreys&quot;, actualNounPhrases);<br />
-        }<br />
-    }<br />
-}<br />
-[/sourcecode]</p>
+{% highlight csharp linenos=table %}
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using NUnit.Framework;
+ 
+namespace OpenNLP.NET.PoC
+{
+    [TestFixture]
+    public class PosNounPhraseParserTests
+    {
+        [Test]
+        public void PosNounPhraseParser_GetNounPhrases_Extract_Noun_Phrases_From_Sentence()
+        {
+            string _modelPath = @"C:\Development\NLPForDotNET\lib\opennlp-models-1.5\";
+ 
+            // arrange
+            var nounPhraseAdapter = new PosNounPhraseParser(_modelPath)
+            {
+                PostProcessingFilters = new List<Func>
+                  {
+                      // more than two words
+                      (nounPhrase => nounPhrase.Split(" ".ToCharArray()).Count() > 1),
+                      // character stop list
+                      (nounPhrase =>
+                       !(nounPhrase.Contains(".") ||
+                         nounPhrase.Contains("\"") ||
+                         nounPhrase.Contains(",") ||
+                         nounPhrase.Contains("”") ||
+                         nounPhrase.Contains("“") ||
+                         nounPhrase.Contains(";")))
+                  }
+            };
+ 
+            nounPhraseAdapter.WarmUpModels();
+ 
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+ 
+            // act
+            var actualNounPhrases = nounPhraseAdapter
+                .GetNounPhrases("The wells and water table had been polluted by chemical pesticides and fertilizers that leached into the earth and were washed by rain into the creeks, where the stunned fish were scavenged by the ospreys.")
+                .ToArray();
+ 
+            stopwatch.Stop();
+ 
+            Debug.WriteLine("Total time: {0}", stopwatch.Elapsed);
+ 
+            // assert
+            Assert.Contains("The wells and water table", actualNounPhrases);
+            Assert.Contains("chemical pesticides and fertilizers", actualNounPhrases);
+            Assert.Contains("the earth", actualNounPhrases);
+            Assert.Contains("the creeks", actualNounPhrases);
+            Assert.Contains("the stunned fish", actualNounPhrases);
+            Assert.Contains("the ospreys", actualNounPhrases);
+        }
+    }
+}
+{% endhighlight %}
 <h2>Conclusion</h2>
 <p>I think this project worked out remarkably well. I don't know if I'll attempt to use something like this in a production environment, but if nothing else it was a very enlightening foray into the interesting world of Natural Language Processing. There are many other subjects in this area that I would like to explore, such as Sentiment Analysis and ways to identify subjects of significance in large bodies of text. As the IBM Watson project demonstrated to us not too long ago, this is a young field with staggering potential. The current trajectory of research along with significant advances in computation capability suggest it won't be long before we can communicate with computers/information systems as easily as if you were talking to your best friend.</p>
 <p>If you wish to use the solution I've demonstrated in this post please make your own determination on whether it's acceptable for your project. I'm no expert in licensing, but I've cited all my sources where available so that the reader can execute their own due diligence.</p>

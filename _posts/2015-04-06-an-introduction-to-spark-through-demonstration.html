@@ -27,194 +27,201 @@ author:
   last_name: Glover
 excerpt: !ruby/object:Hpricot::Doc
 ---
+<img width="100%" src="/assets/learning-spark21.jpeg" class="attachment-post-thumbnail wp-post-image" alt="Learning Spark Demo" border="1">
+<br /><br />
 <p>I recently did a presentation at the <a href="http://www.meetup.com/Toronto-Scala-Typesafe-User-Group/">Toronto Scala &amp; Typesafe User Group</a> on <a href="https://spark.apache.org/">Apache Spark</a> called "Spark in Action".   The presentation served as an excellent excuse to learn more about Apache Spark as well as the greater Hadoop ecosystem of technologies.</p>
 <p>The Spark driver application I created runs two jobs over the <a href="http://blog.stackexchange.com/category/cc-wiki-dump/">StackExchange StackOverflow.com Posts dataset</a>: "Top Co-Occuring Tags of Scala Questions" and "Scala Questions asked month over month".  Check out the output of both jobs below.</p>
 <p><strong><a href="https://github.com/seglo/learning-spark">I published the presentation and a guide on running the StackAnalysis driver application to the learning-spark repository on GitHub</a></strong>.  Check it out if you're interested in running the examples yourselves on your local filesystem or on your own Apache Mesos development cluster (for free!)</p>
 <p>Use arrow keys for navigation.  Type 'p' for presenter notes.  <a href="http://rawgit.com/seglo/learning-spark/master/presentation/learning-spark.html">Direct link</a>.</p>
-<p>[iframe src="http://rawgit.com/seglo/learning-spark/master/presentation/learning-spark.html" height="600"]</p>
+<p>
+<iframe src="http://rawgit.com/seglo/learning-spark/master/presentation/learning-spark.html" height="600" width="100%" scrolling="yes" class="iframe-class" frameborder="0"></iframe>
+</p>
 <blockquote class="twitter-tweet" lang="en"><p>Sean Glover (<a href="https://twitter.com/randonom">@randonom</a>) talking about Spark in Action at the <a href="https://twitter.com/hashtag/TorontoScala?src=hash">#TorontoScala</a> meetup <a href="http://t.co/ujDSNgZhEQ">pic.twitter.com/ujDSNgZhEQ</a></p>
 <p>&mdash; BoldRadius Solutions (@BoldRadius) <a href="https://twitter.com/BoldRadius/status/580885208909672448">March 26, 2015</a></p></blockquote>
 <p><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
 <h2>StackAnalysis output</h2>
 <h3>Scala Questions asked month over month</h3>
-<p>[code language="bash"]<br />
-$ cat data/output/ScalaQuestionsByMonth.txt/*<br />
-(2008-09,6)<br />
-(2008-10,8)<br />
-(2008-11,5)<br />
-(2008-12,3)<br />
-(2009-01,12)<br />
-(2009-02,12)<br />
-(2009-03,17)<br />
-(2009-04,27)<br />
-(2009-05,12)<br />
-(2009-06,64)<br />
-(2009-07,59)<br />
-(2009-08,71)<br />
-(2009-09,67)<br />
-(2009-10,101)<br />
-(2009-11,95)<br />
-(2009-12,84)<br />
-(2010-01,105)<br />
-(2010-02,115)<br />
-(2010-03,115)<br />
-(2010-04,163)<br />
-(2010-05,169)<br />
-(2010-06,176)<br />
-(2010-07,185)<br />
-(2010-08,170)<br />
-(2010-09,232)<br />
-(2010-10,218)<br />
-(2010-11,212)<br />
-(2010-12,228)<br />
-(2011-01,254)<br />
-(2011-02,274)<br />
-(2011-03,301)<br />
-(2011-04,275)<br />
-(2011-05,329)<br />
-(2011-06,336)<br />
-(2011-07,427)<br />
-(2011-08,436)<br />
-(2011-09,421)<br />
-(2011-10,470)<br />
-(2011-11,458)<br />
-(2011-12,376)<br />
-(2012-01,361)<br />
-(2012-02,393)<br />
-(2012-03,463)<br />
-(2012-04,405)<br />
-(2012-05,424)<br />
-(2012-06,446)<br />
-(2012-07,490)<br />
-(2012-08,464)<br />
-(2012-09,535)<br />
-(2012-10,540)<br />
-(2012-11,554)<br />
-(2012-12,482)<br />
-(2013-01,579)<br />
-(2013-02,594)<br />
-(2013-03,671)<br />
-(2013-04,690)<br />
-(2013-05,661)<br />
-(2013-06,693)<br />
-(2013-07,706)<br />
-(2013-08,691)<br />
-(2013-09,796)<br />
-(2013-10,872)<br />
-(2013-11,873)<br />
-(2013-12,842)<br />
-(2014-01,794)<br />
-(2014-02,880)<br />
-(2014-03,986)<br />
-(2014-04,973)<br />
-(2014-05,883)<br />
-(2014-06,975)<br />
-(2014-07,950)<br />
-(2014-08,922)<br />
-(2014-09,398)<br />
-[/code]</p>
+
+{% highlight bash linenos %}
+$ cat data/output/ScalaQuestionsByMonth.txt/*
+(2008-09,6)
+(2008-10,8)
+(2008-11,5)
+(2008-12,3)
+(2009-01,12)
+(2009-02,12)
+(2009-03,17)
+(2009-04,27)
+(2009-05,12)
+(2009-06,64)
+(2009-07,59)
+(2009-08,71)
+(2009-09,67)
+(2009-10,101)
+(2009-11,95)
+(2009-12,84)
+(2010-01,105)
+(2010-02,115)
+(2010-03,115)
+(2010-04,163)
+(2010-05,169)
+(2010-06,176)
+(2010-07,185)
+(2010-08,170)
+(2010-09,232)
+(2010-10,218)
+(2010-11,212)
+(2010-12,228)
+(2011-01,254)
+(2011-02,274)
+(2011-03,301)
+(2011-04,275)
+(2011-05,329)
+(2011-06,336)
+(2011-07,427)
+(2011-08,436)
+(2011-09,421)
+(2011-10,470)
+(2011-11,458)
+(2011-12,376)
+(2012-01,361)
+(2012-02,393)
+(2012-03,463)
+(2012-04,405)
+(2012-05,424)
+(2012-06,446)
+(2012-07,490)
+(2012-08,464)
+(2012-09,535)
+(2012-10,540)
+(2012-11,554)
+(2012-12,482)
+(2013-01,579)
+(2013-02,594)
+(2013-03,671)
+(2013-04,690)
+(2013-05,661)
+(2013-06,693)
+(2013-07,706)
+(2013-08,691)
+(2013-09,796)
+(2013-10,872)
+(2013-11,873)
+(2013-12,842)
+(2014-01,794)
+(2014-02,880)
+(2014-03,986)
+(2014-04,973)
+(2014-05,883)
+(2014-06,975)
+(2014-07,950)
+(2014-08,922)
+(2014-09,398)
+{% endhighlight %}
+
 <p>Top Co-Occuring Tags of Scala Questions</p>
 <p><a href="https://raw.githubusercontent.com/seglo/learning-spark/master/data/output/ScalaTagCount-complete.txt">Complete list</a></p>
-<p>[code language="bash"]<br />
-$ cat data/output/ScalaTagCount.txt/* | head -n 100<br />
-(2687,java)<br />
-(2205,playframework)<br />
-(1972,sbt)<br />
-(1846,playframework-2.0)<br />
-(1309,akka)<br />
-(884,lift)<br />
-(851,functional-programming)<br />
-(669,types)<br />
-(665,actor)<br />
-(650,scala-collections)<br />
-(639,json)<br />
-(544,intellij-idea)<br />
-(532,slick)<br />
-(530,generics)<br />
-(462,eclipse)<br />
-(453,pattern-matching)<br />
-(437,scala-2.10)<br />
-(418,reflection)<br />
-(376,playframework-2.1)<br />
-(374,mongodb)<br />
-(367,playframework-2.2)<br />
-(362,list)<br />
-(360,scalaz)<br />
-(346,scala-2.8)<br />
-(336,collections)<br />
-(318,xml)<br />
-(318,map)<br />
-(318,implicit)<br />
-(297,future)<br />
-(290,scalatest)<br />
-(263,maven)<br />
-(261,parsing)<br />
-(255,spray)<br />
-(250,apache-spark)<br />
-(240,implicit-conversion)<br />
-(237,android)<br />
-(236,concurrency)<br />
-(223,regex)<br />
-(220,case-class)<br />
-(218,scala-macros)<br />
-(214,specs2)<br />
-(198,jvm)<br />
-(191,arrays)<br />
-(191,performance)<br />
-(188,haskell)<br />
-(186,inheritance)<br />
-(182,swing)<br />
-(170,type-inference)<br />
-(170,scala-java-interop)<br />
-(168,unit-testing)<br />
-(168,scala-ide)<br />
-(167,traits)<br />
-(167,recursion)<br />
-(166,macros)<br />
-(166,trait)<br />
-(165,shapeless)<br />
-(165,function)<br />
-(164,anorm)<br />
-(159,immutability)<br />
-(158,multithreading)<br />
-(158,monads)<br />
-(157,casbah)<br />
-(157,parser-combinators)<br />
-(151,scalatra)<br />
-(151,string)<br />
-(143,constructor)<br />
-(143,testing)<br />
-(143,tuples)<br />
-(142,serialization)<br />
-(141,syntax)<br />
-(134,class)<br />
-(129,javascript)<br />
-(124,read-eval-print-loop)<br />
-(121,parallel-processing)<br />
-(121,squeryl)<br />
-(115,spring)<br />
-(114,algorithm)<br />
-(112,mysql)<br />
-(107,compiler)<br />
-(105,typeclass)<br />
-(103,hadoop)<br />
-(103,stream)<br />
-(100,lazy-evaluation)<br />
-(99,type-erasure)<br />
-(98,reactivemongo)<br />
-(98,clojure)<br />
-(97,forms)<br />
-(97,database)<br />
-(96,scala-2.9)<br />
-(96,templates)<br />
-(95,for-comprehension)<br />
-(94,oop)<br />
-(93,iterator)<br />
-(93,asynchronous)<br />
-(92,rest)<br />
-(91,sql)<br />
-(91,python)<br />
-(90,type-parameter)<br />
-(90,dsl)<br />
-(90,postgresql)<br />
-[/code]</p>
+
+{% highlight bash linenos %}
+$ cat data/output/ScalaTagCount.txt/* | head -n 100
+(2687,java)
+(2205,playframework)
+(1972,sbt)
+(1846,playframework-2.0)
+(1309,akka)
+(884,lift)
+(851,functional-programming)
+(669,types)
+(665,actor)
+(650,scala-collections)
+(639,json)
+(544,intellij-idea)
+(532,slick)
+(530,generics)
+(462,eclipse)
+(453,pattern-matching)
+(437,scala-2.10)
+(418,reflection)
+(376,playframework-2.1)
+(374,mongodb)
+(367,playframework-2.2)
+(362,list)
+(360,scalaz)
+(346,scala-2.8)
+(336,collections)
+(318,xml)
+(318,map)
+(318,implicit)
+(297,future)
+(290,scalatest)
+(263,maven)
+(261,parsing)
+(255,spray)
+(250,apache-spark)
+(240,implicit-conversion)
+(237,android)
+(236,concurrency)
+(223,regex)
+(220,case-class)
+(218,scala-macros)
+(214,specs2)
+(198,jvm)
+(191,arrays)
+(191,performance)
+(188,haskell)
+(186,inheritance)
+(182,swing)
+(170,type-inference)
+(170,scala-java-interop)
+(168,unit-testing)
+(168,scala-ide)
+(167,traits)
+(167,recursion)
+(166,macros)
+(166,trait)
+(165,shapeless)
+(165,function)
+(164,anorm)
+(159,immutability)
+(158,multithreading)
+(158,monads)
+(157,casbah)
+(157,parser-combinators)
+(151,scalatra)
+(151,string)
+(143,constructor)
+(143,testing)
+(143,tuples)
+(142,serialization)
+(141,syntax)
+(134,class)
+(129,javascript)
+(124,read-eval-print-loop)
+(121,parallel-processing)
+(121,squeryl)
+(115,spring)
+(114,algorithm)
+(112,mysql)
+(107,compiler)
+(105,typeclass)
+(103,hadoop)
+(103,stream)
+(100,lazy-evaluation)
+(99,type-erasure)
+(98,reactivemongo)
+(98,clojure)
+(97,forms)
+(97,database)
+(96,scala-2.9)
+(96,templates)
+(95,for-comprehension)
+(94,oop)
+(93,iterator)
+(93,asynchronous)
+(92,rest)
+(91,sql)
+(91,python)
+(90,type-parameter)
+(90,dsl)
+(90,postgresql)
+{% endhighlight %}

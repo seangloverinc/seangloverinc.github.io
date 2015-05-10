@@ -37,62 +37,70 @@ excerpt: !ruby/object:Hpricot::Doc
 <p>For the sake of this example I won't require much information associated with every event, just the fact that events occur in a particular order is good enough.  The information I need includes a definition of my audit events, a facebook user, a transient web session, and the audit trail itself.  A WebSession record is created for every new user session that is created (think of the ASP.NET Session).  Each domain event I want to capture is statically defined in a lookup table known as AuditEvents.  When a new Facebook user signs in they're added to FacebookUser.  And finally, the AuditTrail ties a user's web session to each domain event raised in our application.  Below is a simple SQL Server diagram to illustrates the schema.</p>
 <p><a href="/assets/mock-audit-trail-schema.png"><img class="alignnone  wp-image-243" title="Mock audit trail schema" src="/assets/mock-audit-trail-schema.png" alt="" width="531" height="456" /></a></p>
 <p>In the application I created an enumeration with all of the possible domain events. Then a fairly routine use case of the app was identified and I wrote a new acceptance test for it. I declared an <strong>expected</strong> list of domain events that should be recorded as part of the audit trail.  It's important to assert not only that the domain events occurred, but also in what sequence they happened in, therefore order was important in the declaration of our expected events. Below is an example of the kind of events we chose to assert.</p>
-<p>[code lang="csharp"]<br />
-var expectedAuditEvents = new List<br />
-					{<br />
-						AuditEvent.UserCreatedASession,<br />
-						AuditEvent.UserEnteredTodaysDraw,<br />
-						AuditEvent.UserDidNotWinTodaysDraw,<br />
-						AuditEvent.ContinuedToRecommendationPage,<br />
-						AuditEvent.UserIntendsToRecommendOnFacebook,<br />
-						AuditEvent.FacebookAuthorizationWasSuccessful,<br />
-						AuditEvent.UserSharedRecommendation,<br />
-						AuditEvent.UserSuccessfullySharedOnFacebook<br />
-					}<br />
-[/code]</p>
+{% highlight csharp linenos=table %}
+var expectedAuditEvents = new List
+    {
+        AuditEvent.UserCreatedASession,
+        AuditEvent.UserEnteredTodaysDraw,
+        AuditEvent.UserDidNotWinTodaysDraw,
+        AuditEvent.ContinuedToRecommendationPage,
+        AuditEvent.UserIntendsToRecommendOnFacebook,
+        AuditEvent.FacebookAuthorizationWasSuccessful,
+        AuditEvent.UserSharedRecommendation,
+        AuditEvent.UserSuccessfullySharedOnFacebook
+    }
+{% endhighlight %}
 <p>After the use case was executed we retrieved the list of <em>actual</em> audit events that were associated with the transient user session and asserted them against the expected list.</p>
 <p>A full example is defined below.</p>
-<p>[code lang="csharp"]<br />
-[Test]<br />
-public void Share_A_Recommendation_On_Facebook_And_Assert_Correct_Audit_Trail()<br />
-{<br />
-	// GIVEN<br />
-	I_Create_A_New_User_Session();<br />
-	I_Enter_Todays_Draw();</p>
-<p>	// WHEN<br />
-	I_Choose_To_Share_A_Recommendation_On_Facebook();</p>
-<p>	// AND WHEN<br />
-	I_Login_To_Facebook();</p>
-<p>	// AND WHEN<br />
-	I_Confirm_My_Recommendation_Is_Correct();</p>
-<p>	// THEN<br />
-	I_Assert_I_Am_On_The_Callback_Page();</p>
-<p>	// AND THEN<br />
-	I_Assert_My_Session_Audit_Trail();<br />
-}</p>
-<p>protected void I_Assert_My_Session_Audit_Trail()<br />
-{<br />
-	var actualAuditEvents = GetTransientSessionOrderedAuditEvents();<br />
-	AssertAuditTrail(new List<br />
-					{<br />
-						AuditEvent.UserCreatedASession,<br />
-						AuditEvent.UserEnteredTodaysDraw,<br />
-						AuditEvent.UserDidNotWinTodaysDraw,<br />
-						AuditEvent.ContinuedToRecommendationPage,<br />
-						AuditEvent.UserIntendsToRecommendOnFacebook,<br />
-						AuditEvent.FacebookAuthorizationWasSuccessful,<br />
-						AuditEvent.UserSharedRecommendation,<br />
-						AuditEvent.UserSuccessfullySharedOnFacebook<br />
-					}, actualAuditEvents);<br />
-}</p>
-<p>protected void AssertAuditTrail(IList expectedAuditEvents, IList actualAuditEvents)<br />
-{<br />
-	Assert.AreEqual(expectedAuditEvents.Count, actualAuditEvents.Count, &quot;The number of audit events is different.&quot;);</p>
-<p>	for (var i = 0; i &lt; expectedAuditEvents.Count; i++)<br />
-	{<br />
-		Assert.AreEqual(expectedAuditEvents[i], actualAuditTrail[i], &quot;The actual audit event was noted expected.&quot;);<br />
-	}<br />
-}<br />
-[/code]</p>
+{% highlight csharp linenos=table %}
+[Test]
+public void Share_A_Recommendation_On_Facebook_And_Assert_Correct_Audit_Trail()
+{
+    // GIVEN
+    I_Create_A_New_User_Session();
+    I_Enter_Todays_Draw();
+ 
+    // WHEN
+    I_Choose_To_Share_A_Recommendation_On_Facebook();
+ 
+    // AND WHEN
+    I_Login_To_Facebook();
+ 
+    // AND WHEN
+    I_Confirm_My_Recommendation_Is_Correct();
+ 
+    // THEN
+    I_Assert_I_Am_On_The_Callback_Page();
+ 
+    // AND THEN
+    I_Assert_My_Session_Audit_Trail();
+}
+ 
+protected void I_Assert_My_Session_Audit_Trail()
+{
+    var actualAuditEvents = GetTransientSessionOrderedAuditEvents();
+    AssertAuditTrail(new List
+      {
+          AuditEvent.UserCreatedASession,
+          AuditEvent.UserEnteredTodaysDraw,
+          AuditEvent.UserDidNotWinTodaysDraw,
+          AuditEvent.ContinuedToRecommendationPage,
+          AuditEvent.UserIntendsToRecommendOnFacebook,
+          AuditEvent.FacebookAuthorizationWasSuccessful,
+          AuditEvent.UserSharedRecommendation,
+          AuditEvent.UserSuccessfullySharedOnFacebook
+      }, actualAuditEvents);
+}
+ 
+protected void AssertAuditTrail(IList expectedAuditEvents, IList actualAuditEvents)
+{
+    Assert.AreEqual(expectedAuditEvents.Count, actualAuditEvents.Count, "The number of audit events is different.");
+ 
+    for (var i = 0; i < expectedAuditEvents.Count; i++)
+    {
+        Assert.AreEqual(expectedAuditEvents[i], actualAuditTrail[i], "The actual audit event was noted expected.");
+    }
+}
+{% endhighlight %}
 <h2>Conclusion</h2>
 <p>After creating a few of these tests it dawned on me how powerful this process was. Creating acceptance tests that assert based on page state can become very brittle. In my experience a page design changes a lot more frequently than a workflow. I believe tests that assert workflow are not only a lot more resilient, bult also more maintainable and readable. Defining workflow first (<strong>Workflow Driven Development</strong>) as with any test first development method, forces you to come up with a [workflow] design before you actually trigger any events. When thinking of your use cases this way you can quickly identify the steps of your application that may make it more difficult to use. I'm excited to write more testing using this process in the future and I welcome any feedback from the community.</p>

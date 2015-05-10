@@ -30,6 +30,8 @@ author:
 excerpt: !ruby/object:Hpricot::Doc
   options: {}
 ---
+<img width="636" height="227" src="/assets/prism.jpg" class="attachment-post-thumbnail wp-post-image" alt="Not actually a prism, LOL." border="0">
+<br /><br />
 <p><strong>EDIT 26/6/14: I've had a lot of great feedback from everyone.  <a href="https://github.com/seglo/grunt-connect-prism/issues/2">Gulp support is in experimental mode right now</a>, but if there's anything else you would like to see then I encourage you to post an issue on <a href="https://github.com/seglo/grunt-connect-prism/issues">my repo's issue tracker</a>.  Thanks everyone! :)</strong></p>
 <p><a href="https://github.com/seglo/grunt-connect-prism">grunt-connect-prism</a> is a new grunt plugin I've written to help make developing a Single Page Application (SPA) easier. If you're a RoR aficionado then you've probably heard of the project <a href="https://github.com/vcr/vcr">VCR</a>, which is the inspiration for Prism.</p>
 <p>The purpose of this plugin is to provide an easy way for you to record HTTP responses returned by your backend API (or some other remote web resource).  After recording you can then replay the responses when requested and disconnect from the actual backend.  It allows you to work independently of the backend.  It's like an HTTP cache that persists cached responses to the disk and is only active when you explicitly turn it on.</p>
@@ -44,101 +46,104 @@ excerpt: !ruby/object:Hpricot::Doc
 <p>While in record mode you perform all the actions that trigger requests to your backend that you would like to record responses for. In record mode prism acts as proxy, but with the added capability of recording the proxied response. Prism will capture the request URL, including query parameters, content type, HTTP response status, and the data itself.  If the response type happens to be JSON then it will pretty print it in the response file for easier inspection.  For any other content-type it will fallback to a string.</p>
 <p>An example response file in <a href="https://github.com/seglo/prism-sample-project">prism-sample-project</a>:</p>
 <pre>./mocks/serve/6654ad4d1d494222ce02c656386e6955575c17ed.json</pre>
-<p>[sourcecode language="javascript"]<br />
-{<br />
-  &quot;requestUrl&quot;: &quot;/api/users&quot;,<br />
-  &quot;contentType&quot;: &quot;application/json; charset=utf-8&quot;,<br />
-  &quot;statusCode&quot;: 200,<br />
-  &quot;data&quot;: [<br />
-    {<br />
-      &quot;user&quot;: &quot;john&quot;,<br />
-      &quot;fave_genre&quot;: &quot;science fiction&quot;,<br />
-      &quot;last_book_purchased&quot;: &quot;the light of other days&quot;<br />
-    },<br />
-    {<br />
-      &quot;user&quot;: &quot;genevieve&quot;,<br />
-      &quot;fave_genre&quot;: &quot;fantasy&quot;,<br />
-      &quot;last_book_purchased&quot;: &quot;game of thrones: a dance with dragons&quot;<br />
-    },<br />
-    {<br />
-      &quot;user&quot;: &quot;zach&quot;,<br />
-      &quot;fave_genre&quot;: &quot;non-fiction&quot;,<br />
-      &quot;last_book_purchased&quot;: &quot;freakonomics&quot;<br />
-    }<br />
-  ]<br />
-}<br />
-[/sourcecode]</p>
+{% highlight javascript linenos=table %}
+{
+  "requestUrl": "/api/users",
+  "contentType": "application/json; charset=utf-8",
+  "statusCode": 200,
+  "data": [
+    {
+      "user": "john",
+      "fave_genre": "science fiction",
+      "last_book_purchased": "the light of other days"
+    },
+    {
+      "user": "genevieve",
+      "fave_genre": "fantasy",
+      "last_book_purchased": "game of thrones: a dance with dragons"
+    },
+    {
+      "user": "zach",
+      "fave_genre": "non-fiction",
+      "last_book_purchased": "freakonomics"
+    }
+  ]
+}
+{% endhighlight %}
 <p>The filename is a SHA1 hash of the request URL in order to [almost] guarantee a unique filename for easy lookup in the future. After recording some responses you can switch to mock prism mode. When you launch your application and begin making the same requests you did before then instead of proxying your request, prism will intercept it, hash the request URL, and attempt to find a matching response in the appropriate directory. </p>
 <p>If a response file can't be found then a 404 will be returned.</p>
 <h2>How do I use it in development?</h2>
 <p>The project homepage discusses pre-requisites and configuration in detail, but I'll summarize below. You must be using the <a href="https://github.com/gruntjs/grunt-contrib-connect">grunt-contrib-connect</a> plugin. If you use the Yeoman Angular.js generator (<a href="https://github.com/yeoman/generator-angular">generator-angular</a>) then this has already been done for you. Install the latest grunt-connect-prism package from NPM</p>
 <pre>npm install grunt-connect-prism --save-dev</pre>
 <p>Add the middleware to the appropriate target in your Gruntfile.js connect configuration section.</p>
-<p>[sourcecode language="javascript"]<br />
-    connect: {<br />
-      options: {<br />
-        port: 9000,<br />
-        // Change this to '0.0.0.0' to access the server from outside.<br />
-        hostname: 'localhost',<br />
-        livereload: 35729<br />
-      },<br />
-      livereload: {<br />
-        options: {<br />
-          open: true,<br />
-          middleware: function(connect) {<br />
-            return [<br />
-              require('grunt-connect-prism/lib/events').handleRequest,<br />
-              connect.static('.tmp'),<br />
-              connect().use(<br />
-                '/bower_components',<br />
-                connect.static('./bower_components')<br />
-              ),<br />
-              connect.static(appConfig.app)<br />
-            ];<br />
-          }<br />
-        }<br />
-      },<br />
-...<br />
-   }<br />
-[/sourcecode]</p>
+{% highlight javascript linenos=table %}
+    connect: {
+      options: {
+        port: 9000,
+        // Change this to '0.0.0.0' to access the server from outside.
+        hostname: 'localhost',
+        livereload: 35729
+      },
+      livereload: {
+        options: {
+          open: true,
+          middleware: function(connect) {
+            return [
+              require('grunt-connect-prism/lib/events').handleRequest,
+              connect.static('.tmp'),
+              connect().use(
+                '/bower_components',
+                connect.static('./bower_components')
+              ),
+              connect.static(appConfig.app)
+            ];
+          }
+        }
+      },
+...
+   }
+{% endhighlight %}
 <p>Next create a prism configuration object. You must specify a context of your server that prism will listen for requests on. Ex) http://localhost:9000/api/ would be the context of /api. You must specify the hostname, port, scheme configuration of where this resource is actually located. This constitutes the minimum configuration required to get up and running. Below is taken from the <a href="https://github.com/seglo/prism-sample-project">prism-sample-project</a>. For a full example see <a href="https://github.com/seglo/prism-sample-project/blob/master/Gruntfile.js">that projects Gruntfile.js</a>.</p>
-<p>[sourcecode language="javascript"]<br />
-    prism: {<br />
-      options: {<br />
-        mode: 'proxy', /* optional */<br />
-        mocksPath: './mocks', /* optional */<br />
-        context: '/api',<br />
-        host: 'localhost',<br />
-        port: 9090, /* optional */<br />
-        https: false /* optional */<br />
-      },<br />
-      serve: {<br />
-        options: {}<br />
-      },<br />
-      e2e: {<br />
-        options: {}<br />
-      }<br />
-    }<br />
-[/sourcecode]</p>
+{% highlight javascript linenos=table %}
+prism: {
+  options: {
+    mode: 'proxy', /* optional */
+    mocksPath: './mocks', /* optional */
+    context: '/api',
+    host: 'localhost',
+    port: 9090, /* optional */
+    https: false /* optional */
+  },
+  serve: {
+    options: {}
+  },
+  e2e: {
+    options: {}
+  }
+}
+{% endhighlight %}
 <p>Inject prism into your serve call. This is a modified version of what the yeoman <a href="https://github.com/yeoman/generator-angular">generator-angular</a> creates for you.</p>
-<p>[sourcecode language="javascript"]<br />
-  grunt.registerTask('serve', 'Compile then start a connect web server', function(prismMode) {</p>
-<p>    var prismTask = 'prism:serve';</p>
-<p>    if (prismMode) {<br />
-      prismTask = prismTask + ':' + prismMode;<br />
-    }</p>
-<p>    grunt.task.run([<br />
-      'clean:server',<br />
-      'wiredep',<br />
-      'concurrent:server',<br />
-      'autoprefixer',<br />
-      'express:api', /* my example backend server running on port 9090 */<br />
-      prismTask,<br />
-      'connect:livereload',<br />
-      'watch'<br />
-    ]);<br />
-  });<br />
-[/sourcecode]</p>
+{% highlight javascript linenos=table %}
+grunt.registerTask('serve', 'Compile then start a connect web server', function(prismMode) {
+ 
+  var prismTask = 'prism:serve';
+ 
+  if (prismMode) {
+    prismTask = prismTask + ':' + prismMode;
+  }
+ 
+  grunt.task.run([
+    'clean:server',
+    'wiredep',
+    'concurrent:server',
+    'autoprefixer',
+    'express:api', /* my example backend server running on port 9090 */
+    prismTask,
+    'connect:livereload',
+    'watch'
+  ]);
+});
+{% endhighlight %}
 <p>The prism task can be called like any other grunt plugin: {pluginName}:{target}. Prism has an extra argument called "mode". This optional argument allows you to specify the prism mode without having to reconfigure the prism configuration in the Gruntfile.js each time. In the case of the above example, when you run `grunt serve` it will run the prism:serve target by default. If you have not configured this prism target's mode then it will default to proxy.</p>
 <pre>grunt serve</pre>
 <p>To enter a different mode then simply pass in the appropriate mode value when you call grunt serve.</p>
@@ -147,30 +152,33 @@ grunt serve:mock</pre>
 <h2>How do I use it with end to end testing?</h2>
 <p>Using prism for end to end testing involves much the same configuration as for development. You must add the middleware to the connect target you're using in e2e testing (i.e. connect:test) then call the prism task when you execute your e2e tests.</p>
 <p>For this example I'm using <a href="https://github.com/angular/protractor">protractor</a>, <a href="https://github.com/teerapap/grunt-protractor-runner">grunt-protractor-runner</a> (installed with prism-sample-project), and the standalone selenium server to run my e2e tests for my Angular.js project. I created a custom task to launch my tests with grunt.</p>
-<p>[sourcecode language="javascript"]<br />
-  grunt.registerTask('e2e', 'Run end to end tests', function(prismMode) {<br />
-    var prismTask = 'prism:e2e';</p>
-<p>    if (prismMode) {<br />
-      prismTask = prismTask + ':' + prismMode;<br />
-    } else {<br />
-      prismTask = prismTask + ':mock';<br />
-    }</p>
-<p>    // start the backend API if we're in record or proxy mode. this is probably<br />
-    // not applicable if you don't launch your backend server with grunt<br />
-    if (prismMode === 'record' || prismMode === 'proxy') {<br />
-      grunt.task.run(['express:api']);<br />
-    }</p>
-<p>    grunt.task.run([<br />
-      'clean:server',<br />
-      'wiredep',<br />
-      'concurrent:server',<br />
-      'autoprefixer',<br />
-      prismTask,<br />
-      'connect:test',<br />
-      'protractor:e2e'<br />
-    ]);<br />
-  });<br />
-[/sourcecode]</p>
+{% highlight javascript linenos=table %}
+grunt.registerTask('e2e', 'Run end to end tests', function(prismMode) {
+  var prismTask = 'prism:e2e';
+ 
+  if (prismMode) {
+    prismTask = prismTask + ':' + prismMode;
+  } else {
+    prismTask = prismTask + ':mock';
+  }
+ 
+  // start the backend API if we're in record or proxy mode. this is probably
+  // not applicable if you don't launch your backend server with grunt
+  if (prismMode === 'record' || prismMode === 'proxy') {
+    grunt.task.run(['express:api']);
+  }
+ 
+  grunt.task.run([
+    'clean:server',
+    'wiredep',
+    'concurrent:server',
+    'autoprefixer',
+    prismTask,
+    'connect:test',
+    'protractor:e2e'
+  ]);
+});
+{% endhighlight %}
 <p>The e2e task is configured to mock responses when you run `grunt e2e`. </p>
 <pre>grunt e2e</pre>
 <p>In order to record responses, or simply just let your e2e tests proxy to a real server then you can pass the prism mode into the e2e task in the same fashion as with the grunt serve task</p>

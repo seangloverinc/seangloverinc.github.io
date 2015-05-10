@@ -32,34 +32,40 @@ excerpt: !ruby/object:Hpricot::Doc
 <blockquote><p>"We believe that most of the time there is a requirement to execute Javascript there is a failing in the tool being used: it hasn't emitted the correct events, has not interacted with a page correctly, or has failed to react when an XmlHttpRequest returns. We would rather fix Web Driver to work consistently and correctly than rely on testers working out which Javascript method to call." - <a title="Selenium WebDriver FAQ" href="http://code.google.com/p/selenium/wiki/FrequentlyAskedQuestions#Q:_How_do_I_execute_Javascript_directly?">Selenium Web Driver FAQ</a></p></blockquote>
 <p>However, it goes on to recognize that not having the capability to execute arbitrary JavaScript can be a limitation and proceeds to explain the usage of the IJavaScriptExecutor implementation of Web Driver. IMO, I had a case to use this functionality because at the time I had no other way to determine when an animation was fully complete (short of re-factoring the page itself).</p>
 <p>Below is a snippet of a new WebDriverWait helper class that I've been using in my test suite. It includes a method called UntilAnimationIsDone. I use this after I trigger a page event that causes a series of animations so that I know the page is in the expected "ready" state and that I can continue.</p>
-<p>[sourcecode language="csharp"]<br />
-public class Wait<br />
-{<br />
-    private const bool Debug = true;<br />
-    private const int ImplicitWaitInSeconds = 30;</p>
-<p>    private readonly IWebDriver _driver;</p>
-<p>    public Wait(IWebDriver webDriver)<br />
-    {<br />
-        _driver = webDriver;<br />
-    }</p>
-<p>    public void Until(Func&lt;IWebDriver, bool&gt; waitCondition, int timeoutInSeconds = Constants.ImplicitWaitInSeconds)<br />
-    {<br />
-        var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(timeoutInSeconds));<br />
-        wait.Until(waitCondition);<br />
-    }</p>
-<p>    public void UntilAnimationIsDone(string elementId, int timeoutInSeconds = ImplicitWaitInSeconds)<br />
-    {<br />
-        Until(driver =&gt;<br />
-        {<br />
-            var javaScriptExecutor = (IJavaScriptExecutor)driver;<br />
-            var isAnimated = javaScriptExecutor<br />
-                .ExecuteScript(string.Format(&quot;return $('#{0}').is(':animated')&quot;, elementId))<br />
-                .ToString().ToLower();</p>
-<p>            if (Debug)<br />
-                Console.WriteLine(string.Format(&quot;Element: '{0}' Is Animated: {1}&quot;, elementId, isAnimated));</p>
-<p>            // return true when finished animating<br />
-            return !bool.Parse(isAnimated);<br />
-        }, timeoutInSeconds);<br />
-    }<br />
-}<br />
-[/sourcecode]</p>
+{% highlight csharp linenos=table %}
+public class Wait
+{
+    private const bool Debug = true;
+    private const int ImplicitWaitInSeconds = 30;
+ 
+    private readonly IWebDriver _driver;
+ 
+    public Wait(IWebDriver webDriver)
+    {
+        _driver = webDriver;
+    }
+ 
+    public void Until(Func<IWebDriver, bool> waitCondition, int timeoutInSeconds = Constants.ImplicitWaitInSeconds)
+    {
+        var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(timeoutInSeconds));
+        wait.Until(waitCondition);
+    }
+ 
+    public void UntilAnimationIsDone(string elementId, int timeoutInSeconds = ImplicitWaitInSeconds)
+    {
+        Until(driver =>
+        {
+            var javaScriptExecutor = (IJavaScriptExecutor)driver;
+            var isAnimated = javaScriptExecutor
+                .ExecuteScript(string.Format("return $('#{0}').is(':animated')", elementId))
+                .ToString().ToLower();
+ 
+            if (Debug)
+                Console.WriteLine(string.Format("Element: '{0}' Is Animated: {1}", elementId, isAnimated));
+ 
+            // return true when finished animating
+            return !bool.Parse(isAnimated);
+        }, timeoutInSeconds);
+    }
+}
+{% endhighlight %}
