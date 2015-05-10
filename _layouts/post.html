@@ -12,7 +12,7 @@ comments: true
   <article class="post-content">
     {{ content }}
   </article>
-  
+
   {% if page.comments %}
   <div class="comments">
     <script type="text/javascript">
@@ -20,7 +20,7 @@ comments: true
       var disqus_shortname = 'randonom'; // Required - Replace example with your forum shortname
       //var disqus_identifier = 'a unique identifier for each page where Disqus is present';
       //var disqus_title = 'a unique title for each page where Disqus is present';
-      var disqus_url = '{{ page.url | prepend: site.baseurl }}';
+      //var disqus_url = 'http://randonom.com{{ page.url | prepend: site.baseurl }}';
 
       /* * * DON'T EDIT BELOW THIS LINE * * */
       (function() {
