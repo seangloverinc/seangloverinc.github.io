@@ -13,3 +13,39 @@
 .share-button.fb {
   margin-top: -4px;
 }
+
+.seglo {
+  border: 1px solid;
+  height: 250px;
+  margin-bottom: 10px;
+}
+
+.about-header {
+  float: left;
+  margin-right: 20px;
+  
+  svg {
+    margin:10px;
+  }
+  .social {
+    width: 100%;
+    text-align:center;
+  }
+}
+
+.about-text {
+  .headline {
+    font-weight: bold;
+  }
+}
+
+/** 
+ * Site title font
+ */
+.randonom {
+  font-family: "Helvetica Neue",sans-serif;
+  font-weight: bold;
+  letter-spacing: -3px;
+  font-size:72px;
+  font-transform:none;
+}
