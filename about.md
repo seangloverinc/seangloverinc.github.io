@@ -39,7 +39,7 @@ permalink: /about/
 Software Development Team Lead, disruptor, tech evangelist, part time OSS author
 </p>
 <p>
-I'm currently working at <a href="http://www.ethoca.com">Ethoca</a> where I'm building development teams, envangelizing new technologies, disrupting long held J2EE dogma, and creating software that sets the standard between card issuer and online merchants.
+I'm currently working at <a href="http://www.ethoca.com">Ethoca</a> where I'm building development teams, evangelizing new technologies, disrupting long held J2EE dogma, and creating software that sets the standard between card issuer and online merchants.
 </p>
 <p>
 I'm an organizer of the <a href="http://www.meetup.com/Toronto-Scala-Typesafe-User-Group/">Toronto Scala &amp; Typesafe User Group</a>.  Join us for regular meetups about the <a href="http://www.scala-lang.org/">Scala programming language</a>, <a href="https://www.typesafe.com/">Typesafe products</a>, and to hang out with Toronto's Scala hackers.
