@@ -36,7 +36,7 @@ permalink: /about/
 </div>
 <div class="about-text">
 <p class="headline">
-Software Development Team Lead, distruptor, tech evangelist, part time OSS author
+Software Development Team Lead, disruptor, tech evangelist, part time OSS author
 </p>
 <p>
 I'm currently working at <a href="http://www.ethoca.com">Ethoca</a> where I'm building development teams, envangelizing new technologies, disrupting long held J2EE dogma, and creating software that sets the standard between card issuer and online merchants.
