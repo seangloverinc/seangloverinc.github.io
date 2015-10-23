@@ -46,7 +46,7 @@ I met David online nearly 8 years ago. Like many of my peers in technology, I gr
 </center>
 <br />
 
-In 2008 I became a Network Representative for the [Open and Free Technology Community (OFTC)](http://www.oftc.net/).  I made a number of new online friends of the OFTC staff.  At the time David was [recently elected as Ombudsman](http://www.oftc.net/ElectionResults/2008/) of the network and when he found out I was a fellow Canadian we began getting to know one another.
+In 2007 I became a Network Representative for the [Open and Free Technology Community (OFTC)](http://www.oftc.net/).  I made a number of new online friends of the OFTC staff.  At the time David was [recently elected as Ombudsman](http://www.oftc.net/ElectionResults/2008/) of the network and when he found out I was a fellow Canadian we began getting to know one another.
 
 <br />
 <center>
@@ -77,7 +77,7 @@ One problem with this process is that at the end of the day you still don't know
 </center>
 <br />
 
-If you’re a technologist like me then you really cringe when you see politicians bungle a technology issue. Whether it’s comparing the [internet to a series of tubes](http://knowyourmeme.com/memes/series-of-tubes) or thinking open source will hurt commercial interests, there are plenty of examples of technology issues that are handled poorly by politicians. The root cause of this is of course ignorance of how technology works. With technology ruling nearly every facet our lives, this ignorance can have serious consequences for a society.  Many politicians are alarmingly impressionable by biased parties, such as lobbyists paid for by capitalistic entities looking out for their best interests. I have high hopes that David, already a technology enthusiast, will be able implicitly understand many technology issues and help advise his colleagues accordingly.
+If you’re a technologist like me then you really cringe when you see politicians bungle a technology issue. Whether it’s comparing the [internet to a series of tubes](http://knowyourmeme.com/memes/series-of-tubes) or thinking open source will hurt commercial interests, there are plenty of examples of technology issues that are handled poorly by politicians. The root cause of this is of course ignorance of how technology works. With technology ruling nearly every facet our lives, this ignorance can have serious consequences for our society.  Many politicians are alarmingly impressionable by biased parties, such as lobbyists paid for by capitalistic entities looking out for their own best interests. I have high hopes that David, already a technology enthusiast, will be able implicitly understand many technology issues and help advise his colleagues accordingly.
 
 <br />
 <center>
@@ -85,7 +85,7 @@ If you’re a technologist like me then you really cringe when you see politicia
 </center>
 <br />
 
-David and I aren't really close, but I consider him a friend.  I was really proud of him when he started working in politics and I gave him my support when he ran for office in the 2015 election.  You're not going to find many people like him in office.  Not only does he understand and embrace technology, but he's an advocate for free and open source software.  He knows how to use a Linux command line and he has some experience in programming.  I hope he continues to champion open technology initiatives at the highest levels of government now that he's an elected official.  I encourage fellow Canadian technology enthusiasts to write to David to congratulate him on his victory.. and if you ever get a chance to meet him in person, make sure to bring along some ID and your public key to join his web of trust!
+David and I aren't really close, but I consider him a friend.  I was really proud of him when he started working in politics and I gave him my support when he ran for office in the 2015 election.  You're not going to find many people like him in office.  Not only does he understand and embrace technology, but he's an advocate for free and open source software.  He knows how to use a Linux command line and he has some experience in programming.  Now that he's an elected official I hope that he continues to champion open technology initiatives at the highest levels of government.  I encourage fellow Canadian technology enthusiasts to write to David to congratulate him on his victory.. and if you ever get a chance to meet him in person, make sure to bring along some ID and your public key to join his web of trust!
 
 [You'll find David's public key below](https://pgp.mit.edu/pks/lookup?op=vindex&search=0x851A0EA9D5F45889)
 
