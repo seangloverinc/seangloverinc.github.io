@@ -28,7 +28,7 @@ author:
   last_name: Glover
 excerpt: !ruby/object:Hpricot::Doc
 ---
-This week I was proud to learn that [David de Burge Graham](https://en.wikipedia.org/wiki/David_de_Burgh_Graham) was elected as a Member of Parliament of Quebec Canada's Laurentides--Labelle riding. As far as I know, David is one of our Country's first real technology enthusiasts in the house of commons.  
+This week I was proud to learn that [David de Burge Graham](https://en.wikipedia.org/wiki/David_de_Burgh_Graham) was elected as a Member of Parliament of Quebec Canada's Laurentides--Labelle riding. As far as I know, David is one of our country's first real technology enthusiasts in the house of commons.  
 
 <br />
 <center>
