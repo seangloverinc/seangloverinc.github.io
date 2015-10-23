@@ -28,6 +28,8 @@ author:
   last_name: Glover
 excerpt: !ruby/object:Hpricot::Doc
 ---
+This week I was proud to learn that [David de Burge Graham](https://en.wikipedia.org/wiki/David_de_Burgh_Graham) was elected as a Member of Parliament of Quebec Canada's Laurentides--Labelle riding. As far as I know, David is one of our Country's first real technology enthusiasts in the house of commons.  
+
 <br />
 <center>
 <img src="/assets/davidelected.png" alt="David Graham" style="width:400px;border:1px solid"/>
@@ -35,8 +37,6 @@ excerpt: !ruby/object:Hpricot::Doc
 <a href="http://www.cbc.ca/news2/interactives/results-2015/">CBC 2015 Interactive Election Results</a>
 </center>
 <br />
-
-This week I was proud to learn that [David de Burge Graham](https://en.wikipedia.org/wiki/David_de_Burgh_Graham) was elected as a Member of Parliament of Quebec Canada's Laurentides--Labelle riding. As far as I know, David is one of our Country's first real technology enthusiasts in the house of commons.  
 
 I met David online nearly 8 years ago. Like many of my peers in technology, I grew up in the 90’s during the Personal Computing revolution.  I've met thousands of people online through a text-only chat technology known as Internet Relay Chat (IRC).  Some of those people I went on to meet in person, but for the most part my digital and "meatspace" life have remained separate. 
 
