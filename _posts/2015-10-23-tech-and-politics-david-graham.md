@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Technology and Canadian Politics - David Graham
-date: 2015-04-06 05:00:52.000000000 -04:00
+date: 2015-10-22 05:00:52.000000000 -04:00
 categories:
 - Politics
 - Technology
@@ -26,6 +26,7 @@ author:
   display_name: Sean Glover
   first_name: Sean
   last_name: Glover
+permalink: /blog/2015/04/tech-and-politics-david-graham/ # messed up the original date and generated permalink was wrong.. overridden here to preserve permalink after fixing date.
 excerpt: !ruby/object:Hpricot::Doc
 ---
 This week I was proud to learn that [David de Burge Graham](https://en.wikipedia.org/wiki/David_de_Burgh_Graham) was elected as a Member of Parliament of Quebec Canada's Laurentides--Labelle riding. As far as I know, David is one of our country's first real technology enthusiasts in the house of commons.  
