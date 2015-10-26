@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Technology and Canadian Politics - David Graham
+title: Technology and Politics - David Graham
 date: 2015-10-22 05:00:52.000000000 -04:00
 categories:
 - Politics
