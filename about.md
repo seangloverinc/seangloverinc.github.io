@@ -39,13 +39,13 @@ permalink: /about/
 Software Development Team Lead, disruptor, tech evangelist, part time OSS author
 </p>
 <p>
-I'm currently working at <a href="http://www.ethoca.com">Ethoca</a> where I'm building development teams, evangelizing new technologies, disrupting long held J2EE dogma, and creating software that sets the standard between card issuer and online merchants.
+I'm currently working at <a href="http://www.boldradius.com">BoldRadius</a> where I'm evangelizing Typesafe's Reactive Stack, consulting clients, training people on Spark, and creating high quality software written in Scala.
 </p>
 <p>
-I'm an organizer of the <a href="http://www.meetup.com/Toronto-Scala-Typesafe-User-Group/">Toronto Scala &amp; Typesafe User Group</a>.  Join us for regular meetups about the <a href="http://www.scala-lang.org/">Scala programming language</a>, <a href="https://www.typesafe.com/">Typesafe products</a>, and to hang out with Toronto's Scala hackers.
+I'm the organizer of the <a href="http://www.meetup.com/scalator/">Scala Toronto (scalator)</a> meetup.  Join us for regular meetups about the <a href="http://www.scala-lang.org/">Scala programming language</a> and to hang out with Toronto's Scala hackers.  I also co-organize the <a href="http://www.meetup.com/Toronto-Apache-Spark/">Toronto Apache Spark</a> meetup.
 </p>
 <p>
-I'm the author of the node.js <a href="https://github.com/seglo/connect-prism">connect-prism</a> and <a href="https://github.com/seglo/grunt-connect-prism">grunt-connect-prism</a> libraries.  Use prism to record, mock, and proxy HTTP traffic as middleware with the connect middleware framework.
+I'm a big fan of Apache Spark and have presented on the subject a few times.  See my <a href="https://github.com/seglo/learning-spark">learning-spark</a> repository for practical examples that can help you learn Spark too.  I'm the author of the node.js <a href="https://github.com/seglo/connect-prism">connect-prism</a> and <a href="https://github.com/seglo/grunt-connect-prism">grunt-connect-prism</a> libraries.  Use prism to record, mock, and proxy HTTP traffic as middleware with the connect middleware framework.
 </p>
 <p>
 For more information about me please see <a href="https://www.linkedin.com/in/seanaglover">my LinkedIn profile</a>.
