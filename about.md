@@ -36,10 +36,10 @@ permalink: /about/
 </div>
 <div class="about-text">
 <p class="headline">
-Software Development Team Lead, disruptor, tech evangelist, part time OSS author
+Scala consultant, disruptor, tech evangelist, part time OSS author
 </p>
 <p>
-I'm currently working at <a href="http://www.boldradius.com">BoldRadius</a> where I'm evangelizing Typesafe's Reactive Stack, consulting clients, training people on Spark, and creating high quality software written in Scala.
+I work at <a href="http://www.lightbend.com">Lightbend</a> where I'm evangelizing the Reactive Platform, consulting clients, training teams on Spark, and creating high quality software written in Scala.
 </p>
 <p>
 I'm the organizer of the <a href="http://www.meetup.com/scalator/">Scala Toronto (scalator)</a> meetup.  Join us for regular meetups about the <a href="http://www.scala-lang.org/">Scala programming language</a> and to hang out with Toronto's Scala hackers.  I also co-organize the <a href="http://www.meetup.com/Toronto-Apache-Spark/">Toronto Apache Spark</a> meetup.
