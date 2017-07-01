@@ -29,7 +29,6 @@ layout: default
     <br /><br /> -->
     <!-- Github badge -->
     <!-- <iframe src="http://githubbadge.appspot.com/seglo?s=1&a=0" style="border: 0;height: 142px;width: 200px;overflow: hidden;" frameBorder="0"></iframe> -->
-    </a>
   </div>
 </div>
 <div class="about-text">
@@ -46,7 +45,7 @@ I'm the organizer of the <a href="http://www.meetup.com/scalator/">Scala Toronto
 I'm a big fan of Scala, Spark, and Kafka.  See my <a href="https://github.com/seglo/learning-spark">learning-spark</a> repository for practical examples that can help you learn Spark.  I'm the author of the node.js <a href="https://github.com/seglo/connect-prism">connect-prism</a> and <a href="https://github.com/seglo/grunt-connect-prism">grunt-connect-prism</a> libraries.  Use prism to record, mock, and proxy HTTP traffic as middleware with the connect middleware framework.
 </p>
 <p>
-For more information about me please see <a href="https://www.linkedin.com/in/seanaglover">my LinkedIn profile</a>.  You can find my most <a href="https://docs.google.com/document/d/14zctT1XkP7H3ODaz212YOnCa8-8tZg2wPLvcY-LCcEE/edit?usp=sharing">up-to-date resume as a Google doc</a>.
+For more information about me please see <a href="https://www.linkedin.com/in/seanaglover">my LinkedIn profile</a>.  You can find my most <a href="https://docs.google.com/document/d/1yz9xtABfyRei2wTj--HMeV9DUOgx_BMw6kLgIBjgDME/edit?usp=sharing">up-to-date resume as a Google doc</a>.
 </p>
 
 <!-- LinkedIn badge -->
