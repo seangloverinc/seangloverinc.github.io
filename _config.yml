@@ -1,17 +1,16 @@
 # Site settings
-title: randonom
-htmltitle: Sean Glover's blog
+title: Sean Glover
+htmltitle: Sean Glover
 email: seglo@randonom.com
-description: > # this means to ignore newlines until "baseurl:"
-  Sean Glover's blog
+description: >
+  Scala Architect, Data Engineer, OSS Author, Tech Community Organizer
 baseurl: "" # the subpath of your site, e.g. /blog/
 permalink: /blog/:year/:month/:title/
 url: "http://seanglover.com" # the base hostname & protocol for your site
 
-twitter_username: randonom
+twitter_username: seg1o
 github_username: seglo
 linkedin_username: seanaglover
-
 
 # Build settings
 markdown: kramdown
