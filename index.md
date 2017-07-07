@@ -2,7 +2,7 @@
 layout: default
 ---
 <div class="about-header">
-  <img class="seglo" src="/assets/seglo.jpg" />
+  <img class="seglo" src="/assets/seglo.jpg" alt="Sean Glover" />
   <br />
   <div class="social">
     <a href="https://twitter.com/{{ site.twitter_username }}"><svg width="40px" height="40px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
