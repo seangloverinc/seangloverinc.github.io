@@ -11,5 +11,22 @@
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" />
 
+  <!-- Google Social Media Optimization -->
+  <script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Person",
+    "name": "Sean Glover",
+    "url": "http://seanglover.com",
+    "sameAs": [
+      "https://twitter.com/seg1o",
+      "https://www.linkedin.com/in/seanaglover/",
+      "https://www.youtube.com/channel/UC0pGBrp0HyLyEv_YWOhxmzw",
+      "https://github.com/seglo"
+    ]
+  }
+  </script>
+
+
   {% include icons.html %}
 </head>
