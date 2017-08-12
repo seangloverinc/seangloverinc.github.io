@@ -36,13 +36,16 @@ layout: default
 Scala Architect, Data Engineer, OSS Author, Tech Community Organizer
 </p>
 <p>
-I am an architect, consultant, teacher and mentor. I enable <a href="http://www.lightbend.com">Lightbend’s</a> clients to design, build and run Fast Data and Reactive software platforms.
+I am an architect, engineer, teacher and mentor. I'm an engineer on the <a href="https://www.lightbend.com/fast-data-platform">Fast Data Platform</a> team at <a href="http://www.lightbend.com">Lightbend</a>. We're building the next generation big data platform distribution with a focus on stream processors, machine learning, and operations ease of use.
 </p>
 <p>
 I'm the organizer of the <a href="http://www.meetup.com/scalator/">Scala Toronto (scalator)</a> meetup.  Join us for regular meetups about the <a href="http://www.scala-lang.org/">Scala programming language</a> and to hang out with Toronto's Scala hackers.  I also co-organize the <a href="http://www.meetup.com/Toronto-Apache-Spark/">Toronto Apache Spark</a> meetup.
 </p>
 <p>
-I'm a big fan of Scala, Spark, and Kafka.  See my <a href="https://github.com/seglo/learning-spark">learning-spark</a> repository for practical examples that can help you learn Spark.  I'm the author of the node.js <a href="https://github.com/seglo/connect-prism">connect-prism</a> and <a href="https://github.com/seglo/grunt-connect-prism">grunt-connect-prism</a> libraries.  Use prism to record, mock, and proxy HTTP traffic as middleware with the connect middleware framework.
+I'm a big fan of Scala, Spark, Kafka, and Akka.  See my <a href="https://github.com/seglo/">GitHub</a> and <a href="https://github.com/seglo/learning-spark">learning-spark</a> repository for practical examples that can help you learn more about Spark, Kafka, Akka, and Akka Streams.
+</p>
+<p>
+I'm the author of the node.js <a href="https://github.com/seglo/connect-prism">connect-prism</a> and <a href="https://github.com/seglo/grunt-connect-prism">grunt-connect-prism</a> libraries.  Use prism to record, mock, and proxy HTTP traffic as middleware with the connect middleware framework.
 </p>
 <p>
 For more information about me please see <a href="https://www.linkedin.com/in/seanaglover">my LinkedIn profile</a>.  You can find my most <a href="https://docs.google.com/document/d/1yz9xtABfyRei2wTj--HMeV9DUOgx_BMw6kLgIBjgDME/edit?usp=sharing">up-to-date resume as a Google doc</a>.
