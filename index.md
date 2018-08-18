@@ -2,7 +2,7 @@
 layout: default
 ---
 <div class="about-header">
-  <img class="seglo" src="/assets/seglo.jpg" alt="Sean Glover" />
+  <img class="seglo" src="/assets/seglo-headshot-2017.jpg" alt="Sean Glover" />
   <br />
   <div class="social">
     <a href="https://twitter.com/{{ site.twitter_username }}"><svg width="40px" height="40px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
@@ -33,22 +33,22 @@ layout: default
 </div>
 <div class="about-text">
 <p class="headline">
-Scala Architect, Data Engineer, OSS Author, Tech Community Organizer
+Scala Architect, Data Engineer, Tech Community Organizer
 </p>
 <p>
-I am an architect, engineer, teacher and mentor. I'm an engineer on the <a href="https://www.lightbend.com/fast-data-platform">Fast Data Platform</a> team at <a href="http://www.lightbend.com">Lightbend</a>. We're building the next generation big data platform distribution with a focus on stream processors, machine learning, and operations ease of use.
+I am an architect, engineer, teacher and mentor.  I'm a Software Engineer at <a href="http://www.lightbend.com">Lightbend</a> (formerly Typesafe), currently working on the <a href="https://www.lightbend.com/fast-data-platform">Fast Data Platform</a> team where I specialize in <a href="https://kafka.apache.org/">Apache Kafka</a> and its ecosystem. The Fast Data Platform team is building the next generation big data platform distribution with a focus on stream processors, machine learning, application development user experience and operations ease of use.
 </p>
 <p>
-I'm the organizer of the <a href="http://www.meetup.com/scalator/">Scala Toronto (scalator)</a> meetup.  Join us for regular meetups about the <a href="http://www.scala-lang.org/">Scala programming language</a> and to hang out with Toronto's Scala hackers.  I also co-organize the <a href="http://www.meetup.com/Toronto-Apache-Spark/">Toronto Apache Spark</a> meetup.
+I'm the organizer of the <a href="http://www.meetup.com/scalator/">Scala Toronto (scalator)</a> meetup.  Join us for regular meetups about the <a href="http://www.scala-lang.org/">Scala programming language</a> and to hang out with Toronto's Scala hackers.
 </p>
 <p>
-I'm a big fan of Scala, Spark, Kafka, and Akka.  See my <a href="https://github.com/seglo/">GitHub</a> and <a href="https://github.com/seglo/learning-spark">learning-spark</a> repository for practical examples that can help you learn more about Spark, Kafka, Akka, and Akka Streams.
+My current specialization is in building Streaming Data Platforms and Distributed Systems using technologies such as Scala, Spark, Kafka, and Akka.  I contribute to a variety of open source projects in this page.  See my <a href="https://github.com/seglo/">GitHub</a> for more details.  I've been invited to speak at a variety of Software Development and Big Data conferences around the world including Strata, Scala Up North, and Scale by the Bay.
 </p>
 <p>
 I'm the author of the node.js <a href="https://github.com/seglo/connect-prism">connect-prism</a> and <a href="https://github.com/seglo/grunt-connect-prism">grunt-connect-prism</a> libraries.  Use prism to record, mock, and proxy HTTP traffic as middleware with the connect middleware framework.
 </p>
 <p>
-For more information about me please see <a href="https://www.linkedin.com/in/seanaglover">my LinkedIn profile</a>.  You can find my most <a href="https://docs.google.com/document/d/1yz9xtABfyRei2wTj--HMeV9DUOgx_BMw6kLgIBjgDME/edit?usp=sharing">up-to-date resume as a Google doc</a>.
+For more information about me please see my <a href="https://www.linkedin.com/in/seanaglover">LinkedIn profile</a>.  You can find my most <a href="https://docs.google.com/document/d/1yz9xtABfyRei2wTj--HMeV9DUOgx_BMw6kLgIBjgDME/edit?usp=sharing">up-to-date resume as a Google doc</a>.
 </p>
 
 <!-- LinkedIn badge -->

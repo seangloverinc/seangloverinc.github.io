@@ -1,9 +1,9 @@
 # Site settings
 title: Sean Glover
 htmltitle: Sean Glover | Software Engineer | Toronto
-email: seglo@randonom.com
+email: sean@seanglover.com
 description: >
-  Scala Architect, Data Engineer, OSS Author, Tech Community Organizer
+  Scala Architect, Data Engineer, Tech Community Organizer
 baseurl: "" # the subpath of your site, e.g. /blog/
 permalink: /blog/:year/:month/:title/
 url: "http://seanglover.com" # the base hostname & protocol for your site
