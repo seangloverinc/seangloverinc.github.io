@@ -26,4 +26,4 @@ Talks that I've given on a variety of software topics at conferences and meetups
 ## 2015
 
 * [Scala Up North](http://scalaupnorth.com/2015.html) - Spark Streaming in Action, Toronto - [Video](https://www.youtube.com/watch?v=aul3uXTtVJo)
-* [Scala Toronto](https://www.meetup.com/scalator/) - Spark in Action, Toronto
+* [Scala Toronto](https://www.meetup.com/scalator/) - [Spark in Action](https://www.meetup.com/scalator/events/220911327/), Toronto

@@ -1,5 +1,7 @@
 ---
 layout: default
+meta:
+  description: Sean Glover is a Data Streaming and Distributed Systems Software Engineer living in Toronto.
 ---
 <div class="about-header">
   <img class="seglo" src="/assets/seglo-headshot-2017.jpg" alt="Sean Glover" />
@@ -36,13 +38,13 @@ layout: default
 Scala Architect, Data Engineer, Tech Community Organizer
 </p>
 <p>
-I am an architect, engineer, teacher and mentor.  I'm a Software Engineer at <a href="http://www.lightbend.com">Lightbend</a> (formerly Typesafe), currently working on the <a href="https://www.lightbend.com/fast-data-platform">Fast Data Platform</a> team where I specialize in <a href="https://kafka.apache.org/">Apache Kafka</a> and its ecosystem. The Fast Data Platform team is building the next generation big data platform distribution with a focus on stream processors, machine learning, application development user experience and operations ease of use.
+I am an architect, engineer, teacher and mentor.  I'm a Principal Software Engineer at <a href="http://www.lightbend.com">Lightbend</a> (formerly Typesafe), currently working on the <a href="https://www.lightbend.com/fast-data-platform">Fast Data Platform</a> team where I specialize in <a href="https://kafka.apache.org/">Apache Kafka</a> and its ecosystem. The Fast Data Platform team is building the next generation big data platform distribution with a focus on stream processors, machine learning, application development user experience and operations ease of use.
 </p>
 <p>
 I'm the organizer of the <a href="http://www.meetup.com/scalator/">Scala Toronto (scalator)</a> meetup.  Join us for regular meetups about the <a href="http://www.scala-lang.org/">Scala programming language</a> and to hang out with Toronto's Scala hackers.
 </p>
 <p>
-My current specialization is in building Streaming Data Platforms and Distributed Systems using technologies such as Scala, Spark, Kafka, and Akka.  I contribute to a variety of open source projects in this page.  See my <a href="https://github.com/seglo/">GitHub</a> for more details.  I've been invited to speak at a variety of Software Development and Big Data conferences around the world including Strata, Scala Up North, and Scale by the Bay.
+My current specialization is in building Streaming Data Platforms and Distributed Systems using technologies such as Scala, Spark, Kafka, and Akka.  I contribute to a variety of open source projects in this page.  See my <a href="https://github.com/seglo/">GitHub</a> for more details.  I've been invited to <a href="/talks/">speak</a> at a variety of Software Development and Big Data conferences around the world including Strata, Reactive Conf, DataEngConf, and Scale By the Bay.
 </p>
 <p>
 I'm the author of the node.js <a href="https://github.com/seglo/connect-prism">connect-prism</a> and <a href="https://github.com/seglo/grunt-connect-prism">grunt-connect-prism</a> libraries.  Use prism to record, mock, and proxy HTTP traffic as middleware with the connect middleware framework.
