@@ -1,0 +1,29 @@
+---
+layout: page
+title: Talks
+permalink: /talks/
+---
+
+Talks that I've given on a variety of software topics at conferences and meetups around the world.
+
+## 2018
+
+* [Scale By the Bay](http://scale.bythebay.io/) - [Fast Data apps with Alpakka Kafka](https://scalebythebay2018.sched.com/speaker/sean_glover.1yeztguw?iframe=yes&w=100%&sidebar=yes&bg=no), [Twitter HQ](https://goo.gl/maps/2a7Ee7VUtCu), San Francisco - [Video](https://www.youtube.com/watch?v=ib1oYAS2dh0), [Slides](http://seanglover.com/assets/slides/Fast_Data_apps_with_Alpakka_Kafka_Connector_ScaleByTheBay_2018.pdf)
+* [DataEngConf](https://www.reactivesummit.org/) - [Fast Data apps with Alpakka Kafka](https://www.datacouncil.ai/speaker/fast-data-apps-with-alpakka-kafka-connector-and-akka-streams?hsLang=en-us), NYC
+* [Reactive Summit](https://www.reactivesummit.org/) - [Fast Data apps with Alpakka Kafka](https://www.reactivesummit.org/2018/speakers/sean-glover), Montreal - [Video](https://www.youtube.com/watch?v=wQ-c3Dmlimc), [Slides](http://seanglover.com/assets/slides/Fast_Data_apps_with_Alpakka_Kafka_Connector_ReactiveSummit_2018.pdf)
+* [Lightbend](http://www.lightbend.com) - Putting Kafka in Jail - [Video](https://info.lightbend.com/webinar-kafka-in-jail-recording.html?utm_source=website&utm_medium=homepage-link-list&utm_campaign=WBN-2018-JUN-Kafka-in-jail&utm_term=none&utm_content=none)
+* [Strata Data Conference](https://conferences.oreilly.com/strata/strata-eu-2018) - [Kafka in Jail](https://conferences.oreilly.com/strata/strata-eu-2018/public/schedule/detail/65418), London - [Video](https://www.safaribooksonline.com/videos/strata-data-conference/9781492025993/9781492025993-video320545), [Slides](http://seanglover.com/assets/slides/Kafka_in_Jail-Strata_London_2018.pdf)
+
+## 2017
+
+* [Lightbend](http://www.lightbend.com) - Building Streaming and Fast Data apps - [Video](https://info.lightbend.com/webinar-building-streaming-and-fast-data-applications-with-spark-mesos-akka-cassandra-and-kafka.html)
+* Waterloo JUG - Microservice Design Patterns, Waterloo - [Slides](http://seanglover.com/assets/slides/Microservice_Design_Patterns_and_Lagom_Waterloo_Jug_2017.pdf)
+
+## 2016
+
+* BoldRadius - Orchestrate your Data using Mesosphere Infinity (DC/OS) - [Video](https://www.youtube.com/watch?v=ls5hjHrM9l8)
+
+## 2015
+
+* [Scala Up North](http://scalaupnorth.com/2015.html) - Spark Streaming in Action, Toronto - [Video](https://www.youtube.com/watch?v=aul3uXTtVJo)
+* [Scala Toronto](https://www.meetup.com/scalator/) - Spark in Action, Toronto
