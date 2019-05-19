@@ -8,6 +8,7 @@ Talks that I've given on a variety of software topics at conferences and meetups
 
 ## 2019
 
+* [Lightbend](http://www.lightbend.com) - [Running Kafka On Kubernetes With Strimzi For Real-Time Streaming Applications](https://info.lightbend.com/webinar-running-kafka-on-kubernetes-w-strimzi-register.html)
 * [Kafka Summit NYC](https://kafka-summit.org/events/kafka-summit-new-york-2019/) - [Streaming Design Patterns Using Alpakka Kafka Connector](https://kafka-summit.org/sessions/streaming-design-patterns-using-alpakka-kafka-connector/), NYC - [Video and Slides](https://www.confluent.io/kafka-summit-ny19/streaming-design-patterns-using-alpakka-kafka-connector)
 * [Strata SF Data Conference](https://conferences.oreilly.com/strata/strata-ca) - [Kafka in Jail with Strimzi](https://conferences.oreilly.com/strata/strata-ca/public/schedule/detail/72514), San Francisco
 

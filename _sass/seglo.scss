@@ -3,15 +3,13 @@
  * Share buttons
  */
 .share-buttons {
-  height: 30px;
+  line-height: 1;
+  width: 100%;
 }
+
 .share-button {
   float: left;
   padding-right: 10px;
-}
-
-.share-button.fb {
-  margin-top: -4px;
 }
 
 .seglo {

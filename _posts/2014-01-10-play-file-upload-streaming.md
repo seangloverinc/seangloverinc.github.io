@@ -18,8 +18,8 @@ meta:
   _thumbnail_id: '514'
   _encloseme: '1'
 author:
-  login: wladek
-  email: wladek@gmail.com
+  login: seglo
+  email: sean@seanglover.com
   display_name: Sean Glover
   first_name: Sean
   last_name: Glover
