@@ -4,7 +4,7 @@ meta:
   description: Sean Glover is a Data Streaming and Distributed Systems Software Engineer living in Toronto.
 ---
 <div class="about-header">
-  <a href="/assets/sean_glover_headshot_2017_sm.jpg"><img class="seglo" src="/assets/sean_glover_headshot_2017.jpg" alt="Sean Glover" /></a>
+  <a href="/assets/sean_glover_headshot_2017.jpg"><img class="seglo" src="/assets/sean_glover_headshot_2017_sm.jpg" alt="Sean Glover" /></a>
   <br />
   <div class="social">
     <a href="https://twitter.com/{{ site.twitter_username }}"><svg width="40px" height="40px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
@@ -25,12 +25,6 @@ meta:
         <path d="M59.5508386,30 C59.5508386,46.5685433 46.3204783,60 30,60 C23.9471212,60 18.3192858,58.1525134 13.6339051,54.9827754 L47.4941264,5.81941103 C54.8060245,11.2806503 59.5508386,20.0777973 59.5508386,30 Z M59.5508386,30" id="reflec" fill-opacity="0.08" fill="#000000" sketch:type="MSShapeGroup"></path>
     </svg></a>
     <br />
-    <!-- Stack Overflow -->
-    <!-- <a href="http://stackoverflow.com/users/895309/sean-glover">
-    <img src="http://stackoverflow.com/users/flair/895309.png" width="208" height="58" alt="profile for Sean Glover at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="profile for Sean Glover at Stack Overflow, Q&amp;A for professional and enthusiast programmers">
-    <br /><br /> -->
-    <!-- Github badge -->
-    <!-- <iframe src="http://githubbadge.appspot.com/seglo?s=1&a=0" style="border: 0;height: 142px;width: 200px;overflow: hidden;" frameBorder="0"></iframe> -->
   </div>
 </div>
 <div class="about-text">
