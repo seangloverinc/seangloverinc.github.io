@@ -1,7 +1,7 @@
 ---
 layout: default
 meta:
-  description: Sean Glover is a Data Streaming and Distributed Systems Software Engineer living in Toronto.
+  description: Sean Glover is a Data Streaming and Distributed Systems Software Engineer living in Toronto.  Sean is a Principal Engineer at Lightbend, open source software enthusiast, and Scala Toronto meetup organizer.
 ---
 <div class="about-header">
   <a href="/assets/sean_glover_headshot_2017.jpg"><img class="seglo" src="/assets/sean_glover_headshot_2017_sm.jpg" alt="Sean Glover" /></a>

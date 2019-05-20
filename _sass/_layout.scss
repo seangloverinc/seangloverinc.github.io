@@ -40,6 +40,11 @@
             margin-left: 20px;
         }
     }
+    
+    .page-link-text {
+      color: $text-color;
+      line-height: $base-line-height;
+    }
 
     @include media-query($on-palm) {
         position: absolute;
