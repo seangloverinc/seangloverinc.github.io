@@ -38,13 +38,16 @@ meta:
 Scala Architect, Data Engineer, Tech Community Organizer
 </p>
 <p>
-I am an architect, engineer, teacher and mentor.  I'm a Principal Software Engineer at <a href="http://www.lightbend.com">Lightbend</a> (formerly Typesafe) where I work on the <a href="https://www.lightbend.com/lightbend-platform">Lightbend Pipelines and Platform</a> teams.
+I am an architect, engineer, teacher and mentor.  I'm a Principal Software Engineer at <a href="http://www.lightbend.com">Lightbend</a>, the company that stewards the <a href="https://www.scala-lang.org/">Scala</a> programming language and <a href="https://akka.io/">Akka</a> Actor toolkit.  I work on <a href="https://www.lightbend.com/lightbend-pipelines-demo">Lightbend Pipelines</a> and <a href="https://www.lightbend.com/lightbend-platform">Lightbend Platform</a>.
 </p>
 <p>
-I currently specialize in building Streaming Data Platforms and Distributed Systems using technologies such as Scala, Spark, Kafka, Kubernetes, and Akka. I've been invited to <a href="/talks/">speak</a> at a variety of Software Development and Big Data conferences around the world including Kafka Summit, Strata, Reactive Conf, DataEngConf, and Scale By the Bay. I am an <a href="/opensource/">open source</a> software contributor currently specializing in <a href="https://kafka.apache.org/">Apache Kafka</a> and its ecosystem.
+I build data streaming platforms and distributed systems using technologies such as Scala, Go, Spark, Kafka, Kubernetes, and Akka. I've been invited to <a href="/talks/">speak</a> at a variety of Software Development and Big Data conferences around the world including Kafka Summit, O'Reilly Strata Conference, Reactive Conf, DataEngConf, and Scale By the Bay. I am an <a href="/opensource/">open source</a> software author and contributor currently specializing in <a href="https://kafka.apache.org/">Apache Kafka</a> and its ecosystem.
 </p>
 <p>
-I'm the organizer of the <a href="http://www.meetup.com/scalator/">Scala Toronto (scalator)</a> meetup.  Join us for regular meetups about the <a href="http://www.scala-lang.org/">Scala programming language</a> and to hang out with Toronto's Scala hackers.
+I co-authored an O'Reilly book, <a href="/assets/designing-fast-data-app-architectures.pdf">Designing Fast Data Application Architectures</a> (<a href="https://www.lightbend.com/ebooks/designing-fast-data-application-architectures-with-spark-mesos-akka-cassandra-kafka-oreilly">compliments of Lightbend</a>), that discusses the modern architectures behind building data streaming applications using Kafka, Akka Streams, Spark, Kubernetes, and Mesos.
+</p>
+<p>
+I am the organizer of the <a href="http://www.meetup.com/scalator/">Scala Toronto (scalator)</a> meetup.  Join us for regular meetups about the <a href="http://www.scala-lang.org/">Scala programming language</a> and to hang out with Toronto's Scala hackers.
 </p>
 <p>
 For more information about me please see my <a href="https://www.linkedin.com/in/seanaglover">LinkedIn profile</a>.  You can find my most <a href="https://docs.google.com/document/d/1yz9xtABfyRei2wTj--HMeV9DUOgx_BMw6kLgIBjgDME/edit?usp=sharing">up-to-date resume as a Google doc</a>.

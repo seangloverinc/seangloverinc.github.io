@@ -4,7 +4,7 @@ title: Open Source
 permalink: /opensource/
 ---
 
-I'm a regular contributor to and author of Open Source Software. This page references some of my more significant contributions. For more details see my [GitHub profile](https://github.com/seglo/).
+I'm a regular contributor to and author of open source software. This page references some of my more significant contributions. For more details see my [GitHub profile](https://github.com/seglo/).
 
 # Author
 
@@ -28,14 +28,14 @@ An engineering report and a set of PoC's that demonstrate "Exactly Once" message
 
 ## 2019
 
-* [Akka](https://github.com/akka/akka/) - Log messages DSL for Akka Typed - [PR](https://github.com/akka/akka/pull/26238)
+* [Akka](https://github.com/akka/akka/) - Log messages DSL for Akka Typed - [PR](https://github.com/akka/akka/pull/26238), [Docs](https://doc.akka.io/api/akka/current/akka/actor/typed/scaladsl/Behaviors$.html#logMessages[T](logOptions:akka.actor.typed.LogOptions,behavior:akka.actor.typed.Behavior[T]):akka.actor.typed.Behavior[T])
 
 ## 2018
 
-* [Strimzi](https://strimzi.io/) - Grafana Monitoring Dashboards for Apache Kafka and ZooKeeper - [PR](https://github.com/strimzi/strimzi-kafka-operator/pull/877)
-* [Strimzi](https://strimzi.io/) - Helm Chart for Strimzi - [PR](https://github.com/strimzi/strimzi-kafka-operator/pull/565)
-* [Alpakka Kafka](https://doc.akka.io/docs/alpakka-kafka/current/home.html) - Apache Kafka Transactions Support - [PR #1](https://github.com/akka/alpakka-kafka/pull/420), [PR #2](https://github.com/akka/alpakka-kafka/pull/481)
-* [Apache Kafka](https://kafka.apache.org/) - Scala DSL for Kafka Streams (collaboration with [Debasish Ghosh](https://twitter.com/debasishg)) - [PR #1](https://github.com/apache/kafka/pull/4756), [PR #2](https://github.com/apache/kafka/pull/4949), [KIP-270](https://cwiki.apache.org/confluence/display/KAFKA/KIP-270+-+A+Scala+Wrapper+Library+for+Kafka+Streams)
+* [Strimzi](https://strimzi.io/) - Grafana Monitoring Dashboards for Apache Kafka and ZooKeeper - [PR](https://github.com/strimzi/strimzi-kafka-operator/pull/877), [Docs](https://strimzi.io/docs/master/#metrics-str)
+* [Strimzi](https://strimzi.io/) - Helm Chart for Strimzi - [PR](https://github.com/strimzi/strimzi-kafka-operator/pull/565), [Docs](https://strimzi.io/docs/master/#deploying-cluster-operator-helm-chart-str)
+* [Alpakka Kafka](https://doc.akka.io/docs/alpakka-kafka/current/home.html) - Apache Kafka Transactions Support - [PR #1](https://github.com/akka/alpakka-kafka/pull/420), [PR #2](https://github.com/akka/alpakka-kafka/pull/481), [Docs](https://doc.akka.io/docs/akka-stream-kafka/current/transactions.html)
+* [Apache Kafka](https://kafka.apache.org/) - Scala DSL for Kafka Streams (collaboration with [Debasish Ghosh](https://twitter.com/debasishg)) - [PR #1](https://github.com/apache/kafka/pull/4756), [PR #2](https://github.com/apache/kafka/pull/4949), [KIP-270](https://cwiki.apache.org/confluence/display/KAFKA/KIP-270+-+A+Scala+Wrapper+Library+for+Kafka+Streams), [Docs](https://kafka.apache.org/22/documentation/streams/developer-guide/dsl-api.html#scala-dsl)
 
 ## 2017
 
