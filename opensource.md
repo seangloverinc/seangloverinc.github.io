@@ -4,7 +4,7 @@ title: Open Source
 permalink: /opensource/
 ---
 
-I'm a regular contributor to and author of open source software. This page references some of my more significant contributions. For more details see my [GitHub profile](https://github.com/seglo/).
+Open source software that I've authored and some of my more significant contributions to other projects. For details see my [GitHub profile](https://github.com/seglo/).
 
 # Author
 
