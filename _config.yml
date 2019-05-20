@@ -16,3 +16,6 @@ linkedin_username: seanaglover
 markdown: kramdown
 
 comments: true
+
+plugins:
+  - jekyll-sitemap
