@@ -9,12 +9,11 @@ comments: true
     <p class="post-meta">{{ page.date | date: "%b %-d, %Y" }}</p>
     <div class="share-buttons">
       <div class="share-button tw">
-        <a class="twitter-share-button"
-          href="https://twitter.com/share"
-          data-url="{{ page.url | prepend: page.share_url }}"
-          data-via="{{ site.twitter_username }}">
-        Tweet
-        </a>
+        <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" 
+           class="twitter-share-button" 
+           data-url="{{ page.url | prepend: page.share_url }}"
+           data-via="{{ site.twitter_username }}" 
+           data-show-count="false">Tweet</a>
       </div>
       <div class="share-button lnk" style="float:none;">
         <script type="IN/Share" data-url="{{ page.url | prepend: page.share_url }}" data-counter="right"></script>

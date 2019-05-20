@@ -52,7 +52,3 @@ I am the organizer of the <a href="http://www.meetup.com/scalator/">Scala Toront
 <p>
 For more information about me please see my <a href="https://www.linkedin.com/in/seanaglover">LinkedIn profile</a>.  You can find my most <a href="https://docs.google.com/document/d/1yz9xtABfyRei2wTj--HMeV9DUOgx_BMw6kLgIBjgDME/edit?usp=sharing">up-to-date resume as a Google doc</a>.
 </p>
-
-<!-- LinkedIn badge -->
-<!-- <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
-<script type="IN/MemberProfile" data-id="https://www.linkedin.com/in/seanaglover" data-format="inline" data-related="false"></script> -->
