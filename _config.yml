@@ -6,7 +6,7 @@ description: >
   Scala Architect, Data Engineer, Tech Community Organizer
 baseurl: "" # the subpath of your site, e.g. /blog/
 permalink: /blog/:year/:month/:title/
-url: "http://seanglover.com" # the base hostname & protocol for your site
+url: "https://seanglover.com" # the base hostname & protocol for your site
 
 twitter_username: seg1o
 github_username: seglo
