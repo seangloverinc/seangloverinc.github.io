@@ -4,7 +4,7 @@ meta:
   description: Sean Glover is a Data Streaming and Distributed Systems Software Engineer living in Toronto.
 ---
 <div class="about-header">
-  <img class="seglo" src="/assets/seglo-headshot-2017.jpg" alt="Sean Glover" />
+  <a href="/assets/sean_glover_headshot_2017_sm.jpg"><img class="seglo" src="/assets/sean_glover_headshot_2017.jpg" alt="Sean Glover" /></a>
   <br />
   <div class="social">
     <a href="https://twitter.com/{{ site.twitter_username }}"><svg width="40px" height="40px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
