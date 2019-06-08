@@ -32,7 +32,7 @@ meta:
 Scala Architect, Data Engineer, Tech Community Organizer
 </p>
 <p>
-I am an architect, engineer, teacher and mentor.  I'm a Principal Software Engineer at <a href="http://www.lightbend.com">Lightbend</a>, the company that stewards the <a href="https://www.scala-lang.org/">Scala</a> programming language and <a href="https://akka.io/">Akka</a> Actor toolkit.  I work on <a href="https://www.lightbend.com/lightbend-pipelines-demo">Lightbend Pipelines</a> and <a href="https://www.lightbend.com/lightbend-platform">Lightbend Platform</a>.
+I am an architect, engineer, teacher and mentor. I'm based in Toronto, Canada. I'm a Principal Software Engineer at <a href="http://www.lightbend.com">Lightbend</a>, the company that stewards the <a href="https://www.scala-lang.org/">Scala</a> programming language and <a href="https://akka.io/">Akka</a> Actor toolkit.  I work on <a href="https://www.lightbend.com/lightbend-pipelines-demo">Lightbend Pipelines</a> and <a href="https://www.lightbend.com/lightbend-platform">Lightbend Platform</a>.
 </p>
 <p>
 I build data streaming platforms and distributed systems using technologies such as Scala, Go, Spark, Kafka, Kubernetes, and Akka. I've been invited to <a href="/talks/">speak</a> at a variety of Software Development and Big Data conferences around the world including Kafka Summit, O'Reilly Strata Conference, Reactive Conf, DataEngConf, and Scale By the Bay. I am an <a href="/opensource/">open source</a> software author and contributor currently specializing in <a href="https://kafka.apache.org/">Apache Kafka</a> and its ecosystem.
