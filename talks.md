@@ -8,10 +8,10 @@ Talks that I've given on a variety of software topics at conferences and meetups
 
 ## 2019
 
-* [Toronto Data Science & Big Data Meetup](https://www.meetup.com/tordatascience/) - [Running Kafka on Kubernetes with Strimzi](https://www.meetup.com/tordatascience/events/261020457/) - [Slides](https://seanglover.com/assets/slides/Kafka_in_Jail-Toronto_Data_Science_and_Big_Data_Meetup_2019.pdf)
+* [Toronto Data Science & Big Data Meetup](https://www.meetup.com/tordatascience/) - [Running Kafka on Kubernetes with Strimzi](https://www.meetup.com/tordatascience/events/261020457/) - [Slides](https://seanglover.com/assets/slides/Kafka_in_Jail-Toronto_Data_Science_and_Big_Data_Meetup_2019.pdf), [Demo Artifacts](https://github.com/seglo/kafka-in-jail)
 * [Lightbend](http://www.lightbend.com) - [Running Kafka On Kubernetes With Strimzi For Real-Time Streaming Applications](https://www.lightbend.com/blog/running-kafka-on-kubernetes-with-strimzi-for-real-time-streaming-applications) - [Video](https://www.youtube.com/watch?v=rzHQvImn2XY), [Demo Video](https://www.youtube.com/watch?v=KEPB7iG5Fgc)
 * [Kafka Summit NYC](https://kafka-summit.org/events/kafka-summit-new-york-2019/) - [Streaming Design Patterns Using Alpakka Kafka Connector](https://kafka-summit.org/sessions/streaming-design-patterns-using-alpakka-kafka-connector/), NYC - [Video and Slides](https://www.confluent.io/kafka-summit-ny19/streaming-design-patterns-using-alpakka-kafka-connector)
-* [Strata SF Data Conference](https://conferences.oreilly.com/strata/strata-ca) - [Kafka in Jail with Strimzi](https://conferences.oreilly.com/strata/strata-ca/public/schedule/detail/72514), San Francisco - [Video](https://learning.oreilly.com/videos/strata-data-conference/9781492050520/9781492050520-video324297)
+* [Strata SF Data Conference](https://conferences.oreilly.com/strata/strata-ca) - [Kafka in Jail with Strimzi](https://conferences.oreilly.com/strata/strata-ca/public/schedule/detail/72514), San Francisco - [Video](https://learning.oreilly.com/videos/strata-data-conference/9781492050520/9781492050520-video324297), [Demo Artifacts](https://github.com/seglo/kafka-in-jail)
 
 ## 2018
 
