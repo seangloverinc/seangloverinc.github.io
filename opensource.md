@@ -4,7 +4,23 @@ title: Open Source
 permalink: /opensource/
 ---
 
-Open source software that I've authored and some of my more significant contributions to other projects. For details see my [GitHub profile](https://github.com/seglo/).
+Open Source Software that I've authored and maintain (or have maintained in the past). I've also included some of the more significant contributions I've made to other Open Source projects. For details see my [GitHub profile](https://github.com/{{ site.github_username }}).
+
+# Maintainer
+
+#### [Alpakka](https://github.com/akka/alpakka/) ![Maven Central Release](https://maven-badges.herokuapp.com/maven-central/com.lightbend.akka/akka-stream-alpakka-file_2.12/badge.svg)
+
+The Alpakka project is an open source initiative to implement stream-aware, reactive, integration pipelines for Java and Scala. It is built on top of [Akka Streams](https://doc.akka.io/docs/akka/current/stream/index.html), and has been designed from the ground up to understand streaming natively and provide a DSL for reactive and stream-oriented programming, with built-in support for backpressure. Akka Streams is a [Reactive Streams](http://www.reactive-streams.org/) and JDK 9+ [java.util.concurrent.Flow](https://docs.oracle.com/javase/10/docs/api/java/util/concurrent/Flow.html)-compliant implementation and therefore [fully interoperable](https://doc.akka.io/docs/akka/current/general/stream/stream-design.html#interoperation-with-other-reactive-streams-implementations) with other implementations.
+
+#### [Alpakka Kafka](https://github.com/akka/alpakka-kafka/) ![Maven Central Release](https://maven-badges.herokuapp.com/maven-central/com.typesafe.akka/akka-stream-kafka_2.12/badge.svg)
+
+Alpakka Kafka lets you connect [Apache Kafka](https://kafka.apache.org/) to Akka Streams. It was formerly known as **Akka Streams Kafka** and even **Reactive Kafka**.
+
+# Previously Maintained Projects
+
+#### [CloudFlow](https://github.com/lightbend/cloudflow)
+
+[CloudFlow](https://cloudflow.io/) enables you to quickly develop, orchestrate, and operate distributed streaming applications on Kubernetes. I was a member of the original team that developed and open sourced the CloudFlow framework.  [First commit](https://github.com/lightbend/cloudflow/commit/6c8b9da3ad8ce160b25dac968ac020a2a4e26cc2).
 
 # Author
 
