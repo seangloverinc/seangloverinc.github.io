@@ -20,7 +20,7 @@ Alpakka Kafka lets you connect [Apache Kafka](https://kafka.apache.org/) to Akka
 
 #### [CloudFlow](https://github.com/lightbend/cloudflow)
 
-[CloudFlow](https://cloudflow.io/) enables you to quickly develop, orchestrate, and operate distributed streaming applications on Kubernetes. I was a member of the original team that developed and open sourced the CloudFlow framework.  [First commit](https://github.com/lightbend/cloudflow/commit/6c8b9da3ad8ce160b25dac968ac020a2a4e26cc2).
+[CloudFlow](https://cloudflow.io/) enables you to quickly develop, orchestrate, and operate distributed streaming applications on Kubernetes. I was a member of the original team that developed and open sourced the CloudFlow framework (see [first commit](https://github.com/lightbend/cloudflow/commit/6c8b9da3ad8ce160b25dac968ac020a2a4e26cc2)).
 
 # Author
 

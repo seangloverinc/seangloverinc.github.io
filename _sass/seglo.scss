@@ -36,10 +36,17 @@
   }
 }
 
+.about-text {
+  .headline {
+    font-weight: bold;
+  }
+}
+
 @include media-query($on-palm) {
   .about-header {
     float: none;
     clear: both;
+    margin-right: 0px;
     text-align:center;
     
     svg {
@@ -50,13 +57,11 @@
       text-align:center;
     }
   }
-}
 
-
-
-.about-text {
-  .headline {
-    font-weight: bold;
+  .about-text {
+    .headline {
+      text-align:center;
+    }
   }
 }
 

@@ -28,9 +28,9 @@ meta:
   </div>
 </div>
 <div class="about-text">
-<p class="headline">
+<h2 class="headline">
 {{ site.description | xml_escape }}
-</p>
+</h2>
 <p>
 I'm a professional Software Engineer based in Toronto, Canada. I'm a Principal Software Engineer at <a href="http://www.lightbend.com">Lightbend</a>, the company that stewards the <a href="https://www.scala-lang.org/">Scala</a> programming language and <a href="https://akka.io/">Akka</a> Actor toolkit. I am a member of the <a href="https://doc.akka.io/docs/alpakka/current/index.html">Alpakka</a> team (a subset of the <a href="https://akka.io/">Akka</a> team). The Alpakka team specializes in extending Akka Streams and integrating it with a large ecosystem of cloud, messaging, and data systems.
 </p>
