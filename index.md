@@ -1,7 +1,7 @@
 ---
 layout: default
 meta:
-  description: Sean Glover is a Data Streaming and Distributed Systems Software Engineer living in Toronto.  Sean is a Principal Engineer at Lightbend, open source software enthusiast, and Scala Toronto meetup organizer.
+  description: Sean Glover is a Data Streaming and Distributed Systems Software Engineer living in Toronto.  Sean is a Principal Engineer on the Akka team at Lightbend, an open source software enthusiast, and Scala Toronto meetup organizer.
 ---
 <div class="about-header">
   <a href="/assets/sean_glover_headshot_2020.jpg"><img class="seglo" src="/assets/sean_glover_headshot_2020_sm.jpg" alt="Sean Glover" /></a>
@@ -32,17 +32,17 @@ meta:
 {{ site.description | xml_escape }}
 </h2>
 <p>
-I'm a professional Software Engineer based in Toronto, Canada. I'm a Principal Software Engineer at <a href="http://www.lightbend.com">Lightbend</a>, the company that stewards the <a href="https://www.scala-lang.org/">Scala</a> programming language and <a href="https://akka.io/">Akka</a> Actor toolkit. I am a member of the <a href="https://doc.akka.io/docs/alpakka/current/index.html">Alpakka</a> team (a subset of the <a href="https://akka.io/">Akka</a> team). The Alpakka team specializes in extending Akka Streams and integrating it with a large ecosystem of cloud, messaging, and data systems.
+Sean Glover is a professional Software Engineer based in Toronto, Canada. He's a Principal Software Engineer at <a href="http://www.lightbend.com">Lightbend</a>, the company that stewards the <a href="https://www.scala-lang.org/">Scala</a> programming language and <a href="https://akka.io/">Akka</a> Actor toolkit. Sean is a member of the <a href="https://akka.io/team/">Akka team</a>.
 </p>
 <p>
-I enable people to build high throughput & low latency data streaming platforms and distributed systems using technologies such as Akka, Scala, Go, Spark, Kafka, and Kubernetes. I've been invited to <a href="/talks/">speak</a> at a variety of Software Development and Big Data conferences around the world including Kafka Summit, O'Reilly Strata Conference, Reactive Conf, DataEngConf, and Scale By The Bay. I am an <a href="/opensource/">open source</a> contributor currently specializing in <a href="https://doc.akka.io/docs/alpakka/current/index.html">Alpakka</a>, <a href="https://kafka.apache.org/">Apache Kafka</a> and its ecosystem.
+He specializes in Data Streaming and Distributed Systems using technologies such as Akka, Akka Streams, Scala, Go, Kafka, Spark, and Kubernetes. Sean has been invited to <a href="/talks/">speak</a> at a variety of Software Development and Big Data conferences around the world including Kafka Summit, O'Reilly Strata Conference, Reactive Conf, DataEngConf, and Scale By The Bay. He is an <a href="/opensource/">open source</a> maintainer and contributor currently specializing in <a href="https://akka.io/">Akka</a>, <a href="https://kafka.apache.org/">Apache Kafka</a>, and their ecosystems.
 </p>
 <p>
-I co-authored an O'Reilly book, <a href="/assets/designing-fast-data-app-architectures.pdf">Designing Fast Data Application Architectures</a> (<a href="https://www.lightbend.com/ebooks/designing-fast-data-application-architectures-with-spark-mesos-akka-cassandra-kafka-oreilly">compliments of Lightbend</a>), that discusses the modern architectures behind building data streaming applications using Kafka, Akka Streams, Spark, Kubernetes, and Mesos.
+Sean co-authored an O'Reilly book, <a href="/assets/designing-fast-data-app-architectures.pdf">Designing Fast Data Application Architectures</a> (<a href="https://www.lightbend.com/ebooks/designing-fast-data-application-architectures-with-spark-mesos-akka-cassandra-kafka-oreilly">compliments of Lightbend</a>), that discusses the modern architectures behind building data streaming applications using Kafka, Akka Streams, Spark, Kubernetes, and Mesos.
 </p>
 <p>
-I am the organizer of the <a href="http://www.meetup.com/scalator/">Scala Toronto (scalator)</a> meetup.  Join us for regular meetups about the <a href="http://www.scala-lang.org/">Scala programming language</a> and to hang out with Toronto's Scala hackers.
+Sean organizes the <a href="http://www.meetup.com/scalator/">Scala Toronto (scalator)</a> meetup.  Join for regular meetups about the <a href="http://www.scala-lang.org/">Scala programming language</a> and to hang out with Toronto's Scala hackers.
 </p>
 <p>
-For more information about me please see my <a href="https://www.linkedin.com/in/seanaglover">LinkedIn profile</a>.  You can find my most <a href="https://docs.google.com/document/d/1yz9xtABfyRei2wTj--HMeV9DUOgx_BMw6kLgIBjgDME/edit?usp=sharing">up-to-date resume as a Google doc</a>.
+For more information please see Sean's <a href="https://www.linkedin.com/in/seanaglover">LinkedIn profile</a> and most up-to-date <a href="https://docs.google.com/document/d/1yz9xtABfyRei2wTj--HMeV9DUOgx_BMw6kLgIBjgDME/edit?usp=sharing">resume</a> as a Google doc.
 </p>
