@@ -1,10 +1,18 @@
 ---
-layout: page
+layout: pageavatar
 title: Talks
 permalink: /talks/
 ---
 
 Talks that I've given on a variety of software topics at conferences and meetups around the world.
+
+## 2021
+
+* [Scala Love In The City ❤️](https://inthecity.scala.love) - [One Year with Akka 2.6](https://embed.emamo.com/event/scala-love-in-the-city/s/one-year-with-akka-26-o6bkOo) - [Slides](https://seanglover.com/assets/slides/One_Year_with_Akka_26_ScalaLoveInTheCity_2021.pdf)
+
+## 2020
+
+_Let's all just pretend that 2020 didn't happen._
 
 ## 2019
 
