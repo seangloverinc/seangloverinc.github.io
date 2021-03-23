@@ -15,7 +15,7 @@ Talks that I've given on a variety of software topics at conferences and meetups
 
 ## 2021
 
-* [Scala Love In The City ❤️](https://inthecity.scala.love) - [One Year with Akka 2.6](https://embed.emamo.com/event/scala-love-in-the-city/s/one-year-with-akka-26-o6bkOo) - [Slides](https://seanglover.com/assets/slides/One_Year_with_Akka_26_ScalaLoveInTheCity_2021.pdf)
+* [Scala Love In The City ❤️](https://inthecity.scala.love) - [One Year with Akka 2.6](https://embed.emamo.com/event/scala-love-in-the-city/s/one-year-with-akka-26-o6bkOo) - [Video](https://www.youtube.com/watch?v=g6xsN8hMpz4), [Slides](https://seanglover.com/assets/slides/One_Year_with_Akka_26_ScalaLoveInTheCity_2021.pdf)
 
 ## 2020
 
