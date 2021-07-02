@@ -1,7 +1,7 @@
 ---
 layout: default
 meta:
-  description: Sean Glover is a Data Streaming and Distributed Systems Software Engineer living in Toronto.  Sean is a Principal Engineer on the Akka team at Lightbend, an open source software enthusiast, and Scala Toronto meetup organizer.
+  description: Sean Glover is a Data Streaming and Distributed Systems Software Engineer living in Toronto.  Sean is a Principal Engineer at Hopper, former member of the Akka team at Lightbend, an open source software enthusiast, and Scala Toronto meetup organizer.
 ---
 <div class="about-header">
   <a href="/assets/sean_glover_headshot_2020.jpg"><img class="seglo" src="/assets/sean_glover_headshot_2020_sm.jpg" alt="Sean Glover" /></a>
@@ -32,7 +32,7 @@ meta:
 {{ site.description | xml_escape }}
 </h2>
 <p>
-Sean Glover is a professional Software Engineer based in Toronto, Canada. He's a Principal Software Engineer at <a href="http://www.lightbend.com">Lightbend</a>, the company that stewards the <a href="https://www.scala-lang.org/">Scala</a> programming language and <a href="https://akka.io/">Akka</a> Actor toolkit. Sean is a member of the <a href="https://akka.io/team/">Akka team</a>.
+Sean Glover is a professional Software Engineer based in Toronto, Canada. He's a Principal Software engineer at <a href="https://www.hopper.com">Hopper</a>. Sean is a former member of the <a href="https://akka.io/team/">Akka team</a>.
 </p>
 <p>
 He specializes in Data Streaming and Distributed Systems using technologies such as Akka, Akka Streams, Scala, Go, Kafka, Spark, and Kubernetes. Sean has been invited to <a href="/talks/">speak</a> at a variety of Software Development and Big Data conferences around the world including Kafka Summit, O'Reilly Strata Conference, Reactive Conf, DataEngConf, and Scale By The Bay. He is an <a href="/opensource/">open source</a> maintainer and contributor currently specializing in <a href="https://akka.io/">Akka</a>, <a href="https://kafka.apache.org/">Apache Kafka</a>, and their ecosystems.
