@@ -8,9 +8,9 @@ Open Source Software that I've authored and maintain (or have maintained in the 
 
 # Maintainer
 
-#### [Akka](https://github.com/akka/akka/) (Streams) [![Latest version](https://index.scala-lang.org/akka/akka/akka-actor/latest.svg)](https://index.scala-lang.org/akka/akka/akka-actor)
+#### [Kafka Lag Exporter](https://github.com/lightbend/kafka-lag-exporter) ![GitHub release](https://img.shields.io/github/release-pre/lightbend/kafka-lag-exporter.svg)
 
-Akka is a set of open-source libraries for designing scalable, resilient systems that span processor cores and networks. Akka allows you to focus on meeting business needs instead of writing low-level code to provide reliable behavior, fault tolerance, and high performance.
+I open sourced Kafka Lag Exporter to help users monitor Kafka consumer group lag & latency in their [Apache Kafka](https://kafka.apache.org/) apps. An [Akka Typed](https://doc.akka.io/docs/akka/current/typed/index.html) application that runs on [Kubernetes](https://kubernetes.io/) and exports [Promtheus](https://prometheus.io/) metrics. Introduced in the following blog post: [Monitor Kafka Consumer Group Latency with Kafka Lag Exporter](https://www.lightbend.com/blog/monitor-kafka-consumer-group-latency-with-kafka-lag-exporter).
 
 #### [Alpakka](https://github.com/akka/alpakka/) ![Maven Central Release](https://maven-badges.herokuapp.com/maven-central/com.lightbend.akka/akka-stream-alpakka-file_2.12/badge.svg)
 
@@ -18,23 +18,24 @@ The Alpakka project is an open source initiative to implement stream-aware, reac
 
 #### [Alpakka Kafka](https://github.com/akka/alpakka-kafka/) ![Maven Central Release](https://maven-badges.herokuapp.com/maven-central/com.typesafe.akka/akka-stream-kafka_2.12/badge.svg)
 
-Alpakka Kafka lets you connect [Apache Kafka](https://kafka.apache.org/) to Akka Streams. It was formerly known as **Akka Streams Kafka** and even **Reactive Kafka**.
+Alpakka Kafka lets you connect [Apache Kafka](https://kafka.apache.org/) to Akka Streams. This project was formerly known *Akka Streams Kafka* and *Reactive Kafka* originally.
+
+
+# Previously Maintained Projects
+
+#### [Akka](https://github.com/akka/akka/) (Streams) [![Latest version](https://index.scala-lang.org/akka/akka/akka-actor/latest.svg)](https://index.scala-lang.org/akka/akka/akka-actor)
+
+Akka is a set of open-source libraries for designing scalable, resilient systems that span processor cores and networks. Akka allows you to focus on meeting business needs instead of writing low-level code to provide reliable behavior, fault tolerance, and high performance.
 
 #### [Akka Projections](https://github.com/akka/akka-projection) ![Maven Central Release](https://maven-badges.herokuapp.com/maven-central/com.lightbend.akka/akka-projection-core_2.13/badge.svg)
 
 [Akka Projections](https://doc.akka.io/docs/akka-projection/current/index.html) is a library used to build read side processors (read side views from event sourced journals in CQRS architectures) with a variety of sources, processing options, and message delivery semantics. 
-
-# Previously Maintained Projects
 
 #### [Cloudflow](https://github.com/lightbend/cloudflow) (Akka Data Pipelines)
 
 [Cloudflow](https://cloudflow.io/) enables you to quickly develop, orchestrate, and operate distributed streaming applications on Kubernetes. I was a member of the original team that developed and open sourced the Cloudflow framework (see [first commit](https://github.com/lightbend/cloudflow/commit/6c8b9da3ad8ce160b25dac968ac020a2a4e26cc2)).
 
 # Author
-
-#### [`kafka-lag-exporter`](https://github.com/lightbend/kafka-lag-exporter) ![GitHub release](https://img.shields.io/github/release-pre/lightbend/kafka-lag-exporter.svg)
-
-I open sourced Kafka Lag Exporter to help users monitor Kafka consumer group lag & latency in their [Apache Kafka](https://kafka.apache.org/) apps. An [Akka Typed](https://doc.akka.io/docs/akka/current/typed/index.html) application that runs on [Kubernetes](https://kubernetes.io/) and exports [Promtheus](https://prometheus.io/) metrics. Introduced in the following blog post: [Monitor Kafka Consumer Group Latency with Kafka Lag Exporter](https://www.lightbend.com/blog/monitor-kafka-consumer-group-latency-with-kafka-lag-exporter).
 
 #### [`connect-prism`](https://github.com/seglo/connect-prism) [![NPM version](https://badge.fury.io/js/connect-prism.svg)](http://badge.fury.io/js/connect-prism)
 
@@ -50,6 +51,8 @@ An engineering report and a set of PoC's that demonstrate "Exactly Once" message
 
 # Contributions
 
+Noteworthy contributions over the years. This is not an exhaustive list of contributions.
+
 ## 2021
 
 * [Testcontainers](https://www.testcontainers.org) - Apache Kafka containerized cluster for testing - [PR](https://github.com/testcontainers/testcontainers-java/pull/1984)
@@ -60,7 +63,6 @@ An engineering report and a set of PoC's that demonstrate "Exactly Once" message
 * [Akka](https://github.com/akka/akka/)/[Alpakka Kafka](https://github.com/akka/alpakka-kafka/) - Alpakka Kafka support for canonical impl. of a [External Shard Allocation Strategy](https://doc.akka.io/docs/akka/current/typed/cluster-sharding.html#external-shard-allocation) for Akka Cluster - [PR](https://github.com/akka/alpakka-kafka/pull/1067)
 * [Akka](https://github.com/akka/akka/) - BoundedSourceQueue API for Akka Streams - [PR](https://github.com/akka/akka/pull/29770)
 * [Akka](https://github.com/akka/akka/) - Context mapping strategies (proposal only) - [PR](https://github.com/akka/akka/pull/28712)
-* [Alpakka Kafka](https://github.com/akka/alpakka-kafka/) - Commit when next offset is observed - [PR](https://github.com/akka/alpakka-kafka/pull/1093)
 
 ## 2019
 
@@ -71,7 +73,6 @@ An engineering report and a set of PoC's that demonstrate "Exactly Once" message
 
 ## 2018
 
-* [Strimzi](https://strimzi.io/) - Grafana Monitoring Dashboards for Apache Kafka and ZooKeeper - [PR](https://github.com/strimzi/strimzi-kafka-operator/pull/877), [Docs](https://strimzi.io/docs/master/#metrics-str)
 * [Strimzi](https://strimzi.io/) - Helm Chart for Strimzi - [PR](https://github.com/strimzi/strimzi-kafka-operator/pull/565), [Docs](https://strimzi.io/docs/master/#deploying-cluster-operator-helm-chart-str)
 * [Alpakka Kafka](https://github.com/akka/alpakka-kafka/) - Apache Kafka Transactions Support - [PR #1](https://github.com/akka/alpakka-kafka/pull/420), [PR #2](https://github.com/akka/alpakka-kafka/pull/481), [Docs](https://doc.akka.io/docs/akka-stream-kafka/current/transactions.html)
 * [Apache Kafka](https://kafka.apache.org/) - Scala DSL for Kafka Streams (collaboration with [Debasish Ghosh](https://twitter.com/debasishg)) - [PR #1](https://github.com/apache/kafka/pull/4756) ([Commit](https://github.com/apache/kafka/commit/345abf7ff440a178c8ebd008c64bb933c8d711ad)), [PR #2](https://github.com/apache/kafka/pull/4949), [KIP-270](https://cwiki.apache.org/confluence/display/KAFKA/KIP-270+-+A+Scala+Wrapper+Library+for+Kafka+Streams), [Docs](https://kafka.apache.org/22/documentation/streams/developer-guide/dsl-api.html#scala-dsl)
