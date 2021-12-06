@@ -3,7 +3,7 @@ title: Sean Glover
 htmltitle: Sean Glover - Software Engineer
 email: sean@seanglover.com
 description: >
-  Open Source Software Engineer
+  Software Engineer
 baseurl: "" # the subpath of your site, e.g. /blog/
 permalink: /blog/:year/:month/:title/
 url: "https://seanglover.com" # the base hostname & protocol for your site
