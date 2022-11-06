@@ -32,7 +32,7 @@ meta:
 {{ site.description | xml_escape }}
 </h2>
 <p>
-Sean Glover is a professional Software Engineer based in Toronto, Canada. He's a Principal Software Engineer at <a href="https://www.hopper.com">Hopper</a>. Sean is an Apache Pekko committer and former member of the <a href="https://akka.io/team/">Akka team</a>.
+Sean Glover is a professional Software Engineer based in Toronto, Canada. He's a Principal Software Engineer at <a href="https://www.hopper.com">Hopper</a>. Sean is an [Apache Pekko](https://pekko.apache.org/) committer and former member of the <a href="https://akka.io/team/">Akka team</a>.
 </p>
 <p>
 Sean specializes in Data Streaming and Distributed Systems using technologies such as Akka, Akka Streams, Scala, Go, Kafka, Spark, and Kubernetes. Sean has been invited to <a href="/talks/">speak</a> at a variety of Software Development and Big Data conferences around the world including Kafka Summit, O'Reilly Strata Conference, Reactive Conf, DataEngConf, and Scale By The Bay. He is an <a href="/opensource/">open source</a> maintainer and contributor currently specializing in <a href="https://akka.io/">Akka</a>, <a href="https://kafka.apache.org/">Apache Kafka</a>, and their ecosystems.
