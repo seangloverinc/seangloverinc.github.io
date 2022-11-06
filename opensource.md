@@ -8,9 +8,16 @@ Open Source Software that I've authored and maintain (or have maintained in the 
 
 # Maintainer
 
+#### [Apache Pekko](https://pekko.apache.org/) 
+
+An open source fork of Akka incubating at Apache.
+
 #### [Kafka Lag Exporter](https://github.com/lightbend/kafka-lag-exporter) ![GitHub release](https://img.shields.io/github/release-pre/lightbend/kafka-lag-exporter.svg)
 
 I open sourced Kafka Lag Exporter to help users monitor Kafka consumer group lag & latency in their [Apache Kafka](https://kafka.apache.org/) apps. An [Akka Typed](https://doc.akka.io/docs/akka/current/typed/index.html) application that runs on [Kubernetes](https://kubernetes.io/) and exports [Promtheus](https://prometheus.io/) metrics. Introduced in the following blog post: [Monitor Kafka Consumer Group Latency with Kafka Lag Exporter](https://www.lightbend.com/blog/monitor-kafka-consumer-group-latency-with-kafka-lag-exporter).
+
+
+# Previously Maintained Projects
 
 #### [Alpakka](https://github.com/akka/alpakka/) ![Maven Central Release](https://maven-badges.herokuapp.com/maven-central/com.lightbend.akka/akka-stream-alpakka-file_2.12/badge.svg)
 
@@ -19,9 +26,6 @@ The Alpakka project is an open source initiative to implement stream-aware, reac
 #### [Alpakka Kafka](https://github.com/akka/alpakka-kafka/) ![Maven Central Release](https://maven-badges.herokuapp.com/maven-central/com.typesafe.akka/akka-stream-kafka_2.12/badge.svg)
 
 Alpakka Kafka lets you connect [Apache Kafka](https://kafka.apache.org/) to Akka Streams. This project was formerly known *Akka Streams Kafka* and *Reactive Kafka* originally.
-
-
-# Previously Maintained Projects
 
 #### [Akka](https://github.com/akka/akka/) (Streams) [![Latest version](https://index.scala-lang.org/akka/akka/akka-actor/latest.svg)](https://index.scala-lang.org/akka/akka/akka-actor)
 
@@ -53,30 +57,16 @@ An engineering report and a set of PoC's that demonstrate "Exactly Once" message
 
 Noteworthy contributions over the years. This is not an exhaustive list of contributions.
 
-## 2021
-
 * [Testcontainers](https://www.testcontainers.org) - Apache Kafka containerized cluster for testing - [PR](https://github.com/testcontainers/testcontainers-java/pull/1984)
-
-## 2020
-
 * [Akka Projections](https://github.com/akka/akka-projection) - Core engineer in initial release - [v1.0.0 Release Notes](https://github.com/akka/akka-projection/releases/tag/v1.0.0)
 * [Akka](https://github.com/akka/akka/)/[Alpakka Kafka](https://github.com/akka/alpakka-kafka/) - Alpakka Kafka support for canonical impl. of a [External Shard Allocation Strategy](https://doc.akka.io/docs/akka/current/typed/cluster-sharding.html#external-shard-allocation) for Akka Cluster - [PR](https://github.com/akka/alpakka-kafka/pull/1067)
 * [Akka](https://github.com/akka/akka/) - BoundedSourceQueue API for Akka Streams - [PR](https://github.com/akka/akka/pull/29770)
 * [Akka](https://github.com/akka/akka/) - Context mapping strategies (proposal only) - [PR](https://github.com/akka/akka/pull/28712)
-
-## 2019
-
 * [Alpakka Kafka](https://github.com/akka/alpakka-kafka/) - Rewrite Alpakka Kafka partitioned sources - [PR](https://github.com/akka/alpakka-kafka/pull/930)
 * [Alpakka Kafka](https://github.com/akka/alpakka-kafka/) - [Add Kafka testcontainer support to Alpakka Kafka testkit](https://doc.akka.io/docs/alpakka-kafka/current/testing-testcontainers.html) - [PR](https://github.com/akka/alpakka-kafka/pull/939)
 * [Apache Kafka](https://kafka.apache.org/) - KafkaConsumer should not throw away already fetched data for paused partitions - [Jira](https://issues.apache.org/jira/browse/KAFKA-7548), [PR #1](https://github.com/apache/kafka/pull/6988), [PR #2](https://github.com/apache/kafka/pull/7221), [PR #3](https://github.com/apache/kafka/pull/7228)
 * [Akka](https://github.com/akka/akka/) - Log messages DSL for Akka Typed - [PR](https://github.com/akka/akka/pull/26238), [Docs](https://doc.akka.io/api/akka/current/akka/actor/typed/scaladsl/Behaviors$.html#logMessages[T](logOptions:akka.actor.typed.LogOptions,behavior:akka.actor.typed.Behavior[T]):akka.actor.typed.Behavior[T])
-
-## 2018
-
 * [Strimzi](https://strimzi.io/) - Helm Chart for Strimzi - [PR](https://github.com/strimzi/strimzi-kafka-operator/pull/565), [Docs](https://strimzi.io/docs/master/#deploying-cluster-operator-helm-chart-str)
 * [Alpakka Kafka](https://github.com/akka/alpakka-kafka/) - Apache Kafka Transactions Support - [PR #1](https://github.com/akka/alpakka-kafka/pull/420), [PR #2](https://github.com/akka/alpakka-kafka/pull/481), [Docs](https://doc.akka.io/docs/akka-stream-kafka/current/transactions.html)
 * [Apache Kafka](https://kafka.apache.org/) - Scala DSL for Kafka Streams (collaboration with [Debasish Ghosh](https://twitter.com/debasishg)) - [PR #1](https://github.com/apache/kafka/pull/4756) ([Commit](https://github.com/apache/kafka/commit/345abf7ff440a178c8ebd008c64bb933c8d711ad)), [PR #2](https://github.com/apache/kafka/pull/4949), [KIP-270](https://cwiki.apache.org/confluence/display/KAFKA/KIP-270+-+A+Scala+Wrapper+Library+for+Kafka+Streams), [Docs](https://kafka.apache.org/22/documentation/streams/developer-guide/dsl-api.html#scala-dsl)
-
-## 2017
-
 * [Play! Web Framework](https://www.playframework.com/) - Relative and Canonical URL Path Support - [PR](https://github.com/playframework/playframework/pull/7839), [Docs](https://www.playframework.com/documentation/2.6.x/ScalaRouting#Relative-routes)

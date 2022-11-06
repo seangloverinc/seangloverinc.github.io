@@ -10,7 +10,7 @@ tags:
 - scala
 status: publish
 type: post
-published: true
+published: false
 share_url: http://seanglover.com
 meta:
   _edit_last: '1'

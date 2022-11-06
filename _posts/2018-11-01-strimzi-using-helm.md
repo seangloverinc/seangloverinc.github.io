@@ -15,7 +15,7 @@ tags:
 - kubernetes
 status: publish
 type: post
-published: true
+published: false
 share_url: http://seanglover.com
 author:
   login: seglo
