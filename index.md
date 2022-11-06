@@ -1,7 +1,7 @@
 ---
 layout: default
 meta:
-  description: Sean Glover is a Data Streaming and Distributed Systems Software Engineer living in Toronto.  Sean is a Principal Engineer at Hopper, former member of the Akka team at Lightbend, an open source software enthusiast, and Scala Toronto meetup organizer.
+  description: Sean Glover is a data streaming and distributed systems Software Engineer living in Toronto.
 ---
 <div class="about-header">
   <a href="/assets/sean_glover_headshot_2020.jpg"><img class="seglo" src="/assets/sean_glover_headshot_2020_sm.jpg" alt="Sean Glover" /></a>
@@ -35,7 +35,7 @@ meta:
 Sean Glover is a professional Software Engineer based in Toronto, Canada. He's a Principal Software Engineer at <a href="https://www.hopper.com">Hopper</a>. Sean is an <a href="https://pekko.apache.org/">Apache Pekko</a> committer and former member of the <a href="https://akka.io/team/">Akka team</a>.
 </p>
 <p>
-Sean specializes in Data Streaming and Distributed Systems using technologies such as Akka, Akka Streams, Scala, Go, Kafka, Spark, and Kubernetes. Sean has been invited to <a href="/talks/">speak</a> at a variety of Software Development and Big Data conferences around the world including Kafka Summit, O'Reilly Strata Conference, Reactive Conf, DataEngConf, and Scale By The Bay. He is an <a href="/opensource/">open source</a> maintainer and contributor currently specializing in <a href="https://akka.io/">Akka</a>, <a href="https://kafka.apache.org/">Apache Kafka</a>, and their ecosystems.
+Sean specializes in data streaming and distributed systems using technologies such as Akka, Akka Streams, Scala, Go, Kafka, Spark, and Kubernetes. Sean has been invited to <a href="/talks/">speak</a> at a variety of Software Development and Big Data conferences around the world including Kafka Summit, O'Reilly Strata Conference, Reactive Conf, DataEngConf, and Scale By The Bay. He is an <a href="/opensource/">open source</a> maintainer and contributor currently specializing in <a href="https://akka.io/">Akka</a>, <a href="https://kafka.apache.org/">Apache Kafka</a>, and their ecosystems.
 </p>
 <p>
 Sean co-authored an O'Reilly book, <a href="/assets/designing-fast-data-app-architectures.pdf">Designing Fast Data Application Architectures</a> (<a href="https://www.lightbend.com/ebooks/designing-fast-data-application-architectures-with-spark-mesos-akka-cassandra-kafka-oreilly">compliments of Lightbend</a>), that discusses the modern architectures behind building data streaming applications using Kafka, Akka Streams, Spark, Kubernetes, and Mesos.
