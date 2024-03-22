@@ -12,11 +12,6 @@ Open Source Software that I've authored and maintain (or have maintained in the 
 
 An open source fork of Akka incubating at Apache.
 
-#### [Kafka Lag Exporter](https://github.com/lightbend/kafka-lag-exporter) ![GitHub release](https://img.shields.io/github/release-pre/lightbend/kafka-lag-exporter.svg)
-
-I open sourced Kafka Lag Exporter to help users monitor Kafka consumer group lag & latency in their [Apache Kafka](https://kafka.apache.org/) apps. An [Akka Typed](https://doc.akka.io/docs/akka/current/typed/index.html) application that runs on [Kubernetes](https://kubernetes.io/) and exports [Promtheus](https://prometheus.io/) metrics. Introduced in the following blog post: [Monitor Kafka Consumer Group Latency with Kafka Lag Exporter](https://www.lightbend.com/blog/monitor-kafka-consumer-group-latency-with-kafka-lag-exporter).
-
-
 # Previously Maintained Projects
 
 #### [Alpakka](https://github.com/akka/alpakka/) ![Maven Central Release](https://maven-badges.herokuapp.com/maven-central/com.lightbend.akka/akka-stream-alpakka-file_2.12/badge.svg)
@@ -38,6 +33,10 @@ Akka is a set of open-source libraries for designing scalable, resilient systems
 #### [Cloudflow](https://github.com/lightbend/cloudflow) (Akka Data Pipelines)
 
 [Cloudflow](https://cloudflow.io/) enables you to quickly develop, orchestrate, and operate distributed streaming applications on Kubernetes. I was a member of the original team that developed and open sourced the Cloudflow framework (see [first commit](https://github.com/lightbend/cloudflow/commit/6c8b9da3ad8ce160b25dac968ac020a2a4e26cc2)).
+
+#### [Kafka Lag Exporter](https://github.com/lightbend/kafka-lag-exporter) ![GitHub release](https://img.shields.io/github/release-pre/lightbend/kafka-lag-exporter.svg)
+
+I open sourced Kafka Lag Exporter to help users monitor Kafka consumer group lag & latency in their [Apache Kafka](https://kafka.apache.org/) apps. An [Akka Typed](https://doc.akka.io/docs/akka/current/typed/index.html) application that runs on [Kubernetes](https://kubernetes.io/) and exports [Promtheus](https://prometheus.io/) metrics. Introduced in the following blog post: [Monitor Kafka Consumer Group Latency with Kafka Lag Exporter](https://www.lightbend.com/blog/monitor-kafka-consumer-group-latency-with-kafka-lag-exporter).
 
 # Author
 

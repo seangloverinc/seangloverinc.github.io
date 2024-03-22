@@ -29,13 +29,14 @@ meta:
 </div>
 <div class="about-text">
 <h2 class="headline">
-{{ site.description | xml_escape }}
+{{ site.description | xml_escape }} 
+<a href="https://people.apache.org/phonebook.html?uid={{ site.apache_username }}"><img src="../assets/Apache_Feather_Logo.svg" alt="Apache Software Foundation" height="40px" width="40px"/></a>
 </h2>
 <p>
-Sean Glover is a professional Software Engineer based in Toronto, Canada. He's a Principal Software Engineer at <a href="https://www.hopper.com">Hopper</a>. Sean is an <a href="https://pekko.apache.org/">Apache Pekko</a> committer and former member of the <a href="https://akka.io/team/">Akka team</a>.
+Sean Glover is a professional Software Engineer based in Toronto, Canada. He is a Principal Software Engineer at <a href="https://www.hopper.com">Hopper</a> on the Virtual Interlining team. Sean is a member of the <a href="https://www.apache.org/foundation/members">Apache Software Foundation</a> and an <a href="https://pekko.apache.org/">Apache Pekko</a> <a href="https://people.apache.org/phonebook.html?pmc=pekko">PMC member and committer</a>. He is a former member of the <a href="https://akka.io/team/">Akka team</a>.
 </p>
 <p>
-Sean specializes in data streaming and distributed systems using technologies such as Akka, Akka Streams, Scala, Go, Kafka, Spark, and Kubernetes. Sean has been invited to <a href="/talks/">speak</a> at a variety of Software Development and Big Data conferences around the world including Kafka Summit, O'Reilly Strata Conference, Reactive Conf, DataEngConf, and Scale By The Bay. He is an <a href="/opensource/">open source</a> maintainer and contributor currently specializing in <a href="https://akka.io/">Akka</a>, <a href="https://kafka.apache.org/">Apache Kafka</a>, and their ecosystems.
+Sean specializes in data streaming and distributed systems using technologies such as Pekko/Akka, Akka Streams, Scala, Go, Kafka, Spark, and Kubernetes. Sean has been invited to <a href="/talks/">speak</a> at a variety of Software Development and Big Data conferences around the world including Kafka Summit, O'Reilly Strata Conference, Reactive Conf, DataEngConf, and Scale By The Bay. He is an <a href="/opensource/">open source</a> maintainer and contributor currently specializing in <a href="https://pekko.apache.org/">Apache Pekko</a>, <a href="https://akka.io/">Akka</a>, <a href="https://kafka.apache.org/">Apache Kafka</a>, and their ecosystems.
 </p>
 <p>
 Sean co-authored an O'Reilly book, <a href="/assets/designing-fast-data-app-architectures.pdf">Designing Fast Data Application Architectures</a> (<a href="https://www.lightbend.com/ebooks/designing-fast-data-application-architectures-with-spark-mesos-akka-cassandra-kafka-oreilly">compliments of Lightbend</a>), that discusses the modern architectures behind building data streaming applications using Kafka, Akka Streams, Spark, Kubernetes, and Mesos.
