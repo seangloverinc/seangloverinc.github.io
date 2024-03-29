@@ -30,7 +30,6 @@ meta:
 <div class="about-text">
 <h2 class="headline">
 {{ site.description | xml_escape }} 
-<a href="https://people.apache.org/phonebook.html?uid={{ site.apache_username }}"><img src="../assets/Apache_Feather_Logo.svg" alt="Apache Software Foundation" height="40px" width="40px"/></a>
 </h2>
 <p>
 Sean Glover is a professional Software Engineer based in Toronto, Canada. He is a Principal Software Engineer at <a href="https://www.hopper.com">Hopper</a> on the Virtual Interlining team. Sean is a member of the <a href="https://www.apache.org/foundation/members">Apache Software Foundation</a> and an <a href="https://pekko.apache.org/">Apache Pekko</a> <a href="https://people.apache.org/phonebook.html?pmc=pekko">PMC member and committer</a>. He is a former member of the <a href="https://akka.io/team/">Akka team</a>.
