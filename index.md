@@ -44,5 +44,5 @@ Sean co-authored an O'Reilly book, <a href="/assets/designing-fast-data-app-arch
 Sean organizes the <a href="http://www.meetup.com/scalator/">Scala Toronto (scalator)</a> meetup.  Join for regular meetups about the <a href="http://www.scala-lang.org/">Scala programming language</a> and to hang out with Toronto's Scala hackers.
 </p>
 <p>
-For more information please see Sean's <a href="https://www.linkedin.com/in/seanaglover">LinkedIn profile</a> and most up-to-date <a href="https://docs.google.com/document/d/1c_Nu-_JGtrQxfrZV8G9YdNWpcWNUh_EDUEOY8WBJ7hM/edit?usp=sharing">resume</a> as a Google doc.
+For more information please see Sean's <a href="https://www.linkedin.com/in/seanaglover">LinkedIn profile</a> and most up-to-date <a href="https://docs.google.com/document/d/1U5ygzLh2qzUMVJe3iMkAgqnaYMyFEtzDGNYomMkjyrg/edit?usp=sharing">resume</a> as a Google doc.
 </p>
