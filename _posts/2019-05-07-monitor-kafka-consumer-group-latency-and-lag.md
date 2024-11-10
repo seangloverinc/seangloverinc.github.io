@@ -28,6 +28,6 @@ author:
 excerpt: !ruby/object:Hpricot::Doc
 ---
 
-#### [Link to post on Lightbend's blog](https://www.lightbend.com/blog/monitor-kafka-consumer-group-latency-with-kafka-lag-exporter)
+#### [Original post on Lightbend's blog](https://www.lightbend.com/blog/monitor-kafka-consumer-group-latency-with-kafka-lag-exporter), [Archived PDF](/assets/Monitor%20Kafka%20Consumer%20Group%20Latency%20with%20Kafka%20Lag%20Exporter%20_%20Lightbend.pdf)
 
 A blog post introducing [Kafka Lag Exporter](https://github.com/lightbend/kafka-lag-exporter), a tool to make it easy to view consumer group metrics using Kubernetes, Prometheus, and Grafana. Kafka Lag Exporter can run anywhere, but it provides features to run easily on Kubernetes clusters against Strimzi Kafka clusters using the Prometheus and Grafana monitoring stack.

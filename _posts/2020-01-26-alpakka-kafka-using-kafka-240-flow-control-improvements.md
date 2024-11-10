@@ -23,6 +23,6 @@ author:
 excerpt: !ruby/object:Hpricot::Doc
 ---
 
-#### [Link to post on Lightbend's blog](https://www.lightbend.com/blog/alpakka-kafka-flow-control-optimizations)
+#### [Original post on Lightbend's blog](https://www.lightbend.com/blog/alpakka-kafka-flow-control-optimizations), [Archived PDF](/assets/How%20Alpakka%20Uses%20Flow%20Control%20Optimizations%20In%20Apache%20Kafka%202.4%20_%20Lightbend.pdf)
 
 This blog post begins with details about how the Kafka Consumer and [Alpakka Kafka](https://github.com/akka/alpakka-kafka) internals are designed to facilitate asynchronous polling and back-pressure. We’ll discuss how the Consumer’s flow control mechanisms were improved in [KAFKA-7548](https://issues.apache.org/jira/browse/KAFKA-7548) to provide better performance. We conclude with some benchmarks that demonstrate the performance improvements before and after the new Consumer is used.
