@@ -8,10 +8,13 @@ baseurl: "" # the subpath of your site, e.g. /blog/
 permalink: /blog/:year/:month/:title/
 url: "https://seanglover.com" # the base hostname & protocol for your site
 
-twitter_username: seanglovr
+twitter_username: seg1o
 github_username: seglo
 linkedin_username: seanaglover
 apache_username: seanglover
+bluesky_username: seanglover.com
+mastodon_username: seanglover
+instagram_username: seanglovr
 
 # Build settings
 markdown: kramdown

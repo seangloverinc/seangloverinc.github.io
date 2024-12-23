@@ -7,29 +7,22 @@
         <ul class="contact-list">
           <li>{{ site.title }}</li>
           <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
-          <li class="tw-follow-button"><a href="https://twitter.com/{{ site.twitter_username }}?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @{{ site.twitter_username }}</a></li>
         </ul>
       </div>
 
       <div class="footer-col  footer-col-2">
-        <ul class="social-media-list">
-          <!-- {% if site.apache_username %}<li><a href="https://people.apache.org/phonebook.html?uid={{ site.apache_username }}"><img src="/assets/Apache_Feather_Logo.svg" alt="Apache Software Foundation" height="16" width="16" /> {{ site.apache_username }}</a></li>{% endif %} -->
-          {% if site.twitter_username %}<li><a href="https://twitter.com/{{ site.twitter_username }}">{% include svg-icons/twitter.html %} {{ site.twitter_username }}</a></li>{% endif %}
-          {% if site.footer-links.dribbble %}<li><a href="http://dribbble.com/{{ site.footer-links.dribbble }}">{% include svg-icons/dribbble.html %}</a></li>{% endif %}
-          {% if site.footer-links.facebook %}<li><a href="http://facebook.com/{{ site.footer-links.facebook }}">{% include svg-icons/facebook.html %}</a></li>{% endif %}
-          {% if site.footer-links.flickr %}<li><a href="http://flickr.com/{{ site.footer-links.flickr }}">{% include svg-icons/flickr.html %}</a></li>{% endif %}
-          {% if site.github_username %}<li><a href="https://github.com/{{ site.github_username }}">{% include svg-icons/github.html %} {{ site.github_username }}</a></li>{% endif %}
-          {% if site.footer-links.instagram %}<li><a href="http://instagram.com/{{ site.footer-links.instagram }}">{% include svg-icons/instagram.html %}</a></li>{% endif %}
-          {% if site.linkedin_username %}<li><a href="https://linkedin.com/in/{{ site.linkedin_username }}">{% include svg-icons/linkedin.html %} {{ site.linkedin_username }}</a></li>{% endif %}
-          {% if site.footer-links.pinterest %}<li><a href="http://pinterest.com/{{ site.footer-links.pinterest }}">{% include svg-icons/pinterest.html %}</a></li>{% endif %}
-          <li><a href="https://bsky.app/profile/seanglover.com">Bluesky</a></li>
-          <li><a rel="me" href="https://tech.lgbt/@seanglover">Mastodon</a></li>
-        </ul>
+        <!-- social media svg icons from https://simpleicons.org -->
+        <a href="https://linkedin.com/in/{{ site.linkedin_username }}"><img src="/assets/socials/linkedin.svg" width="16" height="16" /></a>
+        <a href="https://github.com/{{ site.github_username }}"><img src="/assets/socials/github.svg" width="16" height="16" /></a>
+        <a href="https://bsky.app/profile/{{ site.bluesky_username }}"><img src="/assets/socials/bluesky.svg" width="16" height="16" /></a>
+        <a rel="me" href="https://tech.lgbt/@{{ site.mastodon_username }}"><img src="/assets/socials/mastodon.svg" width="16" height="16" /></a>
+        <a href="https://www.instagram.com/{{ site.instagram_username }}"><img src="/assets/socials/instagram.svg" width="16" height="16" /></a>
+        <a href="https://people.apache.org/phonebook.html?uid={{ site.apache_username }}"><img src="/assets/socials/apache.svg" alt="Apache Software Foundation" height="16" width="16" /></a>
+        <a href="https://x.com/{{ site.twitter_username }}"><img src="/assets/socials/x.svg" alt="Twitter/X" height="16" width="16" /></a>
       </div>
 
       <div class="footer-col  footer-col-3">
         <p class="text">{{ site.description }}</p>
-        <a href="https://people.apache.org/phonebook.html?uid={{ site.apache_username }}"><img class="apache-feather-footer" src="/assets/Apache_Feather_Logo.svg" alt="Apache Software Foundation" height="40px" width="40px"/></a>
       </div>
     </div>
 

@@ -29,12 +29,6 @@
   height: 110px;
 }
 
-.apache-feather-footer {
-  padding-left: 80px;
-  width: 40px;
-  height: 40px;
-}
-
 .post-title-avatar {
   display: inline;
   vertical-align: middle;
@@ -48,12 +42,13 @@
   float: left;
   margin-right: 20px;
   
-  svg {
-    margin:10px;
-  }
   .social {
     width: 100%;
     text-align:center;
+
+    img {
+      margin:10px;
+    }
   }
 }
 
