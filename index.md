@@ -21,7 +21,7 @@ meta:
   Sean Glover is a seasoned Software Engineer based in Toronto, Canada. He serves as a Staff Software Engineer at 
   <a href="https://www.hopper.com">Hopper</a>, contributing to the Virtual Interlining team. 
   Sean is a member of the <a href="https://www.apache.org/foundation/members">Apache Software Foundation</a> 
-  where he helps to maintain the <a href="https://pekko.apache.org/">Apache Pekko</a> as a 
+  where he helps to maintain the <a href="https://pekko.apache.org/">Apache Pekko</a> project as a 
   <a href="https://people.apache.org/phonebook.html?pmc=pekko">PMC member and committer</a>. 
   Previously, he was a core member of the 
   <a href="https://web.archive.org/web/20241002092518/https://akka.io/team/">Akka team</a>.
