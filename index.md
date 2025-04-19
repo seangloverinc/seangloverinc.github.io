@@ -1,7 +1,7 @@
 ---
 layout: default
 meta:
-  description: Sean Glover is a data streaming and distributed systems Software Engineer living in Toronto.
+  description: Sean Glover is a machine learning, data streaming, and distributed systems Software Engineer living in Toronto.
 ---
 <div class="about-header">
   <a href="/assets/sean_glover_headshot_2020.jpg"><img class="seglo" src="/assets/sean_glover_headshot_2020_sm.jpg" alt="Sean Glover" /></a>
@@ -19,7 +19,8 @@ meta:
 </h2>
 <p>
   Sean Glover is a seasoned Software Engineer based in Toronto, Canada. He serves as a Staff Software Engineer at 
-  <a href="https://www.hopper.com">Hopper</a>, contributing to the Virtual Interlining team. 
+  <a href="https://www.hopper.com">Hopper</a>.
+  <!--, contributing to the Core AI team for the HTS Assist product. -->
   Sean is a member of the <a href="https://www.apache.org/foundation/members">Apache Software Foundation</a> 
   where he helps to maintain the <a href="https://pekko.apache.org/">Apache Pekko</a> project as a 
   <a href="https://people.apache.org/phonebook.html?pmc=pekko">PMC member and committer</a>. 
@@ -28,7 +29,7 @@ meta:
 </p>
 
 <p>
-  Sean specializes in data streaming and distributed systems, leveraging technologies such as Pekko/Akka, Akka Streams, Scala, Go, Kafka, Spark, and Kubernetes. 
+  Sean specializes in generative AI and LLMs, data streaming and distributed systems, leveraging technologies such as Pekko/Akka, Akka Streams, Scala, Go, Kafka, Spark, and Kubernetes. 
   He has been invited to <a href="/talks/">speak</a> at numerous prestigious software development and big data conferences worldwide, 
   including Kafka Summit, O'Reilly Strata Conference, Reactive Conf, DataEngConf, and Scale By The Bay. 
   As an <a href="/opensource/">open source</a> contributor and maintainer, Sean focuses on advancing the ecosystems of 
@@ -44,8 +45,7 @@ meta:
 </p>
 
 <p>
-  Beyond his professional endeavors, Sean organizes the <a href="http://www.meetup.com/scalator/">Scala Toronto (scalator)</a> meetup. 
-  This group hosts regular events dedicated to the <a href="http://www.scala-lang.org/">Scala programming language</a> and fosters connections within Toronto’s Scala development community. Sean volunteers with <a href="https://www.nych.ca">North York Community House (NYCH)</a> as a professional mentor of newcomers to Canada.
+  Sean volunteers with <a href="https://www.nych.ca">North York Community House (NYCH)</a> as a professional mentor of newcomers to Canada. Beyond his professional endeavors, Sean organized the <a href="http://www.meetup.com/scalator/">Scala Toronto (scalator)</a> meetup for 12 years, organized 44 events, and grew it into one of the largest Scala communities in North America with almost 2000 members. Scala Toronto hosted regular events dedicated to the <a href="http://www.scala-lang.org/">Scala programming language</a> and fostered connections within Toronto’s Scala development community. 
 </p>
 
 <p>
