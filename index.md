@@ -4,7 +4,7 @@ meta:
   description: Sean Glover is a machine learning, data streaming, and distributed systems Software Engineer living in Toronto.
 ---
 <div class="about-header">
-  <a href="/assets/sean_glover_headshot_2020.jpg"><img class="seglo" src="/assets/sean_glover_headshot_2020_sm.jpg" alt="Sean Glover" /></a>
+  <a href="/assets/sean_glover_headshot_black_2020.png"><img class="seglo" src="/assets/sean_glover_headshot_black_2020.png" alt="Sean Glover" /></a>
   <br />
   <div class="social">
     <a href="https://linkedin.com/in/{{ site.linkedin_username }}" alt="LinkedIn"><img src="/assets/socials/linkedin.svg" width="40" height="40" /></a>
