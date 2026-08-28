@@ -137,6 +137,19 @@ code {
     padding: 1px 5px;
 }
 
+.contributions td:first-child code {
+    font-size: small;
+}
+
+th {
+    text-align: left;
+}
+
+th, td {
+    border-bottom: 1px solid $grey-color-light;
+    padding: 4px 8px;
+}
+
 pre {
     padding: 8px 12px;
     overflow-x: scroll;

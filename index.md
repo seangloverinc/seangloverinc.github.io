@@ -31,7 +31,7 @@ meta:
 <p>
   Sean specializes in generative AI and LLMs, data streaming and distributed systems, leveraging technologies such as Pekko/Akka, Akka Streams, Scala, Go, Kafka, Spark, and Kubernetes. 
   He has been invited to <a href="/talks/">speak</a> at numerous prestigious software development and big data conferences worldwide, 
-  including Kafka Summit, O'Reilly Strata Conference, Reactive Conf, DataEngConf, and Scale By The Bay. 
+  including Kafka Summit, O'Reilly Strata Conference, Reactive Summit, DataEngConf, and Scale By The Bay. 
   As an <a href="/opensource/">open source</a> contributor and maintainer, Sean focuses on advancing the ecosystems of 
   <a href="https://pekko.apache.org/">Apache Pekko</a>, 
   <a href="https://akka.io/">Akka</a>, and 
@@ -45,7 +45,7 @@ meta:
 </p>
 
 <p>
-  Sean volunteers with <a href="https://www.nych.ca">North York Community House (NYCH)</a> as a professional mentor of newcomers to Canada. Beyond his professional endeavors, Sean organized the <a href="http://www.meetup.com/scalator/">Scala Toronto (scalator)</a> meetup for 12 years, organized 44 events, and grew it into one of the largest Scala communities in North America with almost 2000 members. Scala Toronto hosted regular events dedicated to the <a href="http://www.scala-lang.org/">Scala programming language</a> and fostered connections within Toronto’s Scala development community. 
+  Sean volunteers with <a href="https://www.nych.ca">North York Community House (NYCH)</a> as a professional mentor of newcomers to Canada. Beyond his professional endeavors, Sean organized the <a href="http://www.meetup.com/scalator/">Scala Toronto (scalator)</a> meetup for 12 years, growing it into one of the largest Scala communities in North America with nearly 2,000 members. Scala Toronto hosted regular events dedicated to the <a href="http://www.scala-lang.org/">Scala programming language</a>, fostering connections within Toronto’s Scala development community. 
 </p>
 
 <p>
