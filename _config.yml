@@ -1,7 +1,7 @@
 # Site settings
 title: Sean Glover
 htmltitle: Sean Glover - Software Engineer
-email: sean@seanglover.com
+email: seanglover@apache.org
 description: >
   Open Source Software Engineer
 baseurl: "" # the subpath of your site, e.g. /blog/

@@ -19,7 +19,7 @@ meta:
   _encloseme: '1'
 author:
   login: seglo
-  email: sean@seanglover.com
+  email: seanglover@apache.org
   display_name: Sean Glover
   first_name: Sean
   last_name: Glover
