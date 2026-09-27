@@ -1,3 +1,3 @@
-source 'https://rubygems.org' do
-  gem 'jekyll-sitemap'
-end
+source 'https://rubygems.org'
+
+gem 'jekyll-sitemap'
