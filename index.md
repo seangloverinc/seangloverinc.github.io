@@ -29,7 +29,7 @@ meta:
   Before that, he was a core member of the 
   <a href="https://web.archive.org/web/20241002092518/https://akka.io/team/">Akka team</a>.
   He is also the co-author of the O'Reilly publication, 
-  <a href="/assets/designing-fast-data-app-architectures.pdf">Designing Fast Data Application Architectures</a>.
+  <a href="/blog/2018/08/designing-fast-data-application-architectures/">Designing Fast Data Application Architectures</a>.
 </p>
 
 <p>
