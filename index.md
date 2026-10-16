@@ -28,8 +28,6 @@ meta:
   <a href="https://people.apache.org/phonebook.html?pmc=pekko">PMC member and committer</a>. 
   Before that, he was a core member of the 
   <a href="https://web.archive.org/web/20241002092518/https://akka.io/team/">Akka team</a>.
-  He is also the co-author of the O'Reilly publication, 
-  <a href="/blog/2018/08/designing-fast-data-application-architectures/">Designing Fast Data Application Architectures</a>.
 </p>
 
 <p>
